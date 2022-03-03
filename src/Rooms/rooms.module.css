@@ -66,9 +66,8 @@
     grid-area: title;
     padding: 1rem;
     display: flex;
-    text-overflow: ellipsis;
+    min-width: 0;
     flex-direction: column;
-    white-space: nowrap;
     /* background-color: blue;
     border: solid 3px red; */
 
@@ -87,7 +86,7 @@
 
 .card-title {
     font-weight: bolder;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
 }
 
 .card-subheader {
@@ -125,11 +124,4 @@
 
 .card-action:hover{
     background: rgba(27, 156, 252, 0.1);
-}
-
-img {
-
-    width: 100%;
-    height: 100%;
-    /* object-fit: cover; */
 }

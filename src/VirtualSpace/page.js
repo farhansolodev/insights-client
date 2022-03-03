@@ -33,7 +33,7 @@ const VirtualSpace = () => {
 	const { id: userId } = userData
 	const [participants, setParticipants] = useState([{pfp: userData.data?.pfp, username: userData.data?.username, userId}]);
 	const { id: roomId } = useParams()
-	const history = useHistory();
+	const history = useHistory()
 
 	useTraceUpdate({socket,published,publishFormVisible,shareFormVisible,roomData,userData,userId,participants,roomId})
 
@@ -44,7 +44,7 @@ const VirtualSpace = () => {
 			const room = docSnap.data()
 			setRoomData(room)
 		})
-	}, [roomId]);
+	}, [roomId])
 
 	// updates state when received from context
 	useEffect(() => {
@@ -55,7 +55,7 @@ const VirtualSpace = () => {
 			prev[i].username = userData.data?.username
 			return prev
 		})
-	}, [userData.data?.pfp, userData.data?.username, userId]);
+	}, [userData.data?.pfp, userData.data?.username, userId])
 
 	useEffect(() => {
 		if (!roomData.collabId) return
