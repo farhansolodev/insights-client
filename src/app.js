@@ -13,7 +13,8 @@ import NavBar from "./NavBar/bar";
 import Profile from "./Profile/page";
 import Rooms from "./Rooms/page";
 import VirtualSpace from "./VirtualSpace/page";
-import Communities from "./Communities/page";
+import Communities from "./Communities/homePage";
+import Community from "./Communities/communityPage";
 
 export default function App() {
 	const { currentUser } = useAuth();
@@ -54,6 +55,9 @@ export default function App() {
 							</Route>
 							<Route path={`/app/communities`}>
 								<Communities />
+							</Route>
+							<Route path={`/app/communities/:id`}>
+								<Community />
 							</Route>
 							<Route path={`/app/profile`}>
 								<Profile />

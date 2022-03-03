@@ -70,7 +70,7 @@ const Publish = ({ collabId, onSubmit, onCancel }) => {
                         }}
                     ></input>
                 </div>
-                <div className={styles["pfp"]}>
+                <div className={styles["form_group"]}>
                     <p>Add a cover image</p>
                     <input type="file" accept="image/*" name="image-upload" id="input" onChange={UploadPic}></input>
                 </div>

@@ -20,7 +20,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: fit-content;
+    max-width: 288px;
+    overflow: hidden;
 }
 
 input {

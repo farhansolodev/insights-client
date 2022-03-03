@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import AppBar from '../AppBar/bar';
 import { AppBarButtons } from './appbar.buttons';
 import CreateCommunityPopup from './create.community.popup'
@@ -6,7 +7,8 @@ import CreateCommunityPopup from './create.community.popup'
 const Communities = () => {
   
     const [appBarStatus, setAppBarStatus] = useState(null)
-
+    const history = useHistory();
+    
     function onStatusChange(e) {
       e.preventDefault()
       const val = e.target.id
