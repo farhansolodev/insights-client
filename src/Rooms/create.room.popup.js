@@ -1,3 +1,5 @@
+// import { enableRipple } from '@syncfusion/ej2-base';
+import RiArrowDropDownLine from 'react-icons/ri';
 import { useState} from "react";
 import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
@@ -6,7 +8,7 @@ import {v4 as uuidv4} from 'uuid';
 import styles from '../styles/form.module.css';
 import { useUser } from '../context/user'
 
-
+// enableRipple(true);
 function createRoom(options) {
     const { RId, collabId, readId, writeId, RName, CommName, Uid} = options
     console.log("options when creating room: ",options)
@@ -83,7 +85,26 @@ export const CreateRoomPopup = ({ onCancel }) => {
             </div>
             <div className={styles["form_group"]}>
                 <label htmlFor="Community Name">Community</label>
-                <input type="text" name="community" placeholder="Community Name" onChange={(e) => setCName(e.target.value)} className={styles["name_textBox"]}></input>
+                <select name="dog-names" id="dog-names">
+                    {/* {RiArrowDropDownLine: Icon} -- Need to select option value and put in dropdown text && get the value insert in db--link collab and vs */}
+                    <option value="rigatoni">Rigatoni</option>
+                    <option value="dave">Dave</option>
+                    <option value="pumpernickel">Pumpernickel</option>
+                    <option value="reeses">Reeses</option>
+                </select>
+                {/* <input type="text" name="community" placeholder="Community Name" onChange={(e) => setCName(e.target.value)} className={styles["name_textBox"]}></input> */}
+            </div>
+            <div className={styles["form_group"]}>
+                <label htmlFor="roomname">Room Name</label>
+                <div className={styles["dropdown"]}>
+                    <button className={styles["dropbtn"]}>Dropdown</button>
+                    <div className={styles["dropdown-content"]}>
+                        <option value="rigatoni">Rigatoni</option>
+                        <option value="dave">Dave</option>
+                        <option value="pumpernickel">Pumpernickel</option>
+                        <option value="reeses">Reeses</option>
+                    </div>
+                </div>
             </div>
                 <div className={styles["footer"]}>
                 <button onClick={handleSubmit} type="button" className={styles["submit"]}>Create Room</button>
