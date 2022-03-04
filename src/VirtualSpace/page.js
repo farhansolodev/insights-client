@@ -12,6 +12,7 @@ import TextEditor from "./text.editor"
 import Chat from "../Chat/chat"
 import Publish from "./publish.popup"
 import ShareCode from "./share.room.popup"
+import KickForm from "./kick.user.popup"
 import { AppBarButtons } from "./appbar.buttons"
 
 import styles from "./vspage.module.css"
@@ -26,14 +27,16 @@ const VirtualSpace = () => {
 	const [published, setPublished] = useState();
 	const [publishFormVisible, setPublishFormVisible] = useState(false);
 	const [shareFormVisible, setShareFormVisible] = useState(false);
-	
+	const [isOwner, setIsOwner] = useState(false)
 	const [roomData, setRoomData] = useState({});
+	const [displayKick, setDisplayKick] = useState(false)
 
 	const { userData } = useUser()
 	const { id: userId } = userData
 	const [participants, setParticipants] = useState([{pfp: userData.data?.pfp, username: userData.data?.username, userId}]);
 	const { id: roomId } = useParams()
 	const history = useHistory();
+	var name;
 
 	useTraceUpdate({socket,published,publishFormVisible,shareFormVisible,roomData,userData,userId,participants,roomId})
 
@@ -105,6 +108,11 @@ const VirtualSpace = () => {
 			roomId
 		})
 
+		if(userId == roomData.owners[0]) {
+			setIsOwner(true)
+			console.log("true brooooooooooooooooo")
+		}
+
 		return () => {
 			if (!roomData.collabId) return
 			console.log("Disconnecting from Virtual Space with socket: ", s)
@@ -129,6 +137,7 @@ const VirtualSpace = () => {
 		// console.log('target: ',target)
 		target.value === "publish" && setPublishFormVisible(false)
 		target.name === "share-code" && setShareFormVisible(false)
+		target.name === "kick-user" && setDisplayKick(false)
 	}
 
 	const filterByPublishStatus = (x, y, z) => {
@@ -139,6 +148,16 @@ const VirtualSpace = () => {
 
 	const onLeaveRoom = () => { 
 		history.push("/app/rooms")
+	}
+
+	const onDisplayKick = (e) => {
+		setDisplayKick(true)
+		// name = "jjjj"
+		// const target = e.target
+		// console.log(target.alt)
+		// console.log(x)
+		console.log("DKKKKKKKKKKKKKKKKKKKK")
+		// return () => <KickForm id={roomData.writeId} username= "sususu" onCancel={hideForm}/>;
 	}
 
     return (
@@ -152,12 +171,12 @@ const VirtualSpace = () => {
 				</div>
 				<div className={styles["footer"]}>
 					<div className={styles["publish-expand"]}>
-						<button
+						{isOwner && <button
 							value="publish"
 							className={filterByPublishStatus(styles["publish-button-inactive"], styles["publish-button-active"], styles["publish-button-inactive"]) }
 							onClick={filterByPublishStatus(undefined, showForm, undefined)}>
 							<p style={{pointerEvents: "none"}}>{filterByPublishStatus("Succesfully published!","Publish","Checking...")}</p>
-						</button>
+						</button> }
 						<button className={styles["expand-button"]} onClick={expand}>
 							<FontAwesomeIcon className={styles["expand-icon"]} size="2x" icon={faExpandAlt}/>
 						</button>
@@ -166,10 +185,11 @@ const VirtualSpace = () => {
 					<div className={styles["online-collaborators"]}>				
 						{participants.map(({ pfp, username }, index) => {
 							if (!pfp || !username) return undefined
-							return(	
-								<img key={index} alt={`User ${username}`} className= {styles["images"]} src={pfp}/>
+							return( 
+								<img key={index} alt={`User ${username}`} value="ko" className= {styles["images"]} onClick={onDisplayKick} src={pfp} />
 							);
 						})}
+						{displayKick && <KickForm username= {name} onSubmit={(e) => { hideForm(e); setDisplayKick(false) }} onCancel={hideForm}/>}
 						<button className={styles["invite-button"]} value="share-code" onClick={showForm}>
 							<FontAwesomeIcon className={styles["invite-icon"]} size="3x" icon={faUserPlus}/>
 						</button>
