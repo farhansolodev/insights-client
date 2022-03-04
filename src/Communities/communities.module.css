@@ -1,0 +1,43 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.section > h2 {
+    margin: 0;
+    color: hsl(0, 0%, 45%);
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+
+.sectionCatalogue {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(0, 18rem));
+    grid-template-rows: repeat(auto-fill, minmax(0,10rem));
+    row-gap: 2rem;
+    column-gap: 2rem;
+    justify-content: start; */
+    /* align-items: start; */
+    /* overflow: scroll; */
+    /* border: 3px solid red; */
+    /* padding: 40px; */
+    /* width: 100vw; */
+    /* min-height: 0; */
+    display: flex;
+    gap: 3rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: scroll;
+    /* padding: 1rem; */
+    /* border-inline: solid 2px hsl(0, 0%, 40%); */
+}
+
+.sectionCatalogue div {
+    background-color: blueviolet;
+    height: 12rem;
+    min-width: 20rem;
+}
