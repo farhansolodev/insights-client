@@ -77,24 +77,23 @@ export const CreateRoomPopup = ({ onCancel }) => {
             let RId = uuidv4()
             const readId = uuidv4()
             const writeId = uuidv4()
-            console.log("DONE")
-            // createRoom({RId, collabId, CId, RName, readId, writeId, CommName: CName, Uid: userData.id}).catch((err) => { 
-            //     throw err
-            // }).then(() => {
-            //     setUserData((prev) => {
-            //         return {
-            //             ...prev,
-            //             data: {
-            //                 ...prev.data,
-            //                 previousRooms: [...new Set([...prev.data?.previousRooms, RId])],
-            //                 previousCollabs: [...new Set([...prev.data?.previousCollabs, collabId])]
-            //             }
-            //         }
-            //     })
-            //     // setFormSubmitted(true)
-            //     console.clear()
-            //     history.push(`/app/vs/${RId}`) //uncomment when vs room done
-            // })
+            createRoom({RId, collabId, CId, RName, readId, writeId, CommName: CName, Uid: userData.id}).catch((err) => { 
+                throw err
+            }).then(() => {
+                setUserData((prev) => {
+                    return {
+                        ...prev,
+                        data: {
+                            ...prev.data,
+                            previousRooms: [...new Set([...prev.data?.previousRooms, RId])],
+                            previousCollabs: [...new Set([...prev.data?.previousCollabs, collabId])]
+                        }
+                    }
+                })
+                // setFormSubmitted(true)
+                console.clear()
+                history.push(`/app/vs/${RId}`) //uncomment when vs room done
+            })
         } catch(e) {
             console.log("DIDNT WORK", e);
         }
@@ -120,17 +119,17 @@ export const CreateRoomPopup = ({ onCancel }) => {
                 <label htmlFor="roomname">Room Name</label>
                 <input type="text" name="roomname" placeholder="Room Name" onChange={(e) => setRName(e.target.value)} className={styles["name_textBox"]} required></input>
             </div>
-            {/* <div className={styles["form_group"]}>
+            <div className={styles["form_group"]}>
                 <label htmlFor="Community Name">Community</label>
-                <select name="dog-names" id="dog-names"> */}
+                <select name="dog-names" id="dog-names">
                     {/* {RiArrowDropDownLine: Icon} -- Need to select option value and put in dropdown text && get the value insert in db--link collab and vs */}
-                    {/* <option value="rigatoni">Rigatoni</option>
+                    <option value="rigatoni">Rigatoni</option>
                     <option value="dave">Dave</option>
                     <option value="pumpernickel">Pumpernickel</option>
                     <option value="reeses">Reeses</option>
-                </select> */}
+                </select>
                 {/* <input type="text" name="community" placeholder="Community Name" onChange={(e) => setCName(e.target.value)} className={styles["name_textBox"]}></input> */}
-            {/* </div> */}
+            </div>
             <div className={styles["form_group"]}>
                 <label htmlFor="roomname">Community Name</label>
                 <div className={styles["dropdown"]}>
