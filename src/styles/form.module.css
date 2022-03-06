@@ -110,12 +110,12 @@ option :hover {
     padding: 0px 10px;
     font-size: 16px;
     background-color: #f3f3f3;
+    color: grey;
     border: 0;
     border-radius: 3px;
     outline: none;
     box-shadow: 0px 2.5px 4px 0.2px crimson;
   	cursor: pointer;
-
 }
 
 .dropdown {
@@ -149,4 +149,8 @@ background-color: crimson}
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.choice-selected {
+    display: none;
 }
