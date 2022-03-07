@@ -60,6 +60,7 @@ export const JoinRoomPopup = ({ onCancel }) => {
                         setWriteId(e.target.value)
                         if(!denied) return
                         setDenied(false)
+                    
                     }}></input>
             </div>
             {/* <div className={styles["form_group"]}>
