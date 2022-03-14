@@ -1,14 +1,17 @@
+:root {
+  --placeholder-color: hsl(0, 0%, 70%);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   min-width: 0;
+  font-family: 'Fredoka', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
-  font-family: 'Roboto','Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-weight: 500;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* font-weight: 500; */
   height: 100vh;
   width: 100vw;
   /* height: 100%; */
@@ -32,8 +35,8 @@ main {
   right: 0;
 }
 
-p {
-  text-overflow: ellipsis;
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 h4 {
@@ -46,13 +49,13 @@ code {
     monospace;
 }
 
-@media (max-width: 745px) {
+/* @media (max-width: 745px) {
     :root {
         font-size: 25px;
     }
-}
+} */
 
-@media (max-width: 1060px) {
+@media (max-width: 1075px) {
     :root {
         font-size: 20px;
     }
@@ -71,6 +74,7 @@ button {
 ::-webkit-scrollbar-thumb {
   background-color: hsl(0, 0%, 75%);
   border-radius: 5px;
+  /* visibility: hidden; */
 }
 
 ::-webkit-scrollbar-track {
@@ -79,5 +83,10 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  /* visibility: visible; */
   background-color: hsl(0, 0%, 79%);
+}
+
+::-webkit-input-placeholder {
+  color: var(--placeholder-color);
 }

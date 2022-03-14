@@ -32,14 +32,14 @@ async function postUser({uid, email, username, pfp}){
 }
 
 const uploadPic = (e,cb) => {
-    console.log('button to upload clicked')
+    // console.log('button to upload clicked')
     const file = e.target.files[0]
     const reader = new FileReader(); 
     reader.onload = () => {
-        console.log('file value: ', file)
+        // console.log('file value: ', file)
         if(reader.readyState === 2){
             cb(reader.result);
-            //console.log(reader.result)
+            //// console.log(reader.result)
         }
         reader.abort()
     }
@@ -70,10 +70,10 @@ const SignUp = ({ history }) => {
     //     const querySnapshot = await getDocs(q);
     //     querySnapshot.forEach((doc) => {
     //         doc.data()
-    //         console.log(doc.data())
+    //         // console.log(doc.data())
     //         return doc.data()
     //     });
-    //     // console.log("E1", existingUser)
+    //     // // console.log("E1", existingUser)
     //     return null
     // }
 
@@ -100,7 +100,7 @@ const SignUp = ({ history }) => {
             console.clear()
             history.push("/app")
         } catch (e) {
-            console.log(e.code || e)
+            // console.log(e.code || e)
             onError(e, setError)
         }
 

@@ -15,7 +15,7 @@ export default function Rooms() {
 	const { userData } = useUser()
 	const [roomData, setRoomData] = useState({});
 	const history = useHistory()
-	console.log("Rooms component - context: ", userData)
+	// // console.log("Rooms component - context: ", userData)
 
 	useEffect(() => {
 		userData.data?.previousRooms.forEach(roomId => { 
@@ -45,6 +45,7 @@ export default function Rooms() {
 	}
 
 	const hideForm = () => { 
+		// // console.log('set appbar status to null')
 		setAppBarStatus(null)
 	}
 
@@ -59,11 +60,11 @@ export default function Rooms() {
 			<div className={styles["rooms-container"]}>
 				{
 					userData.data?.previousRooms.map((roomId, index) => {
-						if (!roomData[roomId]) return <p key={index} >Loading...</p>
+						if (!roomData[roomId]) return <div key={index}><p>Loading...</p></div>
 						const randomRoom = roomCovers[Math.floor(Math.random() * roomCovers.length)]
 						const roomSize = roomData[roomId]?.owners.length
 						const subheading = `${roomSize} member` + ( roomSize > 1 ? "s" : "")
-						console.log(roomData[roomId], roomSize, subheading)
+						// // console.log(roomData[roomId], roomSize, subheading)
 						return (
 							<div className={styles['rooms-item-container']} key={index} >
 								<div className={styles['image']}><img alt="Room cover" src={randomRoom}></img></div>

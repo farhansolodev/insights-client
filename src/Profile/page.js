@@ -13,7 +13,7 @@ const Profile = () => {
     const [catalogueState, setCatalogueState] = useState(0);
     const [collabData, setCollabData] = useState([]);
     const { userData } = useUser()
-	console.log("Profile component - context:",userData)
+	// console.log("Profile component - context:",userData)
 
     const onLogOut = (e) => { 
         e.preventDefault()
@@ -74,7 +74,7 @@ const Profile = () => {
                                     return <button key={index} value={value} onClick={e => {
                                         e.preventDefault()
                                         const val = e.target.value
-                                        console.log(val)
+                                        // console.log(val)
                                         setCatalogueState(val)
                                     }} className={style}>{text}</button>
                                 })

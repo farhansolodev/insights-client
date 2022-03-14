@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    margin-right: auto;
+    /* width: 20rem; */
+    min-width: 20rem;
+    --search-accent-color: hsl(271, 76%, 53%);
+    border: solid 1px hsl(0, 0%, 70%);
+    border-right: none;
+    /* border-radius: 1rem; */
+}
+
+.container * {
+  font-family: 'Fredoka', sans-serif;
+}
+
+.container > input {
+    border: none;
+    width: 17rem;
+    background-color: transparent;
+    color: hsl(0, 0%, 45%);
+    font-size: 0.8rem;
+    outline: none;
+    height: 100%;
+    padding-inline: 0.5rem;
+}
+
+.container > button.submit {
+  height: 100%;
+  cursor: pointer;
+  background-color: var(--search-accent-color);
+  color: white;
+  flex: 1;
+}

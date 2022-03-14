@@ -10,7 +10,7 @@ const ProfileCataloguePicker = ({ active, onPick, buttons }) => {
                     // can use onMouseOver and onMouseOut to control hover behavior
                     return <button key={index} onClick={(e) => {
                         e.preventDefault()
-                        console.log(index)
+                        // console.log(index)
                         onPick(index)
                     }} className={style}><Icon/><p>{text}</p></button>
                 })

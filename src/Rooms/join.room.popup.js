@@ -2,14 +2,17 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, where, getDocs, updateDoc, doc, arrayUnion } from "firebase/firestore"; 
-import styles from '../styles/form.module.css';
+import { useClickAway } from "../utils"
 import { useUser } from '../context/user'
+import styles from '../styles/form.module.css';
 
 export const JoinRoomPopup = ({ onCancel }) => {
     const [writeId, setWriteId] = useState('');
     const [denied, setDenied] = useState(false);
     const { userData, setUserData } = useUser();
     const history = useHistory();
+
+    const wrapperRef = useClickAway(onCancel)
 
     async function handleSubmit(e){
         e.preventDefault()
@@ -51,7 +54,7 @@ export const JoinRoomPopup = ({ onCancel }) => {
     }
 
     return (
-        <div className={styles["container"]}>
+        <div ref={wrapperRef} className={styles["container"]}>
             <h1>Join Room</h1>
             <div className={styles["form_group"]}>
                 {denied && <div className={styles["error-handle"]}>Room code invalid</div>}

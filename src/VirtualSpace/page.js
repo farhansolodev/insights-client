@@ -65,7 +65,7 @@ const VirtualSpace = () => {
 
 		// data received upon joining the room
 		s.on("join-room ack", ({userId: uid , username: uname}) => {
-			// console.log("Data from user: ", uname)
+			// // console.log("Data from user: ", uname)
 			getDoc(doc(db, "users", uid)).then((snapshot) => {
 				const { pfp } = snapshot.data()
 				setParticipants((prev) => [...prev, { pfp, userId: uid, username: uname }])
@@ -74,7 +74,7 @@ const VirtualSpace = () => {
 	
 		// data received when a new user joins the room
 		s.on('user-joined', (socketid, { userId: uid, username: uname }) => {
-			console.log("User joined: ", uname)
+			// console.log("User joined: ", uname)
 			// acknowledge that the user has joined the room
 			s.emit("user-joined ack", socketid, {
 				userId,
@@ -88,14 +88,14 @@ const VirtualSpace = () => {
 		})
 
 		s.on('user-disconnected', (data) => {
-			console.log("User disconnected: ", data.username)
+			// console.log("User disconnected: ", data.username)
 			setParticipants((prev) => prev.filter((p) => p.userId !== data.userId))
 		})
 
-		// console.log('ROOM ID: ', roomData.collabId)
-		// console.log('COllab ID: ', roomId)
-		// console.log('username: ', userData.data?.username)
-		// console.log('user ID: ', userId)
+		// // console.log('ROOM ID: ', roomData.collabId)
+		// // console.log('COllab ID: ', roomId)
+		// // console.log('username: ', userData.data?.username)
+		// // console.log('user ID: ', userId)
 
 		// request the server to join the room
 		s.emit("join-room", {
@@ -107,7 +107,7 @@ const VirtualSpace = () => {
 
 		return () => {
 			if (!roomData.collabId) return
-			console.log("Disconnecting from Virtual Space with socket: ", s)
+			// console.log("Disconnecting from Virtual Space with socket: ", s)
 			s.disconnect()
 		}
 		
@@ -119,14 +119,14 @@ const VirtualSpace = () => {
 
 	const showForm = (e) => {
 		const val = e.target.value
-		// console.log("showForm: ", val)
+		// // console.log("showForm: ", val)
 		val === "publish" && setPublishFormVisible(true)
 		val === "share-code" && setShareFormVisible(true)
 	}
 
 	const hideForm = (e) => {
 		const target = e.target
-		// console.log('target: ',target)
+		// // console.log('target: ',target)
 		target.value === "publish" && setPublishFormVisible(false)
 		target.name === "share-code" && setShareFormVisible(false)
 	}

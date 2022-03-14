@@ -1,57 +1,76 @@
-:root {
-    --page: #152852;
-    --icons: #FC9C54;
-    --buttons: #4B3D60;
-    --bars: #08183A;
-    --cards: #172b57;
-    --forms: #172b57;
-}
-
 .sidebar {
     background-color: white;
     width: 100%;
     z-index: 1;
     border: solid 1px #ccc;
     margin: 0;
-    padding-top: 20px;
+    padding-block: 20px;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .sidebar-items {
     margin: 0;
-    width: 100%;
-    position: sticky;
-    margin-bottom: 25px;
-    bottom: 25px;
-    left: 0;
+    /* height: 100%; */
     padding: 0;
     font-size: 14px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-ul {
+    /* gap: 50px; */
+    /* border: solid 1px black; */
+    width: 100%;
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
 }
 
 .sidebar-items a {
     text-decoration: none;
     color: crimson;
     position: relative;
+    display: flex;
+    flex-shrink: 0;
+    /* border: solid 3px purple; */
+    /* max-height: 100%; */
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-items svg {
+    min-width: fit-content;
+    /* border: solid 2px green; */
+}
+
+.sidebar-items li {
+    margin-bottom: 50px;
+    /* border: solid 1px black; */
+    /* width: 100%; */
+    /* display: flex; */
+    /* height: 100px; */
+    /* justify-content: center; */
+    /* align-items: flex-start; */
 }
 
 .display-title {
     font-size: 14px;
     color: black;
     position: absolute;
-    left: 52px;
-    bottom: 1px;
+    left: 70px;
+    /* top: 0px; */
+    /* bottom: 15%; */
+    padding: 5px;
+    border-radius: 2.5px;
+    border: 2px solid crimson;
+    background-color: white;
+    min-width: fit-content;
+}
+
+.side-links-profile-page .display-title {
+    font-size: 14px;
+    color: black;
+    position: absolute;
+    left: 72px;
+    bottom: 24px;
     padding: 5px;
     border-radius: 2.5px;
     border: 2px solid crimson;
@@ -61,4 +80,15 @@ ul {
 .side-links-profile-page {
     /* display: inline-block; */
     font-size: 18px;
+    color: crimson;
+    /* border: solid 1px chocolate; */
+}
+
+.side-links-hamburger {
+    /* margin-block: 10px !important;
+    margin-top: 0 !important; */
+}
+
+.side-link-active {
+    border-left: solid 4px darkorchid;
 }

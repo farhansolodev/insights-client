@@ -53,7 +53,7 @@
     width: fit-content;
   }
 
-  input{
+  .form_group input{
     margin-top: 6px;
     min-width: 18em;
     height: 37px;
