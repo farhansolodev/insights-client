@@ -16,7 +16,7 @@ const Communities = () => {
   </div>
 
   return <>
-    <AppBar />
+    <AppBar title="Communities"/>
     <div className={styles.page}>
       {section('Recommended for you',[1, 6, 6, 7], true)}
       {section('Collabs you\'ve liked',[1,2,3])}

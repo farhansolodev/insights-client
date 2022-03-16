@@ -1,10 +1,10 @@
-import styles from './appbar.module.css'
 import Search from './search';
+import styles from './appbar.module.css'
 
-const AppBar = ({ styles: s, onClickHandler, buttons }) => {
-
+const AppBar = ({ styles: s, onClickHandler, buttons, title }) => {
     return(
         <nav className={styles.barContainer} style={{ ...s }} >
+            <div className={styles.title}>{title}</div>
             <Search />
             <div className={styles.buttonsContainer}>
                 {buttons && buttons.map(({ text, value, icon: Icon }, index) => { 

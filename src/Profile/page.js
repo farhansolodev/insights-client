@@ -8,6 +8,7 @@ import ProfileCataloguePicker from './catalogue.picker';
 import { useUser } from '../context/user'
 import { AppBarButtons } from './appbar.buttons'
 import { CataloguePickerButtons } from "./catalogue.picker.buttons";
+import styles from './profile.module.css'
 
 const Profile = () => {
     const [catalogueState, setCatalogueState] = useState(0);
@@ -22,13 +23,13 @@ const Profile = () => {
 
     return ( 
         <>
-            <AppBar onClickHandler={onLogOut} buttons={AppBarButtons}/>
+            <AppBar onClickHandler={onLogOut} buttons={AppBarButtons} title="Profile"/>
             <div >
                     {/** Entire top section above the buttons for the catalogue*/}
                     <div style={{
                         display: "flex",
                         justifyContent: "center",
-                        borderBottom: "3px solid black",
+                        borderBottom: "1px solid #ccc",
                         padding: "2%",
                         gap: "4rem"
                     }}>
@@ -53,9 +54,7 @@ const Profile = () => {
                             {/** Just the username */}
                             <h2>{userData.data ? userData.data.username : "Loading username..."}</h2>
                             {/** Rest of the info about the profile */}
-                            <div style={{
-                                width: "100%",
-                            }}>
+                            <div className={styles.stats}>
                             { userData.data ?
                                 <>
                                     <h4>{userData.data.publishedCollabs.length} Collabs published</h4>
@@ -63,6 +62,7 @@ const Profile = () => {
                                 </> : <h4>Loading stats...</h4>
                             }
                             </div>
+                            <div className={styles.description}>{"yea im pretty cool"}</div>
                         </div>
                     </div>
                     <div>

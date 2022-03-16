@@ -51,7 +51,7 @@ export default function Rooms() {
 
 	return (
 		<>
-			<AppBar onClickHandler={onStatusChange} buttons={AppBarButtons} />
+			<AppBar onClickHandler={onStatusChange} buttons={AppBarButtons} title="Rooms"/>
 			{
 				appBarStatus === "create-new-room" ? <CreateRoomPopup onCancel={hideForm} /> : (
 					appBarStatus === "join-new-room" && <JoinRoomPopup onCancel={hideForm} />

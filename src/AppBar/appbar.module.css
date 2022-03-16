@@ -1,4 +1,5 @@
 .barContainer {
+    position: relative;
     background-color: white;
     display: flex;
     justify-content: flex-end;
@@ -68,4 +69,23 @@
 .button:hover {
     background-color: crimson;
     color: white;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    /* padding-inline: 3rem; */
+    /* max-width: min-content; */
+    min-width: min-content;
+    color: hsl(0, 0%, 0%);
+    /* position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0; */
+    margin-right: auto;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* transform: translate(-175%); */
+    /* right: 90%; */
+    /* border: solid red 2px; */
 }
