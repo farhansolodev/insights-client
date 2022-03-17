@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process')
+//const { execSync } = require('child_process')
+//
+//const runCmd = cmd => {
+//    try {
+//        execSync(`${cmd}`, { stdio: 'inherit' })
+//    } catch (e) {
+//        console.error(`Failed to execute ${cmd}`, e)
+//        return false
+//    }
+//    return true
+//}
 
-const runCmd = cmd => {
-    try {
-        execSync(`${cmd}`, { stdio: 'inherit' })
-    } catch (e) {
-        console.error(`Failed to execute ${cmd}`, e)
-        return false
-    }
-    return true
-}
-
-runCmd(`cat "It worked!"`)
+console.log("It worked!")
 
 //const repo = process.argv[2]
 //const gitCheckoutCmd =  `git clone --depth 1 https://github.com/farhansolodev/insights-client ${repo}`
