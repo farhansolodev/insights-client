@@ -1,10 +1,10 @@
 {
-	"name": "create-insights-client",
+	"name": "insights-client",
 	"version": "0.1.0",
 	"bin": {
-		"create-insights-client": "./bin/cli.js"
+		"insights-client": "./bin/cli.js"
 	},
-	"main": "./bin/cli.js",
+	"main": "./src/index.js",
 	"publishConfig": {
 		"access": "public"
 	},

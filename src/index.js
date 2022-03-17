@@ -9,7 +9,7 @@ import Login from "./authentication/login"
 import SignUp from "./authentication/signup"
 import App from "./app"
 
-ReactDOM.render(
+const app = ReactDOM.render(
 	<React.StrictMode>
 		<AuthProvider>
 			<main className="index">
@@ -28,3 +28,5 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById("root")
 )
+
+export default app
