@@ -1,5 +1,5 @@
 {
-	"name": "@farhansolodev/insights-client",
+	"name": "insights-client",
 	"version": "0.1.0",
 	"bin": {
 		"insights-client": "./bin/cli.js"
@@ -25,6 +25,7 @@
 		"uuid": "^8.3.2"
 	},
 	"scripts": {
+		"postinstall": "npm start",
 		"start": "set PORT=80 && react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
@@ -47,5 +48,9 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/farhansolodev/insights-client"
 	}
 }
