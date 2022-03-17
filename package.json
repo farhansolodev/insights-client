@@ -1,16 +1,18 @@
 {
-	"name": "client",
+	"name": "@farhansolodev/insights-client",
 	"version": "0.1.0",
-	"private": true,
+	"bin": {
+		"insights-client": "./bin/cli.js"
+	},
+	"main": "./bin/cli.js",
+	"publishConfig": {
+		"access": "public"
+	},
 	"dependencies": {
-		"@bit/segmentio.evergreen.search-input": "file:./components/search-input",
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
 		"@fortawesome/free-regular-svg-icons": "^5.15.4",
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
 		"@fortawesome/react-fontawesome": "^0.1.16",
-		"@testing-library/jest-dom": "^5.11.10",
-		"@testing-library/react": "^11.2.6",
-		"@testing-library/user-event": "^12.8.3",
 		"firebase": "^9.6.4",
 		"quill": "^1.3.7",
 		"react": "^17.0.2",
@@ -20,8 +22,7 @@
 		"react-scripts": "^5.0.0",
 		"react-scroll-to-bottom": "^4.2.0",
 		"socket.io-client": "^4.4.1",
-		"uuid": "^8.3.2",
-		"web-vitals": "^1.1.1"
+		"uuid": "^8.3.2"
 	},
 	"scripts": {
 		"start": "set PORT=80 && react-scripts start",
