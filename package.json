@@ -1,9 +1,7 @@
 {
 	"name": "insights-client",
 	"version": "0.1.0",
-	"bin": {
-		"insights-client": "./bin/cli.js"
-	},
+	"bin": "./bin/cli.js",
 	"main": "./src/index.js",
 	"//": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
