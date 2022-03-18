@@ -5,7 +5,7 @@
 		"insights-client": "./bin/cli.js"
 	},
 	"main": "./src/index.js",
-	"//": {
+	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
 		"@fortawesome/free-regular-svg-icons": "^5.15.4",
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -20,9 +20,6 @@
 		"react-scroll-to-bottom": "^4.2.0",
 		"socket.io-client": "^4.4.1",
 		"uuid": "^8.3.2"
-	},
-	"dependencies": {
-
 	},
 	"scripts": {
 		"postinstall": "npm start",
