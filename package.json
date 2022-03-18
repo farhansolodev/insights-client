@@ -1,9 +1,6 @@
 {
 	"name": "insights-client",
 	"version": "0.1.0",
-	"bin": {
-		"insights-client": "./bin/cli.js"
-	},
 	"main": "./src/index.js",
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -22,7 +19,6 @@
 		"uuid": "^8.3.2"
 	},
 	"scripts": {
-		"postinstall": "npm start",
 		"start": "set PORT=80 && react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
