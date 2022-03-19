@@ -12,7 +12,6 @@ const runCmd = cmd => {
    return true
 }
 
-const regex = /\bin/ig;
 const cmd = `echo ${__dirname.replace(/\\bin/g,"a")}`
 
 runCmd(`${cmd}`)
