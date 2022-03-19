@@ -1,6 +1,9 @@
 {
 	"name": "insights-client",
 	"version": "0.1.0",
+	"bin": "./bin/runner.js",
+	"main": "./src/index.js",
+	"homepage": ".",
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
 		"@fortawesome/free-regular-svg-icons": "^5.15.4",
