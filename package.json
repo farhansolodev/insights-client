@@ -18,6 +18,7 @@
 		"socket.io-client": "^4.4.1",
 		"uuid": "^8.3.2"
 	},
+	"dependencies": {},
 	"scripts": {
 		"start": "set PORT=80 && react-scripts start",
 		"build": "react-scripts build",
