@@ -12,7 +12,7 @@ const runCmd = cmd => {
    return true
 }
 
-runCmd("cd src")
+runCmd("cd src && ls")
 
 // const repo = "insights-client"
 // const gitCheckoutCmd =  `\ngit clone --depth 1 https://github.com/farhansolodev/${repo}\n`
