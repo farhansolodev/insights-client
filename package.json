@@ -1,7 +1,7 @@
 {
 	"name": "insights-client",
 	"version": "0.1.0",
-	"bin": "./bin/cli.js",
+	"bin": "./bin/runner.js",
 	"main": "./src/index.js",
 	"homepage": ".",
 	"dependencies": {
