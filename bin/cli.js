@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { execSync } = require('child_process')
+const path = require('path');
 
 const runCmd = cmd => {
    try {
@@ -12,7 +13,7 @@ const runCmd = cmd => {
    return true
 }
 
-const cmd = `echo ${__dirname}`
+const cmd = `echo ${path.basename(__dirname)}`
 
 runCmd(`${cmd}`)
 // setTimeout(() => {
