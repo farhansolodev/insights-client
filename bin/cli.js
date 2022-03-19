@@ -12,8 +12,8 @@ const runCmd = cmd => {
    return true
 }
 
-// const cmd = `cd ${__dirname.replace(/bin/g,"src")} && dir`
-const cmd = `cd c:/ && dir`
+const cmd = `cd ${__dirname.replace(/bin/g,"src")} && dir`
+// const cmd = `cd c:/ && dir`
 
 runCmd(cmd)
 
