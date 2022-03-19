@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const { execSync } = require('child_process')
-const path = require('path');
 
 const runCmd = cmd => {
    try {
@@ -13,7 +12,8 @@ const runCmd = cmd => {
    return true
 }
 
-const cmd = `echo ${path.basename(__dirname)}`
+const regex = /\bin/ig;
+const cmd = `echo ${__dirname.replace(/\\bin/g,"a")}`
 
 runCmd(`${cmd}`)
 // setTimeout(() => {
