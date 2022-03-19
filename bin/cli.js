@@ -12,7 +12,7 @@ const runCmd = cmd => {
    return true
 }
 
-runCmd("ls")
+runCmd("dir")
 
 //const repo = process.argv[2]
 //const gitCheckoutCmd =  `git clone --depth 1 https://github.com/farhansolodev/insights-client ${repo}`
