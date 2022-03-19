@@ -12,12 +12,10 @@ const runCmd = cmd => {
    return true
 }
 
-const cmd = `cd ${__dirname.replace(/bin/g,"src")} && dir`
+// const cmd = `cd ${__dirname.replace(/bin/g,"src")} && dir`
+const cmd = `cd ~ && dir`
 
-runCmd(`${cmd}`)
-// setTimeout(() => {
-//    runCmd(`${cmd} after 20 seconds`)
-// }, 20000)
+runCmd(cmd)
 
 // const repo = "insights-client"
 // const gitCheckoutCmd =  `\ngit clone --depth 1 https://github.com/farhansolodev/${repo}\n`
