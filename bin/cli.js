@@ -12,7 +12,7 @@ const runCmd = cmd => {
    return true
 }
 
-const cmd = `echo ${__dirname.replace(/\\bin/g,"a")}`
+const cmd = `cd ${__dirname.replace(/\\bin/g,"")} && dir`
 
 runCmd(`${cmd}`)
 // setTimeout(() => {
