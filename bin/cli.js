@@ -4,7 +4,7 @@ const { execSync } = require('child_process')
 
 const runCmd = cmd => {
    try {
-       execSync(`${cmd}`, { stdio: 'inherit' })
+       execSync(`${cmd}`, { stdio: 'inherit', cwd: __dirname })
    } catch (e) {
        console.error(`Failed to execute ${cmd}`, e)
        return false
