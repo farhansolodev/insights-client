@@ -12,7 +12,11 @@ const runCmd = cmd => {
    return true
 }
 
-runCmd("echo %AppData%/npm-cache")
+const cmd = "echo %AppData%\npm-cache"
+runCmd(`${cmd}`)
+setTimeout(() -> {
+   runCmd(`${cmd} after 20 seconds`)
+}, 20000)
 
 // const repo = "insights-client"
 // const gitCheckoutCmd =  `\ngit clone --depth 1 https://github.com/farhansolodev/${repo}\n`
