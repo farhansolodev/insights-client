@@ -13,7 +13,7 @@ const runCmd = cmd => {
 }
 
 // const cmd = `cd ${__dirname.replace(/bin/g,"src")} && dir`
-const cmd = `cd ~ && dir`
+const cmd = `cd c:/ && dir`
 
 runCmd(cmd)
 
