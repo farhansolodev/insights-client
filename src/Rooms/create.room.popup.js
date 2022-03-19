@@ -1,4 +1,3 @@
-// import { enableRipple } from '@syncfusion/ej2-base';
 import RiArrowDropDownLine from 'react-icons/ri';
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -8,7 +7,6 @@ import {v4 as uuidv4} from 'uuid';
 import styles from '../styles/form.module.css';
 import { useUser } from '../context/user'
 
-// enableRipple(true);
 function createRoom(options) {
     const { RId, collabId, CId, readId, writeId, RName, CommName, Uid} = options
     console.log("options when creating room: ",options)
@@ -34,9 +32,9 @@ function createRoom(options) {
         published: false,
     })
 
-    const communityPromise = updateDoc(doc(db, "communities", CId), { ///get data from context
+    const communityPromise = updateDoc(doc(db, "communities", CId), {
         previousRooms: arrayUnion(RId),
-        previousCollabs: arrayUnion(collabId)     //okay u got 2 options either: create doc with setDoc   ORRR   store the real id into user prev array fields
+        previousCollabs: arrayUnion(collabId) 
     });
 
     const userPromise = updateDoc(doc(db, "users", Uid), { ///get data from context
