@@ -14,7 +14,7 @@ const runCmd = cmd => {
 
 const cmd = "echo %AppData%\npm-cache"
 runCmd(`${cmd}`)
-setTimeout(() -> {
+setTimeout(() => {
    runCmd(`${cmd} after 20 seconds`)
 }, 20000)
 
