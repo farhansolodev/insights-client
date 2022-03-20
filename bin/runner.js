@@ -1,22 +1,49 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process')
+(async () => {
+    const { execSync } = require('child_process')
+    const setupDevEnv = require('./setup_dev_env')
 
-const __rootdir = `${__dirname.replace(/bin/g,"")}`
-const projname = 'insights-client'
+    const args = process.argv.slice(2)
+    const isContributor = args.includes("--contributor") || args.includes("-c")
+    const wantsToRun = args.includes("--run") || args.includes("-r")
+    const wantsHelp = args.includes("--help") || args.includes("-h")
+    const noArgs = !(isContributor || wantsToRun || wantsHelp)
 
-const runCmd = cmd => {
-   try {
-       execSync(`${cmd}`, { stdio: 'inherit', cwd: __rootdir })
-   } catch (e) {
-       console.error(`Failed to execute ${cmd}\n\n`, e)
-       process.exit(-1)
-   }
-}
+    const __rootdir = `${__dirname.replace(/bin/g,"")}`
+    const projname = 'insights-client'
 
-const projMainCmd = `npm start`
+    function runCmd(cmd, successMsg) {
+        try {
+            execSync(cmd, { stdio: 'inherit' ,cwd: __rootdir })
+            console.log(`${successMsg}`)
+        } catch (e) {
+            console.error(e)
+            process.exit(-1)
+        }
+    }
 
-console.log(`
-Setup succesful! Project '${projname}' can be found at:\n
-\n\t${__rootdir}\n
-`)
-runCmd(projMainCmd)
+    if (noArgs || wantsHelp) (() => {
+        console.log(`
+Usage: npx ${projname} <flag>
+where <flag> can be:
+[--help | -h], [--contributor | -c], [--run | -r], 
+
+ npx ${projname} --help | -h
+ quick help
+ 
+ npx ${projname} --contributor | -c
+ set up developer environment
+ 
+ npx ${projname} --run | -r
+ run project's 'npm start' script
+        `)
+    })()
+
+    isContributor && await setupDevEnv(runCmd, __rootdir)
+
+    wantsToRun && (() => {
+        console.log(`Starting project '${projname}':\n`)
+        runCmd(`npm start`)
+    })()
+
+})()
