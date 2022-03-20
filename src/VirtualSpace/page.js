@@ -28,6 +28,7 @@ const VirtualSpace = () => {
 	const [publishFormVisible, setPublishFormVisible] = useState(false);
 	const [shareFormVisible, setShareFormVisible] = useState(false);
 	const [isOwner, setIsOwner] = useState(false)
+	const [kickedUser, setKickedUser] = useState()
 	const [roomData, setRoomData] = useState({});
 	const [displayKick, setDisplayKick] = useState(false)
 
@@ -36,7 +37,6 @@ const VirtualSpace = () => {
 	const [participants, setParticipants] = useState([{pfp: userData.data?.pfp, username: userData.data?.username, userId}]);
 	const { id: roomId } = useParams()
 	const history = useHistory()
-	var name
 
 	useTraceUpdate({socket,published,publishFormVisible,shareFormVisible,roomData,userData,userId,participants,roomId})
 
@@ -152,12 +152,10 @@ const VirtualSpace = () => {
 
 	const onDisplayKick = (e) => {
 		setDisplayKick(true)
-		// name = "jjjj"
-		// const target = e.target
-		// console.log(target.alt)
-		// console.log(x)
+		const target = e.target
+		console.log(target.key)
 		console.log("DKKKKKKKKKKKKKKKKKKKK")
-		// return () => <KickForm id={roomData.writeId} username= "sususu" onCancel={hideForm}/>;
+		setKickedUser(123)
 	}
 
     return (
@@ -171,7 +169,7 @@ const VirtualSpace = () => {
 				</div>
 				<div className={styles["footer"]}>
 					<div className={styles["publish-expand"]}>
-						{isOwner && <button
+						{isOwner && <button //added isOwner here can do same for the shareid then that will also become a owner only feature
 							value="publish"
 							className={filterByPublishStatus(styles["publish-button-inactive"], styles["publish-button-active"], styles["publish-button-inactive"]) }
 							onClick={filterByPublishStatus(undefined, showForm, undefined)}>
@@ -189,7 +187,7 @@ const VirtualSpace = () => {
 								<img key={index} alt={`User ${username}`} value="ko" className= {styles["images"]} onClick={onDisplayKick} src={pfp} />
 							);
 						})}
-						{displayKick && <KickForm username= {name} onSubmit={(e) => { hideForm(e); setDisplayKick(false) }} onCancel={hideForm}/>}
+						{displayKick && <KickForm username= {kickedUser} roomDetails= {roomData}  onSubmit={(e) => { hideForm(e); setDisplayKick(false) }} onCancel={hideForm}/>}
 						<button className={styles["invite-button"]} value="share-code" onClick={showForm}>
 							<FontAwesomeIcon className={styles["invite-icon"]} size="3x" icon={faUserPlus}/>
 						</button>
