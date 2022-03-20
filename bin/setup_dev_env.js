@@ -2,9 +2,10 @@ async function setupDevEnv(runCmd, __rootdir) {
     runCmd(`npm i --save fs-extra`, 'Succesfully installed fs-extra')
     const fs = require('fs-extra')
 
-    // const __rootdir = `${__dirname.replace(/bin/g,"")}`
     const projname = 'insights-client'
-    const gitUrl = "https://github.com/farhansolodev/insights-client"
+    const fullProjName = "farhansolodev/insights-client"
+    const gitUrl = `https://github.com/${fullProjName}`
+    const rawGitUrl = `https://raw.githubusercontent.com/${fullProjName}/master`
 
     const currPath = `${__rootdir}\\${projname}\\.git`
     const newPath = `${__rootdir}\\.git`
@@ -15,12 +16,15 @@ async function setupDevEnv(runCmd, __rootdir) {
     try {
         await fs.copy(currPath, newPath)
         console.log('Successfully copied .git!')
-        runCmd(`rmdir /s /q ${__rootdir}\\${projname}`, "Succesfully removed cloned project folder")
-
-        console.log(`Setup successful! Project '${projname}' can be found at:\n\n\t${__rootdir}\n`)
     } catch (err) {
         throw err
     }
+
+    runCmd(`rmdir /s /q ${__rootdir}\\${projname}`, "Succesfully removed cloned project folder")
+    runCmd(`wget ${rawGitUrl}/.gitignore -O .gitignore`, "Succesfully retrieved latest .gitignore")
+    runCmd(`wget ${rawGitUrl}/package.json -O package.json`, "Succesfully retrieved latest package.json")
+
+    console.log(`Setup successful! Project '${projname}' can be found at:\n\n\t${__rootdir}\n`)
 
 }
 
