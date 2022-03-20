@@ -17,7 +17,7 @@ const Login = ({ history }) => {
         password: ""
     });
 
-    console.log(info)
+    // console.log(info)
 
     const handleInputChange = (event) => {
         if(error.code) setError({code: "", msg: ""})
@@ -41,7 +41,7 @@ const Login = ({ history }) => {
             console.clear()
             history.push("/app")
         } catch (e) {
-            console.log(e.code || e)
+            // console.log(e.code || e)
             onError(e, setError)
         }
     }

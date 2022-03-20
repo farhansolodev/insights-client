@@ -5,7 +5,7 @@ import { HiOutlineStatusOnline as ChatOnline, HiOutlineDotsVertical as SettingsI
 
 
 const Chat = ({ socket, username, roomId }) => {
-        console.log('socket: ',socket)
+        // console.log('socket: ',socket)
 
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
@@ -38,33 +38,33 @@ const Chat = ({ socket, username, roomId }) => {
     return (
         <div className={styles['chat-window']}>
             <div className={styles['chat-header']}>
-                <p>Live Chat</p> <ChatOnline className={styles['online-icon']} /> <SettingsIcon className={styles['settings-icon']} />
+                <p>Live Chat</p>
+                {/* <ChatOnline className={styles['online-icon']} /> */}
+                <SettingsIcon className={styles['settings-icon']} />
             </div>
-            <div className={styles["chat-body"]}>
                 <ScrollToBottom className={styles["message-container"]}>
                     {messageList.map((messageContent, index) => {
-                        console.log(messageContent,username)
+                        // console.log(messageContent,username)
                         
                         return (
                             <div
                                 className={styles["message"]}
-                                id={username === messageContent.author ? "you" : "other"}
+                                name={username === messageContent.author ? "you" : "other"}
                                 key={index}
                             >
-                                <div>
+                                <div className={styles["message-group"]}>
                                 <div className={styles["message-content"]}>
                                     <p>{messageContent.message}</p>
                                 </div>
                                 <div className={styles["message-meta"]}>
-                                    {/* <p id="time">{messageContent.time}</p> */}
-                                    <p id="author">{messageContent.author}</p>
+                                    <p name="time">{messageContent.time}</p>
+                                    <p name="author">{messageContent.author}</p>
                                 </div>
                                 </div>
                             </div>
                         );
                     })}
                 </ScrollToBottom>
-            </div>
             <input
                 // contentEditable={true}
                 className={styles["chat-footer"]}

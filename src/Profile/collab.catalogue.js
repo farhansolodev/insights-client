@@ -13,12 +13,12 @@ const CollabCatalogue = ({ data, onDataLoad }) => {
     // const [collabs, setCollabs] = useState([]);
     const { userData } = useUser();
 
-    console.log("Collab Catalogue component - context: ", userData)
-    console.log("Collab Catalogue component - collab data: ", data)
+    // console.log("Collab Catalogue component - context: ", userData)
+    // console.log("Collab Catalogue component - collab data: ", data)
 
     useEffect(() => {
         if(data.length !== 0) return
-        console.log("getting data")
+        // console.log("getting data")
         // for every collab id, get the collab data from the collab collection
         const q = query(collection(db, "collabs"), where("published", "==", true), where("owners", "array-contains", userData.id))
         getDocs(q).then((snapshot) => {
@@ -37,7 +37,7 @@ const CollabCatalogue = ({ data, onDataLoad }) => {
         <div className={styles["all-collabs"]}>
             {
                 // collabs.map((collab, index) => {
-                //     console.log("collab: ", collab);
+                //     // console.log("collab: ", collab);
                 //     return <p key={index}>{JSON.stringify(collab)}</p>
                 // })
                 data.map(({ displayPic, name, communityPosted }, index) => {
