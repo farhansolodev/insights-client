@@ -28,6 +28,7 @@ const VirtualSpace = () => {
 	const [publishFormVisible, setPublishFormVisible] = useState(false);
 	const [shareFormVisible, setShareFormVisible] = useState(false);
 	const [isOwner, setIsOwner] = useState(false)
+	const [reader, setReader] = useState(false)
 	const [kickedUser, setKickedUser] = useState()
 	const [roomData, setRoomData] = useState({});
 	const [displayKick, setDisplayKick] = useState(false)
@@ -62,6 +63,12 @@ const VirtualSpace = () => {
 
 	useEffect(() => {
 		if (!roomData.collabId) return
+		
+		if(roomData.readers.length != 0) {
+			if(roomData.readers.includes(userId)) {
+				setReader(true)
+			}
+		}
 		
 		const s = io("https://insights--server.herokuapp.com")
 		setSocket(s)
@@ -165,7 +172,7 @@ const VirtualSpace = () => {
 			<AppBar onClickHandler={onLeaveRoom} buttons={AppBarButtons} title={roomData.name ? roomData.name : "Loading name..."}/>
 			<div className={styles["parent"]}>
 				<div className={styles["text-editor"]}>
-					<TextEditor onMembersChange={(cb) => cb(participants)} onDocumentLoad={setPublished} roomId={roomId} collabId={roomData.collabId} socket={socket} />
+					<TextEditor reader={reader} onMembersChange={(cb) => cb(participants)} onDocumentLoad={setPublished} roomId={roomId} collabId={roomData.collabId} socket={socket} />
 				</div>
 				<div className={styles["footer"]}>
 					<div className={styles["publish-expand"]}>
