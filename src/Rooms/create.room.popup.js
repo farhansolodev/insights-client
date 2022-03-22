@@ -9,7 +9,7 @@ import { useClickAway } from "../utils"
 import styles from '../styles/form.module.css';
 
 function createRoom(options) {
-    const { RId, collabId, readId, writeId, RName, CommName, Uid} = options
+    const { RId, collabId, CId, readId, writeId, RName, CommName, Uid} = options
     // console.log("options when creating room: ",options)
     const vsPromise = setDoc(doc(db, "virtual-spaces", RId), {
         collabId,
@@ -51,6 +51,7 @@ export const CreateRoomPopup = ({ onCancel }) => {
     const [RName, setRName] = useState('');
     const [CName, setCName] = useState();
     const [CId, setCId] = useState();
+    const [error, setError] = useState(false);
     // const [choice, setChoice] = useState();
     const [communityData, setCommunityData] = useState({});
     const {userData, setUserData} = useUser();
@@ -98,30 +99,30 @@ export const CreateRoomPopup = ({ onCancel }) => {
         }
     }
 
+    const selectCommunity = (e) => {
+        setCName(e.target.value)
+        setCId(e.target.id)
+	}
+    const checkError = (e) => {
+        if(userData.data?.previousCommunities.length == 0) {
+            setError(true)
+        }
+	}
+
     const wrapperRef = useClickAway(onCancel)
 
     return (
         <div ref={wrapperRef} className={styles["container"]}>
+            {error && <div className={styles["error-handle"]}>No Communites Joined!</div>}
             <h2>Create Room</h2>
             <div className={styles["form_group"]}>
                 <label htmlFor="roomname">Room Name</label>
                 <input type="text" name="roomname" placeholder="Room Name" onChange={(e) => setRName(e.target.value)} className={styles["name_textBox"]} required></input>
             </div>
             <div className={styles["form_group"]}>
-                <label htmlFor="Community Name">Community</label>
-                <select name="dog-names" id="dog-names">
-                    {/* {RiArrowDropDownLine: Icon} -- Need to select option value and put in dropdown text && get the value insert in db--link collab and vs */}
-                    <option value="rigatoni">Rigatoni</option>
-                    <option value="dave">Dave</option>
-                    <option value="pumpernickel">Pumpernickel</option>
-                    <option value="reeses">Reeses</option>
-                </select>
-                {/* <input type="text" name="community" placeholder="Community Name" onChange={(e) => setCName(e.target.value)} className={styles["name_textBox"]}></input> */}
-            </div>
-            <div className={styles["form_group"]}>
                 <label htmlFor="roomname">Community Name</label>
                 <div className={styles["dropdown"]}>
-                    <button className={styles["dropbtn"]}>{(CName==null) ? "Choose a Community" : CName}</button>
+                    <button className={styles["dropbtn"]} onClick={checkError}>{(CName==null) ? "Choose a Community" : CName}</button>
                     <div className={styles["dropdown-content"]}>
                         <div className={styles["dropdown-content"]} /*{filterByCommunityChoiceStatus(styles["dropdown-content"], styles["choice-selected"])}*/ >
                             {
