@@ -1,15 +1,30 @@
 import { useState } from "react";
 import { db } from "../firebase";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore"; 
+import { doc, updateDoc, arrayUnion, collection, query, where, getDoc, getDocs } from "firebase/firestore"; 
 import styles from '../styles/form.module.css';
 import { useUser } from "../context/user";
 
 
-const Publish = ({ collabId, onSubmit, onCancel }) => {
+const Publish = ({ collabId, onSubmit, onCancel, community }) => {
     const [pfp, setPfp] = useState(require("../assets/default.images").default.collab);
     const [name, setName] = useState('');
     const [error, setError] = useState('');
     const { userData } = useUser();
+
+    // async function findCommunityId() {
+    //     console.log("FOUND THE FUNCTION");
+    //     try {
+    //         const coms = collection(db, "communities");
+    //         const q = query(coms, where("name", "==", community));
+    //         const querySnapshot = await getDocs(q);
+    //         querySnapshot.forEach((doc) => {
+    //             console.log("community" + community + ": " + doc.data())
+    //         });
+            
+    //     } catch(e) {
+    //         console.log("error" + e);
+    //     }
+    // }
 
     const UploadPic = (e) => {
         console.log('button to upload clicked')
@@ -32,6 +47,8 @@ const Publish = ({ collabId, onSubmit, onCancel }) => {
             // eslint-disable-next-line no-throw-literal
             if(name === '') throw "Please enter a name for your collab"
             
+            const communityId = false;//findCommunityId();
+
             const updateCollabPromise = updateDoc(doc(db, "collabs", collabId), {
                 name: name,
                 displayPic: pfp,
@@ -40,10 +57,14 @@ const Publish = ({ collabId, onSubmit, onCancel }) => {
 
             const updateUserCollabsPromise = updateDoc(doc(db, "users", userData.id), {
                 publishedCollabs: arrayUnion(collabId)
-            })
+            });
 
-            await Promise.all([updateCollabPromise, updateUserCollabsPromise])
-            
+            const updateCommunityPostsPromise = updateDoc(doc(db,"communities",communityId), {
+                publishedCollabs: arrayUnion(collabId)
+            });
+
+            await Promise.all([updateCollabPromise, updateUserCollabsPromise, updateCommunityPostsPromise])
+
             onSubmit(e);
             
         } catch (error) {
@@ -70,7 +91,7 @@ const Publish = ({ collabId, onSubmit, onCancel }) => {
                         }}
                     ></input>
                 </div>
-                <div className={styles["pfp"]}>
+                <div className={styles["form_group"]}>
                     <p>Add a cover image</p>
                     <input type="file" accept="image/*" name="image-upload" id="input" onChange={UploadPic}></input>
                 </div>
