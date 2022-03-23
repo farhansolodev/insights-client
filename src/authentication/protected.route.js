@@ -3,7 +3,7 @@ import { useAuth } from "../context/auth";
 
 export default function ProtectedRoute({ component: RouteComponent, ...rest }) {
     const { currentUser } = useAuth();
-    console.log("went thru protected route", currentUser)
+    // console.log("went thru protected route", currentUser)
     return (
         <Route
             {...rest}

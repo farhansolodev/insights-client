@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [pending, setPending] = useState(true);
     // const history = useHistory();
-    console.log("went thru auth provider")
+    // console.log("went thru auth provider")
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             setCurrentUser(user)

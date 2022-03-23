@@ -1,7 +1,7 @@
 // import React, { useState, useEffect } from "react"
 import {
+	Redirect,
 	Route,
-	// Redirect
 } from "react-router-dom"
 // import { auth } from "./firebase";
 // import { onAuthStateChanged } from 'firebase/auth'
@@ -19,7 +19,7 @@ import Community from "./Communities/communityPage";
 export default function App() {
 	const { currentUser } = useAuth();
 	// const [user, setUser] = useState(auth.currentUser);
-	// console.log("went through app component - no user logged in? ", !user)
+	// // console.log("went through app component - no user logged in? ", !user)
 
 	// useEffect(() => {
 	// 	const unsub = onAuthStateChanged(auth, firebaseUser => {
@@ -42,11 +42,11 @@ export default function App() {
 					 <UserProvider id={currentUser.uid}>
 						<div className={styles.page}>
 							<Route exact path={`/app/`}>
-								<Rooms />
+								<Redirect to='/app/home'/>
 							</Route>
-							<Route exact path={`/app/vs/`}>
+							{/* <Route exact path={`/app/vs/`}>
 								<Rooms />
-							</Route>
+							</Route> */}
 							<Route path={`/app/vs/:id`}>
 								<VirtualSpace />
 							</Route>
@@ -58,6 +58,9 @@ export default function App() {
 							</Route>
 							<Route path={`/app/communities/:id`}>
 								<Community />
+							</Route>
+							<Route path={`/app/home`}>
+								<Communities />
 							</Route>
 							<Route path={`/app/profile`}>
 								<Profile />

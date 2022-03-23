@@ -3,13 +3,14 @@ import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"; 
 import {v4 as uuidv4} from 'uuid';
-import styles from '../styles/form.module.css';
 import { useUser } from '../context/user'
+import { useClickAway } from "../utils"
+import styles from '../styles/form.module.css';
 
 
 function createRoom(options) {
     const { RId, collabId, readId, writeId, RName, CommName, Uid} = options
-    console.log("options when creating room: ",options)
+    // console.log("options when creating room: ",options)
     const vsPromise = setDoc(doc(db, "virtual-spaces", RId), {
         collabId,
         name: RName,
@@ -70,12 +71,14 @@ export const CreateRoomPopup = ({ onCancel }) => {
                 history.push(`/app/vs/${RId}`) //uncomment when vs room done
             })
         } catch(e) {
-            console.log("DIDNT WORK", e);
+            // console.log("DIDNT WORK", e);
         }
     }
 
+    const wrapperRef = useClickAway(onCancel)
+
     return (
-        <div className={styles["container"]}>
+        <div ref={wrapperRef} className={styles["container"]}>
             <h2>Create Room</h2>
             <div className={styles["form_group"]}>
                 <label htmlFor="roomname">Room Name</label>

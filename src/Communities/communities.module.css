@@ -1,0 +1,58 @@
+.page {
+    height: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* border: solid 5px crimson; */
+    overflow-y: scroll;
+}
+
+.section {
+    margin: 3rem;
+}
+
+.sectionTitle {
+    font-family: sans-serif;
+    margin: 0;
+    color: hsl(0, 0%, 45%);
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.sectionCatalogue {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(0, 18rem));
+    grid-template-rows: repeat(auto-fill, minmax(0,10rem));
+    row-gap: 2rem;
+    column-gap: 2rem;
+    justify-content: start; */
+    /* align-items: flex-end; */
+    /* overflow: scroll; */
+    /* padding: 40px; */
+    /* width: 100vw; */
+    /* min-height: 0; */
+    display: flex;
+    gap: 2.25rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: scroll;
+    /* overflow-x: overlay; */
+    /* overflow-x: auto; */
+    padding-bottom: 1rem;
+}
+
+.sectionItem {
+    background-color: blueviolet;
+    height: 9rem;
+    /* border: 3px solid red; */
+    min-width: 15rem;
+}
+
+.heroSection > div > div {
+    height: 12rem;
+    min-width: 20rem;
+}
+
+.heroSection > h2 {
+    font-size: 1.5rem;
+}

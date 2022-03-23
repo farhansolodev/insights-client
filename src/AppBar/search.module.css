@@ -1,0 +1,83 @@
+.container {
+    /* position: relative; */
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 50%;
+    /* margin-right: auto; */
+    /* justify-self: center; */
+    /* width: 20rem; */
+    /* min-width: 20rem; */
+    width: 20rem;
+    --search-accent-color: hsl(271, 76%, 53%);
+    border: solid 1px hsl(0, 0%, 70%);
+    border-right: none;
+    /* border-radius: 1rem; */
+    /* border: solid 2px black; */
+}
+
+.container * {
+  font-family: 'Fredoka', sans-serif;
+}
+
+.container > input {
+    border: none;
+    background-color: transparent;
+    color: hsl(0, 0%, 45%);
+    font-size: 0.8rem;
+    outline: none;
+    height: 100%;
+    padding-inline: 0.5rem;
+    flex: 1;
+}
+
+.container > button.submit {
+  height: 100%;
+  cursor: pointer;
+  background-color: var(--search-accent-color);
+  color: white;
+  width: 4rem;
+}
+
+.searching {
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: contrast(0.5);
+}
+
+
+.dropdown {
+  position: absolute;
+  width: 100%;
+  min-height: 5rem;
+  top: 120%;
+  border: solid 3px hsl(0, 0%, 45%);
+}
+
+.section {
+
+}
+
+.sectionTitle {
+    margin: 0;
+    color: hsl(0, 0%, 45%);
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.communityItem {
+
+}
+
+.collabItem {
+
+}
+
+.userItem {
+
+}

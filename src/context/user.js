@@ -28,14 +28,14 @@ const UserContext = React.createContext()
 export const UserProvider = ({ id, children }) => {
   const [userData, setUserData] = useState({ id })
 
-  console.log('context outside effect: ', userData)
+  // console.log('context outside effect: ', userData)
   useEffect(() => {
-    console.log('context getting data')
+    // console.log('context getting data')
     const dataPromise = getUserDataById(userData.id)
     dataPromise.then(data => {
       setUserData((prev) => {
         const newData = { ...prev, data }
-        console.log('context got data: ', newData)
+        // console.log('context got data: ', newData)
         return newData
       })
     })

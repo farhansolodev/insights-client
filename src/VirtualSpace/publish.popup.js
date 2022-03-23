@@ -60,7 +60,7 @@ const Publish = ({ collabId, onSubmit, onCancel, community }) => {
             });
 
             const updateCommunityPostsPromise = updateDoc(doc(db,"communities",communityId), {
-                posts: arrayUnion(collabId)
+                publishedCollabs: arrayUnion(collabId)
             });
 
             await Promise.all([updateCollabPromise, updateUserCollabsPromise, updateCommunityPostsPromise])
