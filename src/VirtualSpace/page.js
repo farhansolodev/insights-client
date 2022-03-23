@@ -117,7 +117,6 @@ const VirtualSpace = () => {
 
 		if(userId == roomData.owners[0]) {
 			setIsOwner(true)
-			console.log("true brooooooooooooooooo")
 		}
 
 		return () => {
@@ -167,7 +166,7 @@ const VirtualSpace = () => {
 
     return (
 		<>
-			{publishFormVisible && <Publish onSubmit={(e) => { hideForm(e); setPublished(true) }} collabId={roomData.collabId} onCancel={hideForm}/>}
+			{publishFormVisible && <Publish onSubmit={(e) => { hideForm(e); setPublished(true) }} commName={roomData.communityName} collabId={roomData.collabId} onCancel={hideForm}/>}
 			{shareFormVisible && <ShareCode onCopy={hideForm} id={roomData.writeId} onCancel={hideForm}/>}
 			<AppBar onClickHandler={onLeaveRoom} buttons={AppBarButtons} title={roomData.name ? roomData.name : "Loading name..."}/>
 			<div className={styles["parent"]}>

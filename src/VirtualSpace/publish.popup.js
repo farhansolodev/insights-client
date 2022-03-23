@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { db } from "../firebase";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore"; 
+import { doc, query, collection, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore"; 
 import styles from '../styles/form.module.css';
 import { useUser } from "../context/user";
 
 
-const Publish = ({ collabId, onSubmit, onCancel }) => {
+const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
     const [pfp, setPfp] = useState(require("../assets/default.images").default.collab);
     const [name, setName] = useState('');
     const [error, setError] = useState('');
@@ -31,6 +31,15 @@ const Publish = ({ collabId, onSubmit, onCancel }) => {
         try {
             // eslint-disable-next-line no-throw-literal
             if(name === '') throw "Please enter a name for your collab"
+
+            const q = query(collection(db, "communities"), where("name", "==", commName));
+            const querySnapshot = await getDocs(q)
+            let data = null
+            let id = null
+            querySnapshot.forEach(function (doc) {
+                data = doc.data()
+                id = doc.id
+            })
             
             const updateCollabPromise = updateDoc(doc(db, "collabs", collabId), {
                 name: name,
@@ -39,6 +48,10 @@ const Publish = ({ collabId, onSubmit, onCancel }) => {
             });
 
             const updateUserCollabsPromise = updateDoc(doc(db, "users", userData.id), {
+                publishedCollabs: arrayUnion(collabId)
+            })
+
+            const updateCommunityCollabsPromise = updateDoc(doc(db, "communities", id), {
                 publishedCollabs: arrayUnion(collabId)
             })
 
