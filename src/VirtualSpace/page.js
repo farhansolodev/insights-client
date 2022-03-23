@@ -92,10 +92,6 @@ const VirtualSpace = () => {
 			setParticipants((prev) => prev.filter((p) => p.userId !== data.userId))
 		})
 
-		// console.log('ROOM ID: ', roomData.collabId)
-		// console.log('COllab ID: ', roomId)
-		// console.log('username: ', userData.data?.username)
-		// console.log('user ID: ', userId)
 
 		// request the server to join the room
 		s.emit("join-room", {
@@ -143,7 +139,7 @@ const VirtualSpace = () => {
 
     return (
 		<>
-			{publishFormVisible && <Publish onSubmit={(e) => { hideForm(e); setPublished(true) }} collabId={roomData.collabId} onCancel={hideForm}/>}
+			{publishFormVisible && <Publish onSubmit={(e) => { hideForm(e); setPublished(true) }} collabId={roomData.collabId} onCancel={hideForm} community={roomData.communityName} />}
 			{shareFormVisible && <ShareCode onCopy={hideForm} id={roomData.writeId} onCancel={hideForm}/>}
 			<AppBar onClickHandler={onLeaveRoom} buttons={AppBarButtons}/>
 			<div className={styles["parent"]}>

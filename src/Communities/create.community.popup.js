@@ -1,10 +1,11 @@
-import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, updateDoc, arrayUnion, collection, query, where, getDoc, getDocs } from "firebase/firestore";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../context/user";
 import { db } from "../firebase"
 import styles from "../styles/form.module.css";
 import {v4 as uuidv4} from 'uuid';
+import { async } from "@firebase/util";
 
 const createCommunity = (parameters) => {
     const {CId, ComName, ComDescription, ComImage, UId} = parameters
@@ -14,14 +15,14 @@ const createCommunity = (parameters) => {
         image: ComImage,
         admin: UId,
         members: [],
-        posts: [],
+        publishedCollabs: [],
     })
 
     const userPromise = updateDoc(doc(db, "users", UId), {
         previousCommunities: arrayUnion(CId)
     });
 
-    return Promise.all([communityPromise])
+    return Promise.all([communityPromise, userPromise])
 }
 
 /* Communities in firebase user data? so can add to name of communities part of */
@@ -48,27 +49,58 @@ const CreateCommunityPopup = ({onCancel}) => {
         file && reader.readAsDataURL(file)
     }
 
-    const handleSubmit = (e) => {
-        try {
-            const CId = uuidv4()
+    //To make sure no two communities have the same name
+    async function checkPrevCommunities() {
+        // const d = collection(db,"communities");
+        // const q = query(d, where("name", "==", ComName));
+        // const querySnapshot = await getDocs(q);
+        // querySnapshot.forEach((doc) => {
+        //     console.log("community" + doc.data())
+        // });
+    }
+    
+    const handleValidation = (e) => {
 
-            createCommunity({CId,ComName,ComDescription,ComImage,UId: userData.id}).catch((err) => {
-                throw err
-            }).then(() => {
-                setUserData((prev) => {
-                    return {
-                        ...prev,
-                        data: {
-                            ...prev.data,
-                            previousCommunities: [...new Set([prev.data?.previousCommunities, CId])]
-                        }
-                    }
-                })
-                history.push(`/app/communities/${ComName}`);
-            })
-        } catch (e) {
-            console.log("failed",e);
+        let isValid = false;
+
+        //checkPrevCommunities();
+
+        if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
+            isValid = true;
         }
+        
+        if(isValid) {
+            handleSubmit(e);
+        }
+        else {
+            alert("form has errors");
+        }
+
+    }
+
+    const handleSubmit = (e) => {
+            try {
+                e.preventDefault();        
+                const CId = uuidv4()
+                
+                createCommunity({CId,ComName,ComDescription,ComImage,UId: userData.id}).catch((err) => {
+                    throw err
+                }).then(() => {
+                    setUserData((prev) => {
+                        return {
+                            ...prev,
+                            data: {
+                                ...prev.data,
+                                previousCommunities: [...new Set([prev.data?.previousCommunities, CId])]
+                            }
+                        }
+                    })
+                    onCancel();
+                    history.push(`/app/communities/${ComName}`);
+                })
+            } catch (e) {
+                console.log("failed",e);
+            }
     }
     
     return(
@@ -76,18 +108,18 @@ const CreateCommunityPopup = ({onCancel}) => {
             <h2>Create Community</h2>
             <div className={styles["form_group"]}>
                 <label htmlFor="Community Name">Community Name</label>
-                <input type="text" name="community" placeholder="Community Name" onChange={(e) => setComName(e.target.value)} className={styles["name_textBox"]}></input>
+                <input type="text" name="community" placeholder="Community Name" onChange={(e) => setComName(e.target.value)} className={styles["name_textBox"]} required></input>
             </div>
             <div className={styles["form_group"]}>
                 <label htmlFor="Community Description">Description</label>
-                <input type="text" name="communitydescription" placeholder="Description" onChange={(e) => setComDescription(e.target.value)} className={styles["name_textBox"]}></input>
+                <input type="text" name="communitydescription" placeholder="Description" onChange={(e) => setComDescription(e.target.value)} className={styles["name_textBox"]} required></input>
             </div>
             <div className={styles["form_group"]}>
                 <label htmlFor="Image">Image</label>
                 <input type="file" name="communityImage" accept="image/*" placeholder="Image" onChange={UploadPic} className={styles["name_textBox"]}></input>
             </div>
                 <div className={styles["footer"]}>
-                <button onClick={handleSubmit} type="button" className={styles["submit"]}>Create Community</button>
+                <button onClick={handleValidation} type="button" className={styles["submit"]}>Create Community</button>
                 <button type="button" onClick={onCancel} className={styles["cancel"]}>Cancel</button>
             </div>
         </div>
