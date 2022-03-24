@@ -1,51 +1,52 @@
 {
-	"name": "insights-client",
-	"version": "0.1.0",
-	"bin": "./bin/runner.js",
-	"main": "./src/index.js",
-	"homepage": ".",
-	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^1.2.36",
-		"@fortawesome/free-regular-svg-icons": "^5.15.4",
-		"@fortawesome/free-solid-svg-icons": "^5.15.4",
-		"@fortawesome/react-fontawesome": "^0.1.16",
-		"firebase": "^9.6.4",
-		"quill": "^1.3.7",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2",
-		"react-icons": "^4.3.1",
-		"react-router-dom": "5.3.0",
-		"react-scripts": "^5.0.0",
-		"react-scroll-to-bottom": "^4.2.0",
-		"socket.io-client": "^4.4.1",
-		"uuid": "^8.3.2"
-	},
-	"scripts": {
-		"start": "set PORT=80 && react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"sync": "git fetch upstream && git merge upstream/master && git push -f origin master"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/farhansolodev/insights-client"
-	}
+  "name": "insights-client",
+  "version": "0.1.0",
+  "bin": "./bin/main.js",
+  "main": "./src/index.js",
+  "homepage": ".",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "firebase": "^9.6.4",
+    "fs-extra": "^10.0.1",
+    "quill": "^1.3.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "5.3.0",
+    "react-scripts": "^5.0.0",
+    "react-scroll-to-bottom": "^4.2.0",
+    "socket.io-client": "^4.4.1",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "start": "set PORT=80 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "sync": "git fetch upstream && git merge upstream/master && git push -f origin master"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farhansolodev/insights-client"
+  }
 }

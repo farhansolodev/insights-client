@@ -41,6 +41,8 @@ const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
                 id = doc.id
             })
             
+            const communityId = false;//findCommunityId();
+
             const updateCollabPromise = updateDoc(doc(db, "collabs", collabId), {
                 name: name,
                 displayPic: pfp,
@@ -49,13 +51,13 @@ const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
 
             const updateUserCollabsPromise = updateDoc(doc(db, "users", userData.id), {
                 publishedCollabs: arrayUnion(collabId)
-            })
+            });
 
             const updateCommunityCollabsPromise = updateDoc(doc(db, "communities", id), {
                 publishedCollabs: arrayUnion(collabId)
             })
 
-            await Promise.all([updateCollabPromise, updateUserCollabsPromise])
+            await Promise.all([updateCollabPromise, updateCommunityCollabsPromise, updateUserCollabsPromise])
             
             onSubmit(e);
             
@@ -83,7 +85,7 @@ const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
                         }}
                     ></input>
                 </div>
-                <div className={styles["pfp"]}>
+                <div className={styles["form_group"]}>
                     <p>Add a cover image</p>
                     <input type="file" accept="image/*" name="image-upload" id="input" onChange={UploadPic}></input>
                 </div>
