@@ -6,21 +6,19 @@ import styles from '../styles/form.module.css';
 
 const KickUserPopup = ({ username, roomDetails, onSubmit, onCancel }) => {
     const [kickMessage, setKickMessage] = useState(null)
-    var uId = null
-    var username = ''
-    var roomId = ''
+    var username = "Susan"
+    var uId = "FW4DICcvw8fqVB2P7iKrDxPdzNm1"
+    var roomId = "e9fae1d3-aacd-460b-a89b-6ca4cea5aefe"
     
-    const s = io("https://insights--server.herokuapp.com")
+    const s = io("http://localhost:3000")
     const onKick = (e) => {
         e.preventDefault();
-        username = "Susan"
-        uId = "FW4DICcvw8fqVB2P7iKrDxPdzNm1"
-        roomId = "e9fae1d3-aacd-460b-a89b-6ca4cea5aefe"
 
         
         onSubmit(e);
 	}
     useEffect(() => {
+        console.log("kick", username)
         s.emit("kick-user", {
             uId,
             username,
@@ -32,7 +30,7 @@ const KickUserPopup = ({ username, roomDetails, onSubmit, onCancel }) => {
             s.emit("send-kick-message", ({ uId, uname }))
         })
 
-    }, [])
+    }, [roomDetails.id])
     return (
         <>
             {/* {(kickMessage!=null) && <KickMessage/>} */}

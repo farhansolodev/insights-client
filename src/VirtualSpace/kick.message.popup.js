@@ -6,7 +6,7 @@ import styles from '../styles/form.module.css';
 
 const KickMessagePopup = ({ username, onSubmit, onCancel }) => {
     const userId = null
-    const s = io("https://insights--server.herokuapp.com")
+    const s = io("http://localhost:3000")
     // useEffect(() => {
     //     s.on("user-kicked", ({ uId, uname }) => {
     //         userId = uId
