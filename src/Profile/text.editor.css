@@ -6,7 +6,7 @@
 }
 
 .ql-toolbar.ql-snow {
-  display: flex;
+  display: none;
   justify-content: center;
   position: relative;
   /* border-bottom-left-radius: 15px;
@@ -104,7 +104,7 @@
     align-self: flex-start;
   }
 
-  .textEditorContainer .ql-toolbar.ql-snow {
+  /* .textEditorContainer .ql-toolbar.ql-snow {
     display: none;
-  }
+  } */
 }
