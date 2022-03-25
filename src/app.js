@@ -14,8 +14,9 @@ import Profile from "./Profile/page";
 import CollabView from "./Profile/collab.view"
 import Rooms from "./Rooms/page";
 import VirtualSpace from "./VirtualSpace/page";
-import Communities from "./Communities/homePage";
-import Community from "./Communities/communityPage";
+import Communities from "./Communities/page";
+import Community from "./Community/page";
+import Home from "./Home/page";
 
 export default function App() {
 	const { currentUser } = useAuth();
@@ -54,14 +55,14 @@ export default function App() {
 							<Route path={`/app/rooms`}>
 								<Rooms />
 							</Route>
-							<Route path={`/app/communities`}>
+							<Route exact path={`/app/communities`}>
 								<Communities />
 							</Route>
 							<Route path={`/app/communities/:id`}>
 								<Community />
 							</Route>
 							<Route path={`/app/home`}>
-								<Communities />
+								<Home />
 							</Route>
 							<Route path={`/app/profile`}>
 								<Profile />
@@ -70,7 +71,7 @@ export default function App() {
 								<CollabView />
 							</Route>
 						</div>
-					</UserProvider> 
+					</UserProvider>
 				</>
 			}
 		</div>
