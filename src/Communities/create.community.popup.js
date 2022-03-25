@@ -30,7 +30,8 @@ const createCommunity = (parameters) => {
 
 const CreateCommunityPopup = ({onCancel}) => {
 
-    const [same, setSame] = useState(undefined);
+    const [denied, setDenied] = useState();
+    const [error, setError] = useState();
     const [ComName, setComName] = useState('');
     const [ComDescription, setComDescription] = useState('');
     const [ComImage, setComImage] = useState(require("../assets/default.images").default.collab);
@@ -55,29 +56,20 @@ const CreateCommunityPopup = ({onCancel}) => {
     async function checkPrevCommunities() {
         const q = query(collection(db, "communities"), where("name", "==", ComName));
         const querySnapshot = await getDocs(q);
-        // console.log(ComName)
-        // console.log(querySnapshot)
         if(querySnapshot._snapshot.docChanges.length!=0) {
-            // console.log("THOTH")
-            // setSame(true)
-            console.log('bro this shit is the same')
+            setDenied(true)
+            setError("There already exists a community with the same name.")
             
 
         } else{
             if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
-                // handleSubmit();
-                console.log('ayooo 🤩')
+                handleSubmit();
                 return
             }
-            console.log(' ayo? 🤔🤔🤔🤔🤔🤔')
+            setError("Community name or description has invalid format.")
+            setDenied(true)
         }
     }
-
-    useEffect(() => {
-        // checkPrevCommunities()
-        console.log("IT is undefined",same==undefined)
-        if(same==undefined) return
-    }, [same])
     
 
     const handleSubmit = (e) => {
@@ -109,12 +101,19 @@ const CreateCommunityPopup = ({onCancel}) => {
         <div className={styles["container"]}>
             <h2>Create Community</h2>
             <div className={styles["form_group"]}>
+            {denied && <div className={styles["error-handle"]}>{error}</div>}
                 <label htmlFor="Community Name">Community Name</label>
-                <input type="text" name="community" placeholder="Community Name" onChange={(e) => setComName(e.target.value)} className={styles["name_textBox"]} required></input>
+                <input type="text" name="community" placeholder="Community Name" onChange={(e) => {
+                    setComName(e.target.value)
+                    if(!denied) return
+                    setDenied(false)}} className={styles["name_textBox"]} required></input>
             </div>
             <div className={styles["form_group"]}>
                 <label htmlFor="Community Description">Description</label>
-                <input type="text" name="communitydescription" placeholder="Description" onChange={(e) => setComDescription(e.target.value)} className={styles["name_textBox"]} required></input>
+                <input type="text" name="communitydescription" placeholder="Description" onChange={(e) => {
+                    setComDescription(e.target.value)
+                    if(!denied) return
+                    setDenied(false)}} className={styles["name_textBox"]} required></input>
             </div>
             <div className={styles["form_group"]}>
                 <label htmlFor="Image">Image</label>
