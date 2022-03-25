@@ -3,60 +3,48 @@ import { useParams, useHistory } from "react-router-dom";
 import {  doc, getDoc, getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import AppBar from '../AppBar/bar';
-import { AppBarButtons } from "./appbar.buttons.copy"
+import { AppBarButtons } from "./appbar.buttons.leave.collab"
 import TextViewer from "./text.viewer"
-import { useUser } from "../context/user";
 import styles from "../VirtualSpace/vspage.module.css"
 
 const CollabView = () => {
-    const { userData } = useUser()
-	const { id: userId } = userData
     const { name: roomName } = useParams()
-    const [collabID, setCollabID] = useState()
     const [collabData, setCollabData] = useState()
+    const [ready, setReady] = useState(false)
     const history = useHistory()
 
-    let nam = roomName.replace('%20',' ')
-    let data = null
-    let id = null
+    let nam = roomName.replace('%20',' ')//for collabs with spaces
 
     useEffect(() => {
-        getData()
-		const q = query(collection(db, "collabs"), where("name", "==", "Magic Potion"));
+		const q = query(collection(db, "collabs"), where("name", "==", roomName));
         getDocs(q).then(querySnapshot => {
-            // let data = null
-            // let id = null
             querySnapshot.forEach(function (doc) {
-                data = doc.data()
-                id = doc.id
-                getData()
-                // hi()
-                // console.log(data.content)
-                // console.log(data)
+                getData(doc.id)
             })
         })
 
-        async function getData(e) {
-            const docSnap = await getDoc(doc(db, "collabs", "c1b21153-653e-493d-814b-efddfa5b8ed3"));
+        async function getData(id) {
+            const docSnap = await getDoc(doc(db, "collabs", id));
             setCollabData(docSnap.data())
-            console.log(collabData)
         }
-        console.log(collabData)
 	}, [roomName])
 
-    const onLeaveRoom = () => { 
+    useEffect(() => {
+        if(collabData!==undefined) {
+            setReady(true)
+        }
+    }, [collabData])
+
+    const onLeaveCollab = () => { 
 		history.push("/app/profile")
 	}
-    function hi() {
-        console.log(collabData)
-    }
 
     return (
         <>
-        <AppBar onClickHandler={onLeaveRoom} buttons={AppBarButtons} title={roomName}/>
+        <AppBar onClickHandler={onLeaveCollab} buttons={AppBarButtons} title={roomName}/>
         <div className={styles["text-editor"]}>
-            <TextViewer reader={true} collabId={id} onClick={hi()} content={collabData?.content} />
-            {console.log(collabData.content)}
+            {console.log("r",ready)}{console.log(collabData)}
+            {ready && <TextViewer reader={true} content={collabData} />}
         </div>
         </>
     )
