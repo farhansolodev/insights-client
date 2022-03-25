@@ -1,30 +1,15 @@
 import { useState } from "react";
 import { db } from "../firebase";
-import { doc, updateDoc, arrayUnion, collection, query, where, getDoc, getDocs } from "firebase/firestore"; 
+import { doc, query, collection, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore"; 
 import styles from '../styles/form.module.css';
 import { useUser } from "../context/user";
 
 
-const Publish = ({ collabId, onSubmit, onCancel, community }) => {
+const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
     const [pfp, setPfp] = useState(require("../assets/default.images").default.collab);
     const [name, setName] = useState('');
     const [error, setError] = useState('');
     const { userData } = useUser();
-
-    // async function findCommunityId() {
-    //     console.log("FOUND THE FUNCTION");
-    //     try {
-    //         const coms = collection(db, "communities");
-    //         const q = query(coms, where("name", "==", community));
-    //         const querySnapshot = await getDocs(q);
-    //         querySnapshot.forEach((doc) => {
-    //             console.log("community" + community + ": " + doc.data())
-    //         });
-            
-    //     } catch(e) {
-    //         console.log("error" + e);
-    //     }
-    // }
 
     const UploadPic = (e) => {
         console.log('button to upload clicked')
@@ -46,6 +31,15 @@ const Publish = ({ collabId, onSubmit, onCancel, community }) => {
         try {
             // eslint-disable-next-line no-throw-literal
             if(name === '') throw "Please enter a name for your collab"
+
+            const q = query(collection(db, "communities"), where("name", "==", commName));
+            const querySnapshot = await getDocs(q)
+            let data = null
+            let id = null
+            querySnapshot.forEach(function (doc) {
+                data = doc.data()
+                id = doc.id
+            })
             
             const communityId = false;//findCommunityId();
 
@@ -59,12 +53,12 @@ const Publish = ({ collabId, onSubmit, onCancel, community }) => {
                 publishedCollabs: arrayUnion(collabId)
             });
 
-            const updateCommunityPostsPromise = updateDoc(doc(db,"communities",communityId), {
+            const updateCommunityCollabsPromise = updateDoc(doc(db, "communities", id), {
                 publishedCollabs: arrayUnion(collabId)
-            });
+            })
 
-            await Promise.all([updateCollabPromise, updateUserCollabsPromise, updateCommunityPostsPromise])
-
+            await Promise.all([updateCollabPromise, updateCommunityCollabsPromise, updateUserCollabsPromise])
+            
             onSubmit(e);
             
         } catch (error) {

@@ -11,6 +11,7 @@ import styles from './app.module.css'
 import { UserProvider } from "./context/user";
 import NavBar from "./NavBar/bar";
 import Profile from "./Profile/page";
+import CollabView from "./Profile/collab.view"
 import Rooms from "./Rooms/page";
 import VirtualSpace from "./VirtualSpace/page";
 import Communities from "./Communities/page";
@@ -65,6 +66,9 @@ export default function App() {
 							</Route>
 							<Route path={`/app/profile`}>
 								<Profile />
+							</Route>
+							<Route path={`/app/collab/:name`}>
+								<CollabView />
 							</Route>
 						</div>
 					</UserProvider>

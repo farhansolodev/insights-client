@@ -1,9 +1,15 @@
 import styles from './collab.catalogue.module.css'
+import { useHistory } from "react-router-dom";
 
 import { MdSupervisorAccount as ContributorsIcon } from "react-icons/md";
 import { HiOutlineDotsVertical as SettingsIcon } from "react-icons/hi";
 
 const CollabCard = (props) => {
+    const history = useHistory()
+
+    const displayCollab = () => {
+        history.push(`/app/collab/${props.title}`)
+    }
     return (
         <div className={styles["card-container"]}>
             <div className={styles["image-container"]}>
@@ -37,7 +43,7 @@ const CollabCard = (props) => {
             </div>
            
             <div className={styles["btn"]}>
-                <div className={styles['card-action']}>
+                <div className={styles['card-action']} onClick={displayCollab}>
                     View Collab
                 </div>
             </div>

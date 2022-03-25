@@ -19,7 +19,7 @@ const TOOLBAR_OPTIONS = [
 	["clean"],
 ]
 
-export default function TextEditor({ onMembersChange, socket, roomId, collabId, onDocumentLoad }) {
+export default function TextEditor({ reader, onMembersChange, socket, roomId, collabId, onDocumentLoad }) {
 	const [quill, setQuill] = useState()
 
 	// console.log(" Text Editor Component rendered!")
@@ -31,7 +31,11 @@ export default function TextEditor({ onMembersChange, socket, roomId, collabId, 
 		socket.once("load-document", ({ content, published }) => {
 		onDocumentLoad(published)
 		quill.setContents(content)
-		quill.enable()
+		if(!reader) {
+			quill.enable()
+		} else {
+			quill.disable()
+		}
 	})
 
 	// socket.emit("get-document", roomId)
