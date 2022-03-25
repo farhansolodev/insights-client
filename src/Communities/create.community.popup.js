@@ -1,5 +1,5 @@
 import { doc, setDoc, updateDoc, arrayUnion, collection, query, where, getDoc, getDocs } from "firebase/firestore";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../context/user";
 import { db } from "../firebase"
@@ -15,6 +15,7 @@ const createCommunity = (parameters) => {
         image: ComImage,
         admin: UId,
         members: [],
+        count: 0,
         publishedCollabs: [],
     })
 
@@ -29,7 +30,7 @@ const createCommunity = (parameters) => {
 
 const CreateCommunityPopup = ({onCancel}) => {
 
-    const [same, setSame] = useState();
+    const [same, setSame] = useState(undefined);
     const [ComName, setComName] = useState('');
     const [ComDescription, setComDescription] = useState('');
     const [ComImage, setComImage] = useState(require("../assets/default.images").default.collab);
@@ -54,22 +55,22 @@ const CreateCommunityPopup = ({onCancel}) => {
     async function checkPrevCommunities() {
         const q = query(collection(db, "communities"), where("name", "==", ComName));
         const querySnapshot = await getDocs(q);
-        console.log(ComName)
-        console.log(querySnapshot)
+        // console.log(ComName)
+        // console.log(querySnapshot)
         if(querySnapshot._snapshot.docChanges.length!=0) {
-            console.log("T THO")
-            setSame(true)
+            // console.log("THOTH")
+            // setSame(true)
+            console.log('bro this shit is the same')
+            
+
         } else{
-            setSame(false)
-            console.log("Usame", same)
-            // return false
+            if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
+                // handleSubmit();
+                console.log('ayooo 🤩')
+                return
+            }
+            console.log(' ayo? 🤔🤔🤔🤔🤔🤔')
         }
-        // const d = collection(db,"communities");
-        // const q = query(d, where("name", "==", ComName));
-        // const querySnapshot = await getDocs(q);
-        // querySnapshot.forEach((doc) => {
-        //     console.log("community" + doc.data())
-        // });
     }
 
     useEffect(() => {
@@ -78,29 +79,6 @@ const CreateCommunityPopup = ({onCancel}) => {
         if(same==undefined) return
     }, [same])
     
-    const handleValidation = async(e) => {
-
-        let isValid = false;
-        console.log("BEGIN", isValid)
-        console.log("same",same)
-        await checkPrevCommunities()
-        // if(same==undefined) return
-
-        if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription) && !same) {
-            isValid = true;
-            console.log("PASS",isValid)
-        }
-        console.log(same)
-        console.log(isValid)
-        
-        if(isValid) {
-            // handleSubmit(e);
-        }
-        else {
-            alert("form has errors");
-        }
-
-    }
 
     const handleSubmit = (e) => {
             try {
@@ -143,7 +121,7 @@ const CreateCommunityPopup = ({onCancel}) => {
                 <input type="file" name="communityImage" accept="image/*" placeholder="Image" onChange={UploadPic} className={styles["name_textBox"]}></input>
             </div>
                 <div className={styles["footer"]}>
-                <button onClick={handleValidation} type="button" className={styles["submit"]}>Create Community</button>
+                <button onClick={checkPrevCommunities} type="button" className={styles["submit"]}>Create Community</button>
                 <button type="button" onClick={onCancel} className={styles["cancel"]}>Cancel</button>
             </div>
         </div>
