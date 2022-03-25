@@ -6,20 +6,7 @@
     overflow-y: scroll;
 }
 
-.section {
-    margin: 3rem;
-}
-
-.sectionTitle {
-    font-family: sans-serif;
-    margin: 0;
-    color: hsl(0, 0%, 45%);
-    padding-bottom: 0.5rem;
-    font-weight: 300;
-    font-size: 1rem;
-}
-
-.sectionCatalogue {
+.catalogue {
     /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(0, 18rem));
     grid-template-rows: repeat(auto-fill, minmax(0,10rem));
@@ -41,18 +28,9 @@
     padding-bottom: 1rem;
 }
 
-.sectionItem {
+.item {
     background-color: blueviolet;
     height: 9rem;
     /* border: 3px solid red; */
     min-width: 15rem;
-}
-
-.heroSection > div > div {
-    height: 12rem;
-    min-width: 20rem;
-}
-
-.heroSection > h2 {
-    font-size: 1.5rem;
 }
