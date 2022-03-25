@@ -1,5 +1,5 @@
 import { doc, setDoc, updateDoc, arrayUnion, collection, query, where, getDoc, getDocs } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../context/user";
 import { db } from "../firebase"
@@ -29,6 +29,7 @@ const createCommunity = (parameters) => {
 
 const CreateCommunityPopup = ({onCancel}) => {
 
+    const [same, setSame] = useState();
     const [ComName, setComName] = useState('');
     const [ComDescription, setComDescription] = useState('');
     const [ComImage, setComImage] = useState(require("../assets/default.images").default.collab);
@@ -51,6 +52,18 @@ const CreateCommunityPopup = ({onCancel}) => {
 
     //To make sure no two communities have the same name
     async function checkPrevCommunities() {
+        const q = query(collection(db, "communities"), where("name", "==", ComName));
+        const querySnapshot = await getDocs(q);
+        console.log(ComName)
+        console.log(querySnapshot)
+        if(querySnapshot._snapshot.docChanges.length!=0) {
+            console.log("T THO")
+            setSame(true)
+        } else{
+            setSame(false)
+            console.log("Usame", same)
+            // return false
+        }
         // const d = collection(db,"communities");
         // const q = query(d, where("name", "==", ComName));
         // const querySnapshot = await getDocs(q);
@@ -58,19 +71,30 @@ const CreateCommunityPopup = ({onCancel}) => {
         //     console.log("community" + doc.data())
         // });
     }
+
+    useEffect(() => {
+        // checkPrevCommunities()
+        console.log("IT is undefined",same==undefined)
+        if(same==undefined) return
+    }, [same])
     
-    const handleValidation = (e) => {
+    const handleValidation = async(e) => {
 
         let isValid = false;
+        console.log("BEGIN", isValid)
+        console.log("same",same)
+        await checkPrevCommunities()
+        // if(same==undefined) return
 
-        //checkPrevCommunities();
-
-        if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
+        if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription) && !same) {
             isValid = true;
+            console.log("PASS",isValid)
         }
+        console.log(same)
+        console.log(isValid)
         
         if(isValid) {
-            handleSubmit(e);
+            // handleSubmit(e);
         }
         else {
             alert("form has errors");
