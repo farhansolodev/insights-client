@@ -12,7 +12,6 @@ import styles from './profile.module.css'
 
 const Profile = () => {
     const [catalogueState, setCatalogueState] = useState(0);
-    const [collabData, setCollabData] = useState([]);
     const { userData } = useUser()
 	// console.log("Profile component - context:",userData)
 
@@ -66,27 +65,10 @@ const Profile = () => {
                         </div>
                     </div>
                     <div>
-                        {/* <div className={pickerStyles["button-container"]}>
-                            {
-                                CataloguePickerButtons.map(({ text, value, icon: Icon }, index) => {
-                                    let style = pickerStyles["collab-comm"]
-                                    if (value === catalogueState) style += " " + pickerStyles["collab-comm-active"]
-                                    return <button key={index} value={value} onClick={e => {
-                                        e.preventDefault()
-                                        const val = e.target.value
-                                        // console.log(val)
-                                        setCatalogueState(val)
-                                    }} className={style}>{text}</button>
-                                })
-                            }
-                        </div> */}
                         <ProfileCataloguePicker active={catalogueState} onPick={setCatalogueState} buttons={CataloguePickerButtons} />
                     </div>
                     {
-                        catalogueState === 0 ?
-                        <CollabCatalogue data={collabData} onDataLoad={setCollabData}/>
-                        : 
-                            <CommunityCatalogue />
+                        catalogueState === 0 ? <CollabCatalogue /> : <CommunityCatalogue />
                     }
             </div>
         </>

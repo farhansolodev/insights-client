@@ -49,35 +49,42 @@
   filter: contrast(0.5);
 }
 
-
 .dropdown {
+  border: solid 2px #ccc;
   position: absolute;
   width: 100%;
-  min-height: 5rem;
+  max-height: 10rem;
   top: 120%;
-  border: solid 3px hsl(0, 0%, 45%);
+  /* border: solid 1px #ccc; */
+  background-color: white;
+  overflow-y: scroll;
+  padding: 0px !important;
+  padding-left: 7px !important;
 }
 
-.section {
-
+.dropdown > div {
+  border-top: solid 1px #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  cursor: pointer;
 }
 
-.sectionTitle {
-    margin: 0;
-    color: hsl(0, 0%, 45%);
-    padding-bottom: 0.5rem;
-    font-weight: 300;
-    font-size: 1rem;
+.dropdown > div:hover {
+  background-color: hsl(0, 0%, 90%);
 }
 
-.communityItem {
-
+.dropdown > div > h3 {
+  font-size: 0.8rem;
 }
 
-.collabItem {
-
+.dropdown > div > p {
+  font-size: 0.6rem;
+  color:hsl(0, 0%, 70%)
 }
 
-.userItem {
-
+.empty {
+  
 }
