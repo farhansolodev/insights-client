@@ -5,22 +5,22 @@ import styles from './search.module.css'
 const data = {
   empty: false,
   collabs: [
-    { cover: "", title: "dookie", owner: "Azumabito" },
-    { cover: "", title: "dookie", owner: "Azumabito" }
+    { name: "ayo??? 🤔🤔🤔🤔", owner: "Azumabito", community: "very bad" },
+    { name: "ayo??? 🤔🤔🤔🤔", owner: "Azumabito", community: "very nice" },
+    { name: "ayo??? 🤔🤔🤔🤔", owner: "Azumabito", community: "very nice" },
+    { name: "ayo??? 🤔🤔🤔🤔", owner: "Azumabito", community: "very nice" }
   ],
   communitities: [
-    { pfp: "", name: "set of real numbers", members: 7, description: "ok bro we get it" },
-    { pfp: "", name: "set of real numbers", members: 7, description: "ok bro we get it"},
-    { pfp: "", name: "set of real numbers", members: 7, description: "ok bro we get it" }
+    { name: "hello darkness my old friend", members: 7},
+    { name: "i've come to sit with you again", members: 7},
+    { name: "i dont remember the rest", members: 7},
+    { name: "i dont remember the rest again", members: 7}
   ],
-  users: [
-    { pfp: "", name: "Azumabito", description: "i am so cool wow"}
-  ]
 }
 
 const Search = () => {
-  const [status, setStatus] = useState({ searching: false, searched: false });
-  const { searching, searched } = status
+  const [{ searching, searched }, setStatus] = useState({ searching: false, searched: false });
+  // const { searching, searched } = status
 
   const wrapperRef = useClickAway(function (ref) {
     setStatus(x => ({...x, searched: false}))
@@ -37,6 +37,7 @@ const Search = () => {
     e.preventDefault()
     setStatus(x => ({...x, searched: false, searching: true}))
 
+    // replace this with actual searching firebase
     setTimeout(() => {
       setStatus(x => ({...x, searched: true, searching: false}))
     }, 1000);
@@ -44,14 +45,15 @@ const Search = () => {
 
   return (
     <div ref={wrapperRef} className={styles.container}>
-      <input onFocus={inputFocusHandler} onKeyPress={(e) => (e.key === 'Enter' && !searching) && handleSearch(e)} type="text" placeholder="Find Collabs, Communities & Users..." />
+      <input onFocus={inputFocusHandler} onKeyPress={(e) => (e.key === 'Enter' && !searching) && handleSearch(e)} type="text" placeholder="Find Collabs & Communities..." />
       <button onClick={!searching ? handleSearch : undefined} className={`${styles.submit} ${searching && styles.searching}`}>{!searching && "Search"}</button>
         {searched && <div className={styles.dropdown}>
-          {data.empty ? <p className={styles.empty}>No results found</p> : <>
-            {data.communitities.length !== 0 && <div>Communities</div>}
-            {data.collabs.length !== 0 && <div>Collabs</div>}
-            {data.users.length !== 0 && <div>Users</div>}
-          </>}
+          {data.empty ? <p className={styles.empty}>No results found</p> : 
+            <>
+              {data.collabs.length !== 0 && data.collabs.map((collab, i) => <div key={i}><h3>{collab.name}</h3> <p>Collab</p></div>)}
+              {data.communitities.length !== 0 && data.communitities.map((community, i) => <div key={i}><h3>{community.name}</h3> <p>Community</p></div>)}
+            </>
+          }
         </div>}
     </div>
   )
