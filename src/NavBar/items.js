@@ -11,12 +11,12 @@ export const NavBarItems = [
     cName: "side-links-hamburger",
     fontClass: Hamburger,
   },
-  {
-    title: "Home",
-    url: '#',
-    cName: "side-links-home",
-    fontClass: Home,
-  },
+  // {
+  //   title: "Home",
+  //   url: '#',
+  //   cName: "side-links-home",
+  //   fontClass: Home,
+  // },
   {
     title: "Communities",
     url: '/communities',

@@ -20,11 +20,11 @@ const Profile = () => {
         e.preventDefault()
         signOut(auth)
     }
-
+    
     return ( 
         <>
             <AppBar onClickHandler={onLogOut} buttons={AppBarButtons} title="Profile"/>
-            <div >
+            <div style={{overflowY: "scroll"}}>
                     {/** Entire top section above the buttons for the catalogue*/}
                     <div style={{
                         display: "flex",
