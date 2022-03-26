@@ -8,27 +8,27 @@ import ProfileCataloguePicker from './catalogue.picker';
 import { useUser } from '../context/user'
 import { AppBarButtons } from './appbar.buttons'
 import { CataloguePickerButtons } from "./catalogue.picker.buttons";
+import styles from './profile.module.css'
 
 const Profile = () => {
     const [catalogueState, setCatalogueState] = useState(0);
-    const [collabData, setCollabData] = useState([]);
     const { userData } = useUser()
-	console.log("Profile component - context:",userData)
+	// console.log("Profile component - context:",userData)
 
     const onLogOut = (e) => { 
         e.preventDefault()
         signOut(auth)
     }
-
+    
     return ( 
         <>
-            <AppBar onClickHandler={onLogOut} buttons={AppBarButtons}/>
-            <div >
+            <AppBar onClickHandler={onLogOut} buttons={AppBarButtons} title="Profile"/>
+            <div style={{overflowY: "scroll"}}>
                     {/** Entire top section above the buttons for the catalogue*/}
                     <div style={{
                         display: "flex",
                         justifyContent: "center",
-                        borderBottom: "3px solid black",
+                        borderBottom: "1px solid #ccc",
                         padding: "2%",
                         gap: "4rem"
                     }}>
@@ -53,9 +53,7 @@ const Profile = () => {
                             {/** Just the username */}
                             <h2>{userData.data ? userData.data.username : "Loading username..."}</h2>
                             {/** Rest of the info about the profile */}
-                            <div style={{
-                                width: "100%",
-                            }}>
+                            <div className={styles.stats}>
                             { userData.data ?
                                 <>
                                     <h4>{userData.data.publishedCollabs.length} Collabs published</h4>
@@ -63,30 +61,14 @@ const Profile = () => {
                                 </> : <h4>Loading stats...</h4>
                             }
                             </div>
+                            <div className={styles.description}>{"yea im pretty cool"}</div>
                         </div>
                     </div>
                     <div>
-                        {/* <div className={pickerStyles["button-container"]}>
-                            {
-                                CataloguePickerButtons.map(({ text, value, icon: Icon }, index) => {
-                                    let style = pickerStyles["collab-comm"]
-                                    if (value === catalogueState) style += " " + pickerStyles["collab-comm-active"]
-                                    return <button key={index} value={value} onClick={e => {
-                                        e.preventDefault()
-                                        const val = e.target.value
-                                        console.log(val)
-                                        setCatalogueState(val)
-                                    }} className={style}>{text}</button>
-                                })
-                            }
-                        </div> */}
                         <ProfileCataloguePicker active={catalogueState} onPick={setCatalogueState} buttons={CataloguePickerButtons} />
                     </div>
                     {
-                        catalogueState === 0 ?
-                        <CollabCatalogue data={collabData} onDataLoad={setCollabData}/>
-                        : 
-                            <CommunityCatalogue />
+                        catalogueState === 0 ? <CollabCatalogue /> : <CommunityCatalogue />
                     }
             </div>
         </>

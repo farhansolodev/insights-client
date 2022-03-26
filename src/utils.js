@@ -16,6 +16,121 @@ export function useTraceUpdate(state) {
   });
 }
 
+export function abbrNum(number, decPlaces) {
+  // 2 decimal places => 100, 3 => 1000, etc
+  decPlaces = Math.pow(10,decPlaces);
+
+  // Enumerate number abbreviations
+  var abbrev = [ "k", "m", "b", "t" ];
+
+  // Go through the array backwards, so we do the largest first
+  for (var i=abbrev.length-1; i>=0; i--) {
+
+      // Convert array index to "1000", "1000000", etc
+      var size = Math.pow(10,(i+1)*3);
+
+      // If the number is bigger or equal do the abbreviation
+      if(size <= number) {
+           // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+           // This gives us nice rounding to a particular decimal place.
+           number = Math.round(number*decPlaces/size)/decPlaces;
+
+           // Handle special case where we round up to the next abbreviation
+           if((number == 1000) && (i < abbrev.length - 1)) {
+               number = 1;
+               i++;
+           }
+
+           // Add the letter for the abbreviation
+           number += abbrev[i];
+
+           // We are done... stop
+           break;
+      }
+  }
+
+  return number;
+}
+
+export function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    const later = function() {
+      timeout = null;
+      func.apply(context, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+export const useDOMChange = (targetNode, callback, config) => {
+  config = {...config,
+    // attributes: true, 
+    childList: true, 
+    // characterData: true,
+    // characterDataOldValue: true,
+    subtree: true
+  }
+  useEffect(() => {
+    if (!targetNode) return
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+    // console.log('New Mutation Observer registered on: ', targetNode)
+    return () => {
+      observer.disconnect()
+      // console.log('Mutation Observer for: ', targetNode, ' cleared')
+    };
+  }, [targetNode]);
+}
+
+export const detectElementOverflow = (element, container) => {
+  const getRect = (element) => element.getBoundingClientRect();
+  return {
+    get collidedTop() {
+      return getRect(element).top < getRect(container).top;
+    },
+    get collidedBottom() {
+      return getRect(element).bottom > getRect(container).bottom;
+    },
+    get collidedLeft() {
+      return getRect(element).left < getRect(container).left;
+    },
+    get collidedRight() {
+      return getRect(element).right > getRect(container).right;
+    },
+    get overflowTop() {
+      return getRect(container).top - getRect(element).top;
+    },
+    get overflowBottom() {
+      return getRect(element).bottom - getRect(container).bottom;
+    },
+    get overflowLeft() {
+      return getRect(container).left - getRect(element).left;
+    },
+    get overflowRight() {
+      return getRect(element).right - getRect(container).right;
+    },
+  }
+};
+
+export const useClickAway = (cb) => {
+  const ref = useRef(null)
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!ref.current || ref.current.contains(event.target)) return
+      cb(ref)
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [cb])
+  return ref
+}
 
 export function onError(e, cb) {
     switch (e.code) {

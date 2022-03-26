@@ -1,0 +1,13 @@
+.stats {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    color: hsl(0, 0%, 60%);
+    margin-block: 1rem;
+}
+
+.description {
+    width: 150%;
+    /* border: solid 1px black; */
+    position: relative;
+}

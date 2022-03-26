@@ -1,16 +1,20 @@
 .app {
-    margin: 0px;
+    margin: 0;
     display: grid;
     width: 100%;
     height: 100%;
+    /* grid-template-columns: 1fr calc(100vw - 66px); */
     grid-template-columns: 66px 1fr;
 }
 
 .page {
-    margin: 0px;
+    margin: 0;
     display: grid;
     width: 100%;
-    grid-template-rows: 72px 1fr;
+    --appbar-height: 72px;
+    --page-height: calc(100% - var(--appbar-height));
+    grid-template-rows: var(--appbar-height) var(--page-height);
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
+    height: 100%;
 }

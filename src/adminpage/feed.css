@@ -1,0 +1,28 @@
+.feeddiv{
+  height: 100vh;
+  display: flex;
+  /* border: 4px green solid; */
+  align-items: center;
+  justify-content: center;
+}
+
+
+.center-aligned{
+  width: 800px;
+  height: 500px;
+  background: white;
+  border: 2px lightgray solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow-y: scroll;
+  
+}
+
+.allcards{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+ 
+}

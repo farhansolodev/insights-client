@@ -1,0 +1,236 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.admin_container{
+  display: flex;
+  align-items: flex-start;
+  /* border: 4px black solid; */
+  height: 25cm;
+}
+.main{
+  display: block;
+  align-items: flex-start;
+  /* border: 4px red solid; */
+  width: 100%;
+  height: 24.8cm;
+}
+.left_column{
+  /* border: 4px yellow solid; */
+  border-right: 2px rgb(230, 220, 222) solid;
+  align-self: stretch;
+  width: 8%;
+  word-wrap: break-word;
+  float: left;
+}
+.topcenter{
+  /* border: 4px yellow solid; */
+  display:flex;
+  justify-content: flex-end;
+  /* gap: 10px; */
+  position: sticky;
+  border-bottom: 2px rgb(230, 220, 222) solid;
+  word-wrap: break-word;
+  width: 100%;
+  height: 9%;
+}
+.button-topright{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+    /* border-top: 2px solid crimson; */
+    /* padding-top: 20px; */
+    /* padding-bottom: 10px; */
+    margin-inline: 30px;
+}
+.top_right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: 550;
+    cursor: pointer;
+    transition: .25s;
+    border-radius: 7.5px;
+    background-color: rgb(230, 220, 222);
+    border:none;
+}
+.top_right:hover{
+  color:white;
+  background-color: crimson;
+  transition: 0.20s;
+}
+.small_box{
+  padding: 3px;
+  
+  /* background-color: blue; */
+  width: 15%; 
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+}
+.box_cont{
+  display: flex;
+  align-items: center;
+  padding-top: 30px;
+  justify-content: space-around;
+}
+
+.search{
+  padding: 3px;
+  /* border: 4px black solid; */
+  /* background-color: blue; */
+  width: 40%; 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+}
+.search_bar{
+  width: 100%;
+  
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  border: 2px  rgb(199, 187, 190) solid;
+  height: 43px;
+  width: 600px;
+}
+.search_button{
+  padding: 10px;
+  padding-left: 30px;
+  padding-inline: 20px;
+  
+
+  font-size: 20px;
+  color: white;
+
+  text-transform: capitalize;
+  font-weight: 250;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(233, 57, 92);
+  border: none;
+}
+.search_button:hover{
+  color:white;
+  background-color: crimson;
+  transition: 0.40s;
+}
+
+/* .search_button:focus{
+  color:white;
+  background-color: crimson;
+  transition: 0.20s;
+} */
+.search_bar:hover{
+  border: 3px crimson solid;
+}
+.search_bar:focus{
+  outline: none;
+  border: 3px crimson solid;
+}
+.searchbar{
+  /* border: 4px yellow solid; */
+  padding-top: 40px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.mahekspart{
+  padding:50px;
+}
+.mahek{
+  border: 4px rgb(223, 218, 217) solid;
+  height: 15cm;
+  padding-top: 40px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.right_button{
+  border: 4px violet solid;
+  /* padding: 10px; */
+  height: 100%;
+  float: right;
+}
+.admin_buttons{
+  /* border: 4px violet solid;
+  padding: 20px;
+  float: right; */
+ 
+  padding: 10px;
+  padding-left: 30px;
+  padding-inline: 20px;
+  border-radius: 10px;
+
+  font-size: 20px;
+  color: white;
+
+  text-transform: capitalize;
+  font-weight: 250;
+  text-align: center;
+  cursor: pointer;
+  background-color: crimson;
+  /* background-color: rgb(230, 220, 222); */
+
+  border: none;
+  display: flex;
+  /* gap: 10px; */
+  width: 200px;
+}
+.admin_button_text{
+  width: 200px;
+}
+.admin_buttons:hover{
+  
+  /* transition: 0.40s; */
+  box-shadow: 1px 1px 1px 1px rgba(121, 119, 119, 0.685);
+}
+.admin_buttons:focus{
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  transition: 0.40s;
+  background-color: crimson;
+  color: white;
+}

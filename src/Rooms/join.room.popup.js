@@ -2,23 +2,32 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, where, getDocs, updateDoc, doc, arrayUnion } from "firebase/firestore"; 
-import styles from '../styles/form.module.css';
+import { useClickAway } from "../utils"
 import { useUser } from '../context/user'
+import styles from '../styles/form.module.css';
 
 export const JoinRoomPopup = ({ onCancel }) => {
-    const [writeId, setWriteId] = useState('');
+    const [joinId, setJoinId] = useState('');
     const [denied, setDenied] = useState(false);
     const { userData, setUserData } = useUser();
     const history = useHistory();
 
+    const wrapperRef = useClickAway(onCancel)
+
     async function handleSubmit(e){
         e.preventDefault()
         try {
-            const q = query(collection(db, "virtual-spaces"), where("writeId", "==", writeId));
-            const querySnapshot = await getDocs(q)
+            const w = query(collection(db, "virtual-spaces"), where("writeId", "==", joinId));
+            const r = query(collection(db, "virtual-spaces"), where("readId", "==", joinId));
+            const wQuerySnapshot = await getDocs(w)
+            const rQuerySnapshot = await getDocs(r)
             let data = null
             let id = null
-            querySnapshot.forEach(function (doc) {
+            wQuerySnapshot.forEach(function (doc) {
+                data = doc.data()
+                id = doc.id
+            })
+            rQuerySnapshot.forEach(function (doc) {
                 data = doc.data()
                 id = doc.id
             })
@@ -29,6 +38,16 @@ export const JoinRoomPopup = ({ onCancel }) => {
                 previousRooms: arrayUnion(id),
                 previousCollabs: arrayUnion(data.collabId)
             })
+
+            if(data.writeId == joinId) {
+                updateDoc(doc(db, "virtual-spaces", id), {
+                    editors: arrayUnion(userData.id),
+                })
+            } else {
+                updateDoc(doc(db, "virtual-spaces", id), {
+                    readers: arrayUnion(userData.id),
+                })
+            }
 
             setUserData((prev) => { 
                 return {
@@ -51,13 +70,13 @@ export const JoinRoomPopup = ({ onCancel }) => {
     }
 
     return (
-        <div className={styles["container"]}>
+        <div ref={wrapperRef} className={styles["container"]}>
             <h1>Join Room</h1>
             <div className={styles["form_group"]}>
                 {denied && <div className={styles["error-handle"]}>Room code invalid</div>}
                 <label htmlFor="roomname">Enter a room code</label>
-                    <input type="text" name="roomname" placeholder="Room Name" value={writeId} onChange={(e) => {
-                        setWriteId(e.target.value)
+                    <input type="text" name="roomname" placeholder="Room Name" value={joinId} onChange={(e) => {
+                        setJoinId(e.target.value)
                         if(!denied) return
                         setDenied(false)
                     

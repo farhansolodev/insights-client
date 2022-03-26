@@ -16,15 +16,20 @@
     box-shadow: 0px 5px 4px 5000px rgba(42, 42, 42, 0.329);
 }
 
+.container h1, .container h2 {
+    margin-bottom: 1rem;
+}
+
 .form_group{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: fit-content;
+    max-width: 288px;
+    overflow: hidden;
 }
 
-input {
-    margin-top: 6px;
+.form_group input {
+    margin-top: 5px;
     min-width: 18em;
     height: 37px;
     padding: 0px 10px;
@@ -32,7 +37,7 @@ input {
     background-color: #f3f3f3;
     border: 0;
     border-radius: 3px;
-    margin-bottom: 31px;
+    /* margin-bottom: 31px; */
     outline: none;
     box-shadow: 0px 2.5px 4px 0.2px crimson;
 }
@@ -40,10 +45,12 @@ input {
 .footer {
     display: flex;
     justify-content: space-between;
+    margin-top: 31px;
     /* justify-content: center; */
     /* gap: 90%; */
     /* padding: 1rem; */
     width: 100%;
+    margin-top: 2rem;
     /* border: 1px solid black; */
 }
 
@@ -81,4 +88,75 @@ input {
 .error-handle {
     color: red;
     font-size: smaller;
+}
+
+select {
+    margin-top: 6px;
+    min-width: 18em;
+    height: 37px;
+    padding: 0px 10px;
+    font-size: 16px;
+    background-color: #f3f3f3;
+    border: 0;
+    border-radius: 3px;
+    margin-bottom: 31px;
+    outline: none;
+    box-shadow: 0px 2.5px 4px 0.2px crimson;
+}
+
+option :hover {
+    color: #FFFFFF;
+    background-color: crimson;
+}
+.dropbtn {
+    text-align: left;
+	margin-top: 6px;
+    min-width: 18em;
+    height: 37px;
+    padding: 0px 10px;
+    font-size: 16px;
+    background-color: #f3f3f3;
+    color: grey;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+    box-shadow: 0px 2.5px 4px 0.2px crimson;
+  	cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  margin-bottom: 31px;
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content option {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content option:hover {
+border-radius: 5px;
+color: white;
+background-color: crimson}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.choice-selected {
+    display: none;
 }

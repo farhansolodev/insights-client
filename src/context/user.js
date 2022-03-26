@@ -4,19 +4,7 @@ import {
   // collection,
   // getDocs, query, where,
   getDoc, doc
-} from "firebase/firestore"; 
-// import { parseQuery } from './utils'
-// import Data from "./sample.user.data";
-
-// async function getDataByUsername(username) {
-//   const q = query(collection(db, "users"), where("username", "==", username));
-//   const querySnapshot = await getDocs(q)
-//   let data = null
-//   querySnapshot.forEach(function (doc) {
-//     data = {...doc.data(), id: doc.id}
-//   })
-//   return data
-// }
+} from "firebase/firestore";
 
 async function getUserDataById(id) {
   const snap = await getDoc(doc(db, "users", id))
@@ -28,14 +16,14 @@ const UserContext = React.createContext()
 export const UserProvider = ({ id, children }) => {
   const [userData, setUserData] = useState({ id })
 
-  console.log('context outside effect: ', userData)
+  // console.log('context outside effect: ', userData)
   useEffect(() => {
-    console.log('context getting data')
+    // console.log('context getting data')
     const dataPromise = getUserDataById(userData.id)
     dataPromise.then(data => {
       setUserData((prev) => {
         const newData = { ...prev, data }
-        console.log('context got data: ', newData)
+        // console.log('context got data: ', newData)
         return newData
       })
     })

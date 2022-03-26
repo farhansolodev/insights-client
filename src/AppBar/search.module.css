@@ -1,0 +1,90 @@
+.container {
+    /* position: relative; */
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 50%;
+    /* margin-right: auto; */
+    /* justify-self: center; */
+    /* width: 20rem; */
+    /* min-width: 20rem; */
+    width: 20rem;
+    --search-accent-color: hsl(271, 76%, 53%);
+    border: solid 1px hsl(0, 0%, 70%);
+    border-right: none;
+    /* border-radius: 1rem; */
+    /* border: solid 2px black; */
+}
+
+.container * {
+  font-family: 'Fredoka', sans-serif;
+}
+
+.container > input {
+    border: none;
+    background-color: transparent;
+    color: hsl(0, 0%, 45%);
+    font-size: 0.8rem;
+    outline: none;
+    height: 100%;
+    padding-inline: 0.5rem;
+    flex: 1;
+}
+
+.container > button.submit {
+  height: 100%;
+  cursor: pointer;
+  background-color: var(--search-accent-color);
+  color: white;
+  width: 4rem;
+}
+
+.searching {
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: contrast(0.5);
+}
+
+.dropdown {
+  border: solid 2px #ccc;
+  position: absolute;
+  width: 100%;
+  max-height: 10rem;
+  top: 120%;
+  /* border: solid 1px #ccc; */
+  background-color: white;
+  overflow-y: scroll;
+  padding: 0px !important;
+  padding-left: 7px !important;
+}
+
+.dropdown > div {
+  border-top: solid 1px #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dropdown > div:hover {
+  background-color: hsl(0, 0%, 90%);
+}
+
+.dropdown > div > h3 {
+  font-size: 0.8rem;
+}
+
+.dropdown > div > p {
+  font-size: 0.6rem;
+  color:hsl(0, 0%, 70%)
+}
+
+.empty {
+  
+}

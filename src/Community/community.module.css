@@ -1,0 +1,43 @@
+.community-container{
+    display: grid;
+    grid-template-areas: 
+        "image image"
+        "posts about" ;
+    height: 100%;
+    grid-template-rows: 17%;
+    grid-template-columns: 75%;
+}
+
+.community-container > .image{
+    grid-area: image;
+}
+
+.image {
+    background-image: url('../assets/frog.jpg');
+    background-position: center;
+    object-fit: cover;
+    box-shadow: inset 0 -1rem 10px -5px var(--background-color);
+    /* -moz-box-shadow: inset 0 0 8px rgba(0,0,0,.6); */
+    /* -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,.6); */
+}
+
+.community-container > .posts-container {
+    grid-area: posts;
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.community-container > .about-container {
+    grid-area: about;
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-box {
+    border: 3px solid;
+    border-radius: 15%;
+}

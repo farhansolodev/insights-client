@@ -1,5 +1,6 @@
 // import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
+import { useClickAway } from '../utils'
 // import { db } from "../Firebase/firebase";
 // import { getDoc, doc } from "firebase/firestore"; 
 import styles from '../styles/form.module.css';
@@ -17,14 +18,12 @@ const ShareRoomPopup = ({ id, onCopy, onCancel }) => {
         setCopied(true)
     }
 
-    const onClickHandlerView = (e) => {
-        navigator.clipboard.writeText(e.target.value)
-        // !!onCopy && onCopy(e)
-        setCopiedView(true)
-    }
+    const wrapperRef = useClickAway(() => {
+        onCancel({ target: { name: "share-code"}})
+    })
     
     return (
-        <div className={styles["container"]}>
+        <div ref={wrapperRef} className={styles["container"]}>
             <h2>Join Code</h2>
             <div className={styles["form_group"]}>
 

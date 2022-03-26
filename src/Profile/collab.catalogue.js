@@ -3,45 +3,57 @@ import CollabCard from "./collab.card"
 import styles from './collab.catalogue.module.css'
 import { useUser } from '../context/user'
 import { db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore"; 
+import { collection, getDocs, getDoc, query, doc, where } from "firebase/firestore"; 
 
-// ==== PUBLISH COLLAB ====
-// When publishing a collab, it's 'published' field is set to true
-// and it's name and displayPic are updated.
-
-const CollabCatalogue = ({ data, onDataLoad }) => {
-    // const [collabs, setCollabs] = useState([]);
+const CollabCatalogue = () => {
+    const [collabData, setCollabData] = useState([]);
+    const [searching, setSearching] = useState(true);
     const { userData } = useUser();
-
-    console.log("Collab Catalogue component - context: ", userData)
-    console.log("Collab Catalogue component - collab data: ", data)
-
+    
     useEffect(() => {
-        if(data.length !== 0) return
-        console.log("getting data")
+        if(!userData.data) return
+        if(collabData.length !== 0) return
+        console.log(userData.data)
         // for every collab id, get the collab data from the collab collection
-        const q = query(collection(db, "collabs"), where("published", "==", true), where("owners", "array-contains", userData.id))
+        const q = query(collection(db, "collabs"), where("published", "==", true))
         getDocs(q).then((snapshot) => {
-            // let collabs = []
-            // for (const doc of snapshot) {
-            //     collabs.push(doc.data())
-            // }
-            // onDataLoad(collabs)
-            snapshot.forEach((doc) => {
-                onDataLoad(prev => [...prev, doc.data()])
+            snapshot.forEach(async (document) => {
+                let collab = document.data()
+                if (collab.owners.includes(userData.id)) {
+                    collab.ownerpic = userData.data.pfp
+                } else {
+                    const vs_snap = await getDoc(doc(db, "virtual-spaces", collab.virtualSpaceId))
+                    const vs = vs_snap.data()
+                    if (!vs)
+                    { 
+                        setSearching(false)
+                        return
+                    }
+                    if (!vs && !vs.editors)
+                    { 
+                        setSearching(false)
+                        return
+                    }
+                    if (!vs.editors.includes(userData.id)) 
+                    { 
+                        setSearching(false)
+                        return
+                    }
+                    const snap = await getDoc(doc(db, "users", vs.owners[0]))
+                    collab.ownerpic = snap.data().pfp
+                }
+                setCollabData(prev => [...prev, collab])
+                setSearching(false)
             });
         })
-    },[data, onDataLoad, userData.id])
+    },[collabData, userData ])
 
     return ( 
         <div className={styles["all-collabs"]}>
             {
-                // collabs.map((collab, index) => {
-                //     console.log("collab: ", collab);
-                //     return <p key={index}>{JSON.stringify(collab)}</p>
-                // })
-                data.map(({ displayPic, name, communityPosted }, index) => {
-                    const ownerpic = require("../assets/default.images").default.user
+                collabData.length == 0 ? (searching ? <h1>Loading...</h1> : <h1>No collabs here</h1>) :
+                collabData.map(({ displayPic, name, ownerpic, communityPosted }, index) => {
+                    // const ownerpic = require("../assets/default.images").default.user
                     return <CollabCard
                         key={index}
                         img={displayPic}
