@@ -60,9 +60,7 @@ const CreateCommunityPopup = ({onCancel}) => {
         if(querySnapshot._snapshot.docChanges.length!=0) {
             // console.log("THOTH")
             // setSame(true)
-            console.log('bro this shit is the same')
-            
-
+            alert("Community with this name already exists");
         } else{
             if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
                 // handleSubmit();
