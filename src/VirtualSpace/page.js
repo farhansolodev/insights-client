@@ -167,7 +167,7 @@ const VirtualSpace = () => {
     return (
 		<>
 			{publishFormVisible && <Publish onSubmit={(e) => { hideForm(e); setPublished(true) }} commName={roomData.communityName} collabId={roomData.collabId} onCancel={hideForm}/>}
-			{shareFormVisible && <ShareCode onCopy={hideForm} id={roomData.writeId} onCancel={hideForm}/>}
+			{shareFormVisible && <ShareCode onCopy={hideForm} writeID={roomData.writeId} readID={roomData.readId} onCancel={hideForm}/>}
 			<AppBar onClickHandler={onLeaveRoom} buttons={AppBarButtons} title={roomData.name ? roomData.name : "Loading name..."}/>
 			<div className={styles["parent"]}>
 				<div className={styles["text-editor"]}>
