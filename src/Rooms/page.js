@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react"
-import { useHistory } from "react-router-dom";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { useHistory } from "react-router-dom"
+import { db } from "../firebase"
+import { doc, getDoc } from "firebase/firestore"
 import { useUser } from '../context/user'
 import AppBar from '../AppBar/bar'
-import CreateRoomPopup from "./create.room.popup";
-import JoinRoomPopup from "./join.room.popup";
-import { AppBarButtons } from "./appbar.buttons";
+import CreateRoomPopup from "./create.room.popup"
+import JoinRoomPopup from "./join.room.popup"
+import { AppBarButtons } from "./appbar.buttons"
 import styles from './rooms.module.css'
 import roomCovers from '../assets/room.covers'
+import Section from '../styles/Section'
+
 
 export default function Rooms() {
-	const [appBarStatus, setAppBarStatus] = useState(null);
+	const [appBarStatus, setAppBarStatus] = useState(null)
 	const { userData } = useUser()
-	const [roomData, setRoomData] = useState({});
+	const [roomData, setRoomData] = useState({})
 	const history = useHistory()
 	// // console.log("Rooms component - context: ", userData)
 
@@ -29,7 +31,7 @@ export default function Rooms() {
 				})
 			})
 		})
-	}, [userData.data?.previousRooms]);
+	}, [userData.data?.previousRooms])
 
 	function onStatusChange(e) {
 		e.preventDefault()
@@ -51,35 +53,37 @@ export default function Rooms() {
 
 	return (
 		<>
-			<AppBar onClickHandler={onStatusChange} buttons={AppBarButtons} title="Rooms"/>
+			<AppBar onClickHandler={onStatusChange} buttons={AppBarButtons} title="Your rooms"/>
 			{
 				appBarStatus === "create-new-room" ? <CreateRoomPopup onCancel={hideForm} /> : (
 					appBarStatus === "join-new-room" && <JoinRoomPopup onCancel={hideForm} />
 				)
 			}
-			<div className={styles["rooms-container"]}>
-				{
-					userData.data?.previousRooms.map((roomId, index) => {
-						if (!roomData[roomId]) return <div key={index}><p>Loading...</p></div>
-						const randomRoom = roomCovers[Math.floor(Math.random() * roomCovers.length)]
-						const roomSize = roomData[roomId]?.editors.length + roomData[roomId]?.editors.length //WHY IS ROOM SIZE THE NUMBER OF OWNERS, SHUD BE NUMBER OF PARTICIPANTS
-						const subheading = `${roomSize} member` + ( roomSize > 1 ? "s" : "")
-						// // console.log(roomData[roomId], roomSize, subheading)
-						return (
-							<div className={styles['rooms-item-container']} key={index} >
-								<div className={styles['image']}><img alt="Room cover" src={randomRoom}></img></div>
-								<div className={styles['title']}>
-									{/* <h2>{roomData[roomId] ? `${roomData[roomId].owners[0]}'s Room` : "Loading..."}</h2> */}
-									<p className={styles['card-header']} >Room</p>
-									<p className={styles['card-title']} >{roomData[roomId].name}</p>
-									<p className={styles['card-subheader']} >{subheading}</p>
-								</div>
-								<div className={styles['button']}><button value={roomId} onClick={handleJoinOldRoom} className={styles['card-action']} >Join Room</button></div>
-							</div>
-						)
-					})
-				}
-			</div>
+			{/* <Section title="Rooms you're in"> */}
+				<div className={styles["rooms-container"]}>
+						{
+							userData.data?.previousRooms.map((roomId, index) => {
+								if (!roomData[roomId]) return <div key={index}><p>Loading...</p></div>
+								const randomRoom = roomCovers[Math.floor(Math.random() * roomCovers.length)]
+								const roomSize = roomData[roomId]?.owners.length + roomData[roomId]?.editors.length //WHY IS ROOM SIZE THE NUMBER OF OWNERS, SHUD BE NUMBER OF PARTICIPANTS
+								const subheading = `${roomSize} member` + ( roomSize > 1 ? "s" : "")
+								// // console.log(roomData[roomId], roomSize, subheading)
+								return (
+									<div className={styles['rooms-item-container']} key={index} >
+										<div className={styles['image']}><img alt="Room cover" src={randomRoom}></img></div>
+										<div className={styles['title']}>
+											{/* <h2>{roomData[roomId] ? `${roomData[roomId].owners[0]}'s Room` : "Loading..."}</h2> */}
+											<p className={styles['card-header']} >Room</p>
+											<p className={styles['card-title']} >{roomData[roomId].name}</p>
+											<p className={styles['card-subheader']} >{subheading}</p>
+										</div>
+										<div className={styles['button']}><button value={roomId} onClick={handleJoinOldRoom} className={styles['card-action']} >Join Room</button></div>
+									</div>
+								)
+							})
+						}
+				</div>
+			{/* </Section> */}
 		</>
 	)
 }
