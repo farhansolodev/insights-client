@@ -1,0 +1,102 @@
+.green-card{
+    height: 70px;
+    width: 600px;
+    border: 2px green solid;
+    display: flex;
+    border-radius: 10px;
+    /* margin-bottom: 5px; */
+   
+}
+
+.pic1{
+        /* margin-top: 5px;
+    margin-left: 5px; */
+    position: relative;
+    top: 5px;
+    left: 5px;
+    height: 50px;
+    width: 100px;
+    border: 2px solid black;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 20px; */
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    gap: 0.5rem;
+}
+
+.middle1 {
+    /* margin-top: 20px; */
+    height: 20px;
+    width: 100px;
+    border: 2px solid black;
+    position: relative;
+    top: 5px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.middle2 {
+    /* margin-top: 20px; */
+    height: 20px;
+    width: 80px;
+    border: 2px solid grey ;
+    position: relative;
+    top: 5px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-part{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    gap: 0.5rem;
+}
+
+.side1{
+    height: 20px;
+    width: 60px;
+    border: 2px lightskyblue solid;
+    background-color: lightskyblue;
+    position: relative;
+    top: 2px;
+    right: -300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.side2{
+    height: 20px;
+    width: 60px;
+    border: 2px red solid;
+    background-color: red;
+    position: relative;
+    top: 2px;
+    right: -300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.owner{
+    border:none;
+    background: none;
+
+}
+
+.collab{
+    border:none;
+    background: none;
+}
