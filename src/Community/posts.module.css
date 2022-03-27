@@ -1,7 +1,7 @@
 .collab-container {
     /* height: 35vh; */
     margin-bottom: 6vh;
-    min-height: 20vh;
+    min-height: 25vh;
     max-height: 40vh;
     width: 50vw;
     /* border: 2px solid black; */
@@ -9,6 +9,14 @@
     border-radius: 6px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.collab-container:hover {
+    box-shadow: 0px 0px 17.5px -7.5px;
+    transform: scale(1.06);
 }
 
 .heading {
@@ -20,6 +28,7 @@
 .collab-content {
     margin-top: 1em;
     padding: 0 1em;
+    min-height: 2vh;
     max-height: 30vh;
     font-size: 0.85em;
     display: -webkit-box;
@@ -32,6 +41,8 @@
     padding: 1em 1em;
     padding-bottom: 1em;
     display: flex;
+    min-height: fit-content;
+    position: sticky;
 }
 
 .like-button {

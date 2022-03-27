@@ -5,7 +5,7 @@ import { AiOutlineLike as Like, AiFillLike as Liked} from "react-icons/ai";
 const Posts = () => {
 
     const [like, setLike] = useState(false);
-    const [numberOfLikes, setNumberOfLikes] = useState(0);
+    const [numberOfLikes, setNumberOfLikes] = useState(32);
 
     function handleLike(e) {
         setLike(!like);

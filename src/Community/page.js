@@ -13,6 +13,7 @@ const Commmunity = () => {
     
     const [appBarStatus, setAppBarStatus] = useState('');
     const [isMember, setIsMember] = useState(false);
+    const [members, setMember] = useState(2200);
     const history = useHistory();
     //const location = useLocation();
 
@@ -37,8 +38,6 @@ const Commmunity = () => {
                     <Posts />
                     <Posts />
                     <Posts />
-                    <Posts />
-                    <Posts />
                 </div>
                 <div className={styles["about-container"]}>
                     <div className={styles["about-box"]}>
@@ -49,7 +48,7 @@ const Commmunity = () => {
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
                         </div>
                         <div className={styles["members"]}>
-                            Members: 
+                            Members: {members}
                         </div>
                     </div>
                 </div>    
