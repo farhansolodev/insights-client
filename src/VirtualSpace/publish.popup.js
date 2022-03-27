@@ -5,7 +5,7 @@ import styles from '../styles/form.module.css';
 import { useUser } from "../context/user";
 
 
-const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
+const Publish = ({ collabId, vsEditors, commName, onSubmit, onCancel }) => {
     const [pfp, setPfp] = useState(require("../assets/default.images").default.collab);
     const [name, setName] = useState('');
     const [error, setError] = useState('');
@@ -52,6 +52,12 @@ const Publish = ({ collabId, commName, onSubmit, onCancel }) => {
             const updateUserCollabsPromise = updateDoc(doc(db, "users", userData.id), {
                 publishedCollabs: arrayUnion(collabId)
             });
+
+            vsEditors.forEach(async(eId) => {
+                updateDoc(doc(db, "users", eId), {
+                    publishedCollabs: arrayUnion(collabId)
+                });
+            })
 
             const updateCommunityCollabsPromise = updateDoc(doc(db, "communities", id), {
                 publishedCollabs: arrayUnion(collabId)
