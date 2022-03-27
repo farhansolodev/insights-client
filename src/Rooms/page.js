@@ -65,7 +65,7 @@ export default function Rooms() {
 							userData.data?.previousRooms.map((roomId, index) => {
 								if (!roomData[roomId]) return <div key={index}><p>Loading...</p></div>
 								const randomRoom = roomCovers[Math.floor(Math.random() * roomCovers.length)]
-								const roomSize = roomData[roomId]?.owners.length + roomData[roomId]?.editors.length //WHY IS ROOM SIZE THE NUMBER OF OWNERS, SHUD BE NUMBER OF PARTICIPANTS
+								const roomSize = roomData[roomId]?.owners.length + roomData[roomId]?.editors.length
 								const subheading = `${roomSize} member` + ( roomSize > 1 ? "s" : "")
 								// // console.log(roomData[roomId], roomSize, subheading)
 								return (
