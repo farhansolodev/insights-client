@@ -27,6 +27,7 @@ function createRoom(options) {
         displayPic: require("../assets/default.images").default.collab,
         communityPosted: [CommName],
         content: {},
+        likes: 0,
         contributors: [],
         owners: [Uid],
         virtualSpaceId: RId, // maybe could get rid of this
