@@ -2,8 +2,8 @@ import { ImExit as Exit } from "react-icons/im";
 
 export const AppBarButtons = [
   {
-    text: "Leave room",
-    value: "leave-room",
+    text: "Leave collab",
+    value: "leave-collab",
     icon: Exit,
   },
 ];
