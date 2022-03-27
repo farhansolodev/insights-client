@@ -28,7 +28,7 @@
     height: 22%;
     background-position: center;
     object-fit: cover;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 
 .cardBody {

@@ -10,7 +10,6 @@ const communityName = "some shit idk"
 
 const Commmunity = () => {
 
-    
     const [appBarStatus, setAppBarStatus] = useState('');
     const [isMember, setIsMember] = useState(false);
     const history = useHistory();
@@ -24,7 +23,7 @@ const Commmunity = () => {
         appBarStatus==="join-community" ? setIsMember(true) : setIsMember(false);
 	}
 
-    return(
+    return (
         <>
             <AppBar title={communityName} buttons={isMember ? [AppBarButtons.leave] : [AppBarButtons.join]} onClickHandler={onStatusChange} />
             <div className={styles["community-container"]}>

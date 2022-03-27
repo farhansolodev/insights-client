@@ -46,7 +46,7 @@ const CollabCatalogue = () => {
                 setSearching(false)
             });
         })
-    },[collabData, userData ])
+    },[collabData, userData.username ])
 
     return ( 
         <div className={styles["all-collabs"]}>
