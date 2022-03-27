@@ -16,14 +16,18 @@ const Commmunity = ({name}) => {
     
     const {id: comName } = useParams();
     //FIREBASE STUFF for comData
+    const [comId, setComId] = useState();
     const [comData, setComData] = useState([]);
-    const user = useUser();
+    const { userData } = useUser();
     const [appBarStatus, setAppBarStatus] = useState('');
 
     //this should be run when someone opens the community page to check if user is a member or not to initialise the isMember field
     async function checkMember() {
-        //const q = getDoc....
-        setIsMember();
+        if(comData.members.includes(userData.id)) {
+            setIsMember(true)
+        } else {
+            setIsMember(false)
+        }
     }
     const [isMember, setIsMember] = useState(false); 
 
@@ -32,22 +36,15 @@ const Commmunity = ({name}) => {
     const history = useHistory();
 
     //what i couldnt do :(
-    // useEffect( () => {
-    //     try {const q = query(collection(db, "communities"), where("name", "==", comName));
-    //     getDocs(q).then(querySnapshot => {
-    //         querySnapshot.forEach(function (doc) {
-    //             getData(doc.id)
-    //         })
-    //     })
-    //     async function getData(id) {
-    //         console.log("REACHED");
-    //         const docSnap = await getDoc(doc(db,"communities",id));
-    //         setComData(docSnap.data());
-    //     }
-    //     } catch (e) {
-    //         console.log("Error",e);
-    //     }
-    // }, [comName])
+    useEffect( () => {
+        const q = query(collection(db, "communities"), where("name", "==", comName))
+        getDocs(q).then((snapshot) => {
+            snapshot.forEach(async (doc) => {
+                setComId(doc.id)
+                setComData(doc.data())
+            });
+        })
+    }, [comName])
     
     console.log(comData);
 
@@ -76,6 +73,11 @@ const Commmunity = ({name}) => {
                 <div className={styles.image}>
                 </div>
                 <div className={styles["posts-container"]}>
+                    {
+                        comData.map(({ name, content }) => {
+                            return <Posts name={name} content={content}/>
+                        })
+                    }
                     {/* map the community published collabs and pass each collab id for posts*/}
                     <Posts /*collabs={collab.data()*//>
                 </div>
