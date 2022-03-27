@@ -59,7 +59,6 @@ const CreateCommunityPopup = ({onCancel}) => {
         if(querySnapshot._snapshot.docChanges.length!=0) {
             setDenied(true)
             setError("There already exists a community with the same name.")
-            
 
         } else{
             if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {

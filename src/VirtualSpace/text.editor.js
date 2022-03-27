@@ -98,11 +98,7 @@ export default function TextEditor({ reader, onMembersChange, socket, roomId, co
 
 	// define actions for when editor content changes
 	useDOMChange(quill?.root, (mutations) => {
-		if (!quill.isEnabled) {
-			// console.log('called when quill is still disabled')
-			return
-		}
-		// console.log('called when quill is enabled')
+		if (!quill.isEnabled) return
 		mutations.forEach(mutation => {
 			const target = mutation.target
 			if (target.localName !== 'p') return
@@ -110,16 +106,8 @@ export default function TextEditor({ reader, onMembersChange, socket, roomId, co
 			console.log('collidedBottom: ', collidedBottom)
 			if (collidedBottom === false) return
 			console.log('element that overflowed: ',target)
-			// const editor = quill.root
-			// editor.className = 'ql-editor ql-snow'
-			// quill.container.appendChild(editor)
 		});
-		// console.log(mutations.reduce((prevMutation, mutation) => {
-		// 	const bool = prevMutation.target === mutation.target
-		// 	console.log([prevMutation.target, mutation.target],bool)
-		// 	return mutation
-		// }))
 	})
 
-	return <div className="textEditorContainer" ref={containerRef}></div>
+	return <div className="textEditorContainer" ref={containerRef}/>
 }
