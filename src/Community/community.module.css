@@ -5,7 +5,8 @@
         "posts about" ;
     height: 100%;
     grid-template-rows: 20%;
-    grid-template-columns: 70%;
+    grid-template-columns: 66%;
+    overflow: scroll;
 }
 
 .community-container > .image{
@@ -40,10 +41,10 @@
 
 .about-box {
     /* border: 2px solid black; */
-    margin-right: 2vh;
+    margin-right: 1vh;
     background-color: white;
     border-radius: 6px;
-    width: 45vh;
+    width: 100%;
     font-size: 1em;
     min-height: 150px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
