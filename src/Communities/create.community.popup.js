@@ -53,7 +53,7 @@ const CreateCommunityPopup = ({onCancel}) => {
     }
 
     //To make sure no two communities have the same name
-    async function checkPrevCommunities() {
+    async function checkPrevCommunities(e) {
         const q = query(collection(db, "communities"), where("name", "==", ComName));
         const querySnapshot = await getDocs(q);
         if(querySnapshot._snapshot.docChanges.length!=0) {
@@ -61,8 +61,8 @@ const CreateCommunityPopup = ({onCancel}) => {
             setError("There already exists a community with the same name.")
 
         } else{
-            if(/^[A-Za-z1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
-                handleSubmit();
+            if(/^[A-Za-z 1-9]{1,25}$/.test(ComName) && /^[A-Za-z1-9!,\s]{1,200}$/.test(ComDescription)) {
+                handleSubmit(e);
                 return
             }
             setError("Community name or description has invalid format.")
@@ -88,7 +88,7 @@ const CreateCommunityPopup = ({onCancel}) => {
                             }
                         }
                     })
-                    onCancel();
+                    // onCancel();
                     history.push(`/app/communities/${ComName}`);
                 })
             } catch (e) {
