@@ -8,7 +8,7 @@ import {v4 as uuidv4} from 'uuid';
 // import { async } from "@firebase/util";
 
 const createCommunity = (parameters) => {
-    const {CId, ComName, ComDescription, ComImage, UId, commRef} = parameters
+    const { CId, ComName, ComDescription, ComImage, UId, commRef } = parameters
     const communityPromise = setDoc(doc(db, "communities", CId), {
         name: ComName,
         description: ComDescription,
@@ -96,7 +96,7 @@ const CreateCommunityPopup = ({onCancel}) => {
                         }
                     })
                     // onCancel();
-                    history.push(`/app/communities/${editedComName}`);
+                    history.push(`/app/communities/${editedComName}`)
                 })
             } catch (e) {
                 console.error("failed:\n",e);
