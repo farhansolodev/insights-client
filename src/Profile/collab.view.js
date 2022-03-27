@@ -13,7 +13,7 @@ const CollabView = () => {
     const [ready, setReady] = useState(false)
     const history = useHistory()
 
-    let nam = roomName.replace('%20',' ')//for collabs with spaces
+    roomName = roomName.replace('%20',' ')//for collabs with spaces
 
     useEffect(() => {
 		const q = query(collection(db, "collabs"), where("name", "==", roomName));
