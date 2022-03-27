@@ -51,7 +51,7 @@ const CollabCatalogue = () => {
     return ( 
         <div className={styles["all-collabs"]}>
             {
-                collabData.length == 0 ? (searching ? <h1>Loading...</h1> : <h1>No collabs here</h1>) :
+                // collabData.length == 0 ? (searching ? <h1>Loading...</h1> : <h1>No collabs here</h1>) :
                 collabData.map(({ displayPic, name, ownerpic, communityPosted }, index) => {
                     // const ownerpic = require("../assets/default.images").default.user
                     return <CollabCard
