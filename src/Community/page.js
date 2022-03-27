@@ -19,7 +19,13 @@ const Commmunity = ({name}) => {
     const [comData, setComData] = useState([]);
     const user = useUser();
     const [appBarStatus, setAppBarStatus] = useState('');
-    const [isMember, setIsMember] = useState(false);
+
+    //this should be run when someone opens the community page to check if user is a member or not to initialise the isMember field
+    async function checkMember() {
+        //const q = getDoc....
+        setIsMember();
+    }
+    const [isMember, setIsMember] = useState(false); 
 
     const communityName = "Soulsborne Community" //set this as comData.name
     
@@ -45,12 +51,6 @@ const Commmunity = ({name}) => {
     
     console.log(comData);
 
-    //this should be run this first time to check if user is a member or not to initialise the isMemberfield
-    async function checkMember() {
-        //const q = getDoc....
-        setIsMember();
-    }
-
     function join() {
         //comData.members append user.id
         setIsMember(true);
@@ -69,7 +69,7 @@ const Commmunity = ({name}) => {
         appBarStatus==="join-community" ? join() : leave();
 	}
 
-    return(
+    return (
         <>
             <AppBar title={communityName} buttons={isMember ? [AppBarButtons.leave] : [AppBarButtons.join]} onClickHandler={onStatusChange} />
             <div className={styles["community-container"]}>
