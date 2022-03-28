@@ -21,6 +21,10 @@
     --toolbar-height: 42.4px;
 }
 
+.text-viewer {
+    overflow-y: scroll;
+}
+
 
 .publish-expand {
     height: 38%;

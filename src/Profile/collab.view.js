@@ -40,7 +40,7 @@ const CollabView = () => {
     return (
         <>
         <AppBar onClickHandler={onLeaveCollab} buttons={AppBarButtons} title={roomName}/>
-        <div className={styles["text-editor"]}>
+        <div className={styles["text-viewer"]}>
             {console.log("r",ready)}{console.log(collabData)}
             {ready && <TextViewer reader={true} content={collabData} />}
         </div>
