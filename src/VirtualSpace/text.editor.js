@@ -97,17 +97,17 @@ export default function TextEditor({ reader, onMembersChange, socket, roomId, co
 	}, [])
 
 	// define actions for when editor content changes
-	useDOMChange(quill?.root, (mutations) => {
-		if (!quill.isEnabled) return
-		mutations.forEach(mutation => {
-			const target = mutation.target
-			if (target.localName !== 'p') return
-			const collidedBottom = detectElementOverflow(target, quill.root).collidedBottom
-			console.log('collidedBottom: ', collidedBottom)
-			if (collidedBottom === false) return
-			console.log('element that overflowed: ',target)
-		});
-	})
+	// useDOMChange(quill?.root, (mutations) => {
+	// 	if (!quill.isEnabled) return
+	// 	mutations.forEach(mutation => {
+	// 		const target = mutation.target
+	// 		if (target.localName !== 'p') return
+	// 		const collidedBottom = detectElementOverflow(target, quill.root).collidedBottom
+	// 		console.log('collidedBottom: ', collidedBottom)
+	// 		if (collidedBottom === false) return
+	// 		console.log('element that overflowed: ',target)
+	// 	});
+	// })
 
 	return <div className="textEditorContainer" ref={containerRef}/>
 }
