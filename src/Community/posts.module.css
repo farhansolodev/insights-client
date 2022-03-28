@@ -1,11 +1,11 @@
 .collab-container {
-    /* height: 35vh; */
     margin-bottom: 6vh;
-    min-height: 25vh;
     max-height: 40vh;
-    margin-left: 5vh;
+    min-height: 22vh;
+    /* flex: 0; */
+    margin-inline: 5vh;
     width: 94%;
-    /* border: 2px solid black; */
+    border: 1px solid #ccc;
     background-color: #ffffffe2;
     border-radius: 6px;
     overflow: hidden;
@@ -39,17 +39,39 @@
 }
 
 .likes {
-    padding: 1em 1em;
-    padding-bottom: 1em;
+    /* padding: 1em 1em; */
+    padding: 1em;
     display: flex;
     min-height: fit-content;
     position: sticky;
 }
 
 .like-button {
+    padding: 0;
     font-size: 20px;
     background-color: transparent;
     cursor: pointer;
+}
+
+.like-button:hover svg {
+    filter: drop-shadow(0px 0px 5px blueviolet);
+}
+
+.report-button {
+    font-size: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.report-button:hover svg {
+    filter: drop-shadow(0px 0px 5px crimson);
+}
+
+.reported {
+    /* cursor: not-allowed; */
+    filter: none;
+    color: crimson;
 }
 
 .text {
@@ -57,4 +79,5 @@
     font-weight: lighter;
     padding: 0.5em;
     margin-bottom: 0.2em;
+    margin-right: auto;
 }

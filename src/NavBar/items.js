@@ -11,12 +11,12 @@ export const NavBarItems = [
     cName: "side-links-hamburger",
     fontClass: Hamburger,
   },
-  {
-    title: "Home",
-    url: '#',
-    cName: "side-links-home",
-    fontClass: Home,
-  },
+  // {
+  //   title: "Home",
+  //   url: '#',
+  //   cName: "side-links-home",
+  //   fontClass: Home,
+  // },
   {
     title: "Communities",
     url: '/communities',
@@ -29,12 +29,12 @@ export const NavBarItems = [
     cName: "side-links-virtual-space",
     fontClass: Call,
   },
-  {
-    title: "Settings",
-    url: '#',
-    cName: "side-links-settings",
-    fontClass: Settings,
-  },
+  // {
+  //   title: "Settings",
+  //   url: '#',
+  //   cName: "side-links-settings",
+  //   fontClass: Settings,
+  // },
   {
     title: "Profile",
     url: '/profile',

@@ -1,3 +1,4 @@
+import { MdExitToApp as Exit } from "react-icons/md";
 import { AiOutlinePlus as Create } from "react-icons/ai";
 
 export const AppBarButtons = {
@@ -9,6 +10,6 @@ export const AppBarButtons = {
     leave: {
       text: "Leave community",
       value: "leave-community",
-      icon: Create,
+      icon: Exit,
     },
 };

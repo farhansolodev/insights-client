@@ -26,12 +26,6 @@ const Search = () => {
     setStatus(x => ({...x, searched: false}))
     // console.log('clicked away from ', ref)
   })
-  
-  const inputFocusHandler = (e) => {
-    e.preventDefault()
-
-    // console.log('focus!')
-  }
 
   const handleSearch = (e) => { 
     e.preventDefault()
@@ -45,7 +39,7 @@ const Search = () => {
 
   return (
     <div ref={wrapperRef} className={styles.container}>
-      <input onFocus={inputFocusHandler} onKeyPress={(e) => (e.key === 'Enter' && !searching) && handleSearch(e)} type="text" placeholder="Find Collabs & Communities..." />
+      <input onKeyPress={(e) => (e.key === 'Enter' && !searching) && handleSearch(e)} type="text" placeholder="Find Collabs & Communities..." />
       <button onClick={!searching ? handleSearch : undefined} className={`${styles.submit} ${searching && styles.searching}`}>{!searching && "Search"}</button>
         {searched && <div className={styles.dropdown}>
           {data.empty ? <p className={styles.empty}>No results found</p> : 

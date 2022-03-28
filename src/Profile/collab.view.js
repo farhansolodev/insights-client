@@ -8,25 +8,22 @@ import TextViewer from "./text.viewer"
 import styles from "../VirtualSpace/vspage.module.css"
 
 const CollabView = () => {
-    const { name: roomName } = useParams()
+    const { name: collabName } = useParams()
     const [collabData, setCollabData] = useState()
     const [ready, setReady] = useState(false)
     const history = useHistory()
 
+    //Query database to get data of collab with collabName, 
     useEffect(() => {
-		const q = query(collection(db, "collabs"), where("name", "==", roomName));
+		const q = query(collection(db, "collabs"), where("name", "==", collabName));
         getDocs(q).then(querySnapshot => {
             querySnapshot.forEach(function (doc) {
-                getData(doc.id)
+                setCollabData(doc.data())
             })
         })
+	}, [collabName])
 
-        async function getData(id) {
-            const docSnap = await getDoc(doc(db, "collabs", id));
-            setCollabData(docSnap.data())
-        }
-	}, [roomName])
-
+    //Render TextViewer when we get data from database
     useEffect(() => {
         if(collabData!==undefined) {
             setReady(true)
@@ -34,14 +31,13 @@ const CollabView = () => {
     }, [collabData])
 
     const onLeaveCollab = () => { 
-		history.push("/app/profile")
+        history.goBack()
 	}
 
     return (
         <>
-        <AppBar onClickHandler={onLeaveCollab} buttons={AppBarButtons} title={roomName}/>
+        <AppBar onClickHandler={onLeaveCollab} buttons={AppBarButtons} title={collabName}/>
         <div className={styles["text-viewer"]}>
-            {console.log("r",ready)}{console.log(collabData)}
             {ready && <TextViewer reader={true} content={collabData} />}
         </div>
         </>

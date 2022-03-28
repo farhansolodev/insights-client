@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import styles from "./chat.module.css";
-import { HiOutlineStatusOnline as ChatOnline, HiOutlineDotsVertical as SettingsIcon } from "react-icons/hi";
-
 
 const Chat = ({ socket, username, roomId }) => {
-        // console.log('socket: ',socket)
 
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
   
+    //Send a socket event "send_message" with messageData that contains room ID, author, message content and time sent.
     const sendMessage = () => {
         if (currentMessage !== "") {
         const messageData = {
@@ -27,6 +25,7 @@ const Chat = ({ socket, username, roomId }) => {
         }
     };
 
+    //When socket receives a event "receive_message" append message data to message list to dispaly in the chat section.
     useEffect(() => {
         if (!socket) return
         if (socket.connected) return
@@ -39,12 +38,9 @@ const Chat = ({ socket, username, roomId }) => {
         <div className={styles['chat-window']}>
             <div className={styles['chat-header']}>
                 <p>Live Chat</p>
-                {/* <ChatOnline className={styles['online-icon']} /> */}
-                <SettingsIcon className={styles['settings-icon']} />
             </div>
                 <ScrollToBottom className={styles["message-container"]}>
                     {messageList.map((messageContent, index) => {
-                        // console.log(messageContent,username)
                         
                         return (
                             <div
@@ -66,7 +62,6 @@ const Chat = ({ socket, username, roomId }) => {
                     })}
                 </ScrollToBottom>
             <input
-                // contentEditable={true}
                 className={styles["chat-footer"]}
                 placeholder="Type a message..."
                 onChange={(event) => {
@@ -79,9 +74,6 @@ const Chat = ({ socket, username, roomId }) => {
                     sendMessage()
                 }}
                 />
-                {/* <textarea */}
-                {/* /> */}
-            {/* </div> */}
         </div>
     );
 };

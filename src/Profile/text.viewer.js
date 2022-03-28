@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from "react"
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
-// import "./text.editor.css"
 
-export default function TextViewer({ content }) {
+export default function TextViewer({ content: data }) {
 	const [quill, setQuill] = useState()
 
-	// this requests collab data and sets it to quill when it arrives
+	//This requests collab data and sets it to quill when it arrives
 	useEffect(() => {
         if (quill == null) return
-        if(content===undefined) return
+        
+        if(data===undefined) return
 
-        quill.setContents(content.content)
+        quill.setContents(data.content)
         quill.disable()
         
     }, [quill])
