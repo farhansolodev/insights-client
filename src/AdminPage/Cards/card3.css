@@ -1,143 +1,78 @@
-.red-card{
+.red-card {
     height: 70px;
-    width: 600px;
-    border: 2px red solid;
-    display: flex;
-    border-radius: 10px;
-    margin: 2vh 0;
-   
-}
-
-.pic2{
-        /* margin-top: 5px;
-    margin-left: 5px; */
-    position: relative;
-    top: 2px;
-    left: 5px;
-    height: 40px;
-    width: 100px;
-    border: 2px solid black;
-    background-color: black;
+    width: 38vw;
     display: flex;
     align-items: center;
-    justify-content: center;
-    /* margin-right: 20px; */
+    justify-content: space-between;
+    border-radius: 10px;
+    margin: 2vh 0vh;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
-.p{
-    border: none;
-    background: none;
-    color: white;
+.report{
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+}
+
+.reporter {
+    margin-left: 1vw;  
+    font-size: 0.8em;
+}
+
+.pic {
+    margin-left: 1vw;
+    height: 3vw;
+    width: 3vw;
+    border-radius: 50%;
+    justify-self: flex-start;
+    background-image: url("/src/assets/frog.jpg");
+    background-position: center;
 }
 
 .body{
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
-    gap: 0.5rem;
+    margin-left: 1vw;
 }
 
-.middle1 {
-    /* margin-top: 20px; */
-    height: 20px;
-    width: 100px;
-    border: 2px solid black;
-    background-color: black;
-    position: relative;
-    top: 5px;
-    left: 15px;
+.collab {
+    margin-bottom: 1vh;
+    font-style: italic;
+    font-size: 1em;
+    margin-top: 0.7vh;
+    margin-bottom: 0.1vh;
 }
-.collab{
-    border: none;
-    background: none;
-    color: white;
+
+.owner {
+    font-style: italic;
+    font-size: 0.8em;
 }
-.middle2 {
-    /* margin-top: 20px; */
-    height: 20px;
-    width: 80px;
-    border: 2px solid grey ;
-    background-color: grey;
-    position: relative;
-    top: 5px;
-    left: 20px;
+
+
+.view {
+    margin-right: 1vw;
+    border-radius: 6px;
+    background-color: #FAFAFA;
+    min-height: 3.6vh;
+    min-width: 3.5vw;
+    cursor: pointer;
 }
-.owner{
-    border: none;
-    background: none;
+
+.view:hover {
+    background-color: crimson;
     color: white;
 }
 
-.side-part{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: center;
-    top: 2px;
+.delete-collab {
+    border-radius: 6px;
+    background-color: #FAFAFA;
+    min-height: 3.6vh;
+    min-width: 3.5vw;
+    cursor: pointer;
 }
 
-.side1{
-    height: 20px;
-    width: 60px;
-    border: 2px lightskyblue solid;
-    background-color: lightskyblue;
-    position: relative;
-    top: 2px;
-    right: -300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.side2{
-    height: 20px;
-    width: 60px;
-    border: 2px red solid;
-    background-color: red;
-    position: relative;
-    top: 2px;
-    right: -300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
-.reporter{
-    position: relative;
-    height: 15px;
-    width: 100px;
-    top: 3px;
-    left: 5px;
-    border: 2px solid red;
-    background-color: red;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.report{
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
-    gap: 0.2rem;
-}
-
-.r{
-    border: none;
-    background: none;
+.delete-collab:hover {
+    background-color: crimson;
     color: white;
-}
-
-.v{
-    border: none;
-    background: none;
-    color: black;   
-}
-
-.d{
-    border: none;
-    background: none;
-    color: white;
-
 }

@@ -2,49 +2,32 @@ import "./card2.css"
 
 const Card2 = () => {
 
-    const putmethod = (e) => { 
+    function view() { 
         console.log("search");
     }
+    
+    function deleteCollab() {
+
+    }
+
     return ( 
         <div className="green-card">
-            <div className="pic1">
-            <button onClick={putmethod} type="button" className="p">
-                    PIC
-            </button>
-            </div>
-            <div className="body">
-                <div className="middle1">
-                    <button onClick={putmethod} type="button" className="collab">
+            <div className="left-side">
+                <div className="pic">
+                    {/* <img src=""/> */}
+                </div>    
+                <div className="collab-id">
                         collab
-                    </button>
-                </div>
-                <div className="middle2">
-                    <button onClick={putmethod} type="button" className="owner">
-                        owner
-                    </button>
                 </div>
             </div>
-        <div className="side-part">
-            {/* <div className="side1"></div>
-            <div className="side2">
-            <button onClick={putmethod} type="button" className="del">
-                    Delete
-            </button>
-            </div> */}
-
-            <div className="side1">
-                <button onClick={putmethod} type="button" className="v" >
+            <div className="right-side">
+                <button onClick={view} type="button" className="view" >
                     View
                 </button>
-            </div>
-
-            <div className="side2">
-            <button onClick={putmethod} type="button" className="d" >
-                Delete
-             </button>
+                <button onClick={deleteCollab} type="button" className="delete-collab" >
+                    Delete
+                </button>
             </div> 
-        </div>
-            
         </div>
      );
 }
