@@ -43,6 +43,9 @@ export const JoinRoomPopup = ({ onCancel }) => {
                 updateDoc(doc(db, "virtual-spaces", id), {
                     editors: arrayUnion(userData.id),
                 })
+                updateDoc(doc(db, "collabs", data.collabId), {
+                    contributors: arrayUnion(userData.id),
+                })
             } else {
                 updateDoc(doc(db, "virtual-spaces", id), {
                     readers: arrayUnion(userData.id),

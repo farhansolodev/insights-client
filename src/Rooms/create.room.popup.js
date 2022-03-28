@@ -27,6 +27,7 @@ function createRoom(options) {
         displayPic: require("../assets/default.images").default.collab,
         communityPosted: [CommName],
         content: {},
+        likes: 0,
         contributors: [],
         owners: [Uid],
         virtualSpaceId: RId, // maybe could get rid of this
@@ -58,13 +59,13 @@ export const CreateRoomPopup = ({ onCancel }) => {
     const history = useHistory()
 
     useEffect(() => {
-		userData.data?.previousCommunities.forEach(communityId => { 
-			getDoc(doc(db, "communities", communityId)).then(snap => {
+		userData.data?.previousCommunities.forEach(communityRef => { 
+			getDoc(communityRef).then(snap => {
 				const community = snap.data()
 				setCommunityData(prev => {
 					return {
 						...prev,
-						[communityId]: community
+						[communityRef.id]: community
 					}
 				})
 			})
@@ -126,12 +127,12 @@ export const CreateRoomPopup = ({ onCancel }) => {
                     <div className={styles["dropdown-content"]}>
                         <div className={styles["dropdown-content"]} /*{filterByCommunityChoiceStatus(styles["dropdown-content"], styles["choice-selected"])}*/ >
                             {
-                                userData.data?.previousCommunities.map((communityId, index) => {
+                                userData.data?.previousCommunities.map((communityRef, index) => {
                                     // if (!communityData[communityId]) return <p key={index} >Loading...</p>
-                                    const prevCommunity = communityData[communityId]?.name
-                                    console.log(communityData[communityId], prevCommunity)
+                                    const prevCommunity = communityData[communityRef.id]?.name
+                                    console.log(communityData[communityRef.id], prevCommunity)
                                     return (
-                                        <option id={communityId} value={communityData[communityId]?.name}  key={index} onClick={selectCommunity}>{communityData[communityId]?.name}</option>
+                                        <option id={communityRef.id} value={communityData[communityRef.id]?.name}  key={index} onClick={selectCommunity}>{communityData[communityRef.id]?.name}</option>
                                     )
                                 })
                             }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./posts.module.css";
 import { AiOutlineLike as Like, AiFillLike as Liked} from "react-icons/ai";
 
-const Posts = ({collabs}) => {
+const Posts = ({name, content}) => {
 
     const [like, setLike] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(32); //delete this once collab (down) works
@@ -21,7 +21,7 @@ const Posts = ({collabs}) => {
     return (
         <div className={styles["collab-container"]}>
             <div className={styles["heading"]}>
-                {/*collab.heading*/}THE WHEEL OF TIME
+                {/*collab.heading*/}{name}THE WHEEL OF TIME
             </div>
             <div className={styles["collab-content"]}>
                 {/*collab.content*/} Content :- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 

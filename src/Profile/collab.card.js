@@ -11,7 +11,7 @@ const CollabCard = (props) => {
         history.push(`/app/collab/${props.title}`)
     }
     return (
-        <div className={styles["card-container"]}>
+        <div className={styles["card-container"]} onClick={displayCollab}>
             <div className={styles["image-container"]}>
                 <img src={props.img} alt='Collab Thumbnail'/>
             </div>
@@ -38,7 +38,7 @@ const CollabCard = (props) => {
             </div>
            
             <div className={styles["btn"]}>
-                <div className={styles['card-action']} onClick={displayCollab}>
+                <div className={styles['card-action']} >
                     View Collab
                 </div>
             </div>
