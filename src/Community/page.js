@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import AppBar from "../AppBar/bar"
 import styles from "./community.module.css"
 import { AppBarButtons } from "./appbar.buttons"
@@ -17,6 +17,7 @@ const Commmunity = () => {
     const [ collabData, setCollabData] = useState([]);
     const [ isMember, setIsMember] = useState();
     const { userData } = useUser();
+    const history = useHistory()
 
     //Query the database to get the data of the community using the name
     useEffect( () => {
@@ -84,11 +85,17 @@ const Commmunity = () => {
         setComData(prev => ({...prev, members: prev.members.filter(user => user != userData.id)}))
     }
 
+    function admin() {
+        history.push('/app/admin/' + comName + '/admin')
+    }
+
     //Handle the case to render either join or leave button depending on user membership
     function onStatusChange(e) {
 		e.preventDefault()
 		const val = e.target.id
-        val === "join-community" ? join() : leave();
+        val === "join-community" && join()
+        val === "leave-community" && leave()
+        val === "admin-dashboard" && admin()
 	}
 
     return (
