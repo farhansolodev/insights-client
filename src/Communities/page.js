@@ -55,7 +55,7 @@ const Communities = () => {
       }
       <div style={{justifyContent: previousCommunities?.length < 4 ? "left" : "center"}} className={styles.communitiesContainer}>
         {previousCommunities.map((comm, i) => {
-          return <CommunityCard community={comm} key={i} title={comm.data.name} cover={comm.data.image} description={comm.data.description} memberCount={comm.data.members.length + 1}/>
+          return <CommunityCard community={comm} key={i} title={comm.data.name} cover={comm.data.image} description={comm.data.description} memberCount={comm.data.members.length}/>
         })}
       </div>
     </>

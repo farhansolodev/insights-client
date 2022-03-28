@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import AppBar from "../AppBar/bar"
 import styles from "./community.module.css"
 import { AppBarButtons } from "./appbar.buttons"
@@ -11,21 +11,27 @@ import { useUser } from "../context/user"
 
 const Commmunity = () => {
     
-    const {id: comName } = useParams();
-    const [comId, setComId] = useState();
-    const [comData, setComData] = useState({});
-    const [collabData, setCollabData] = useState([]);
-    const [isMember, setIsMember] = useState();
+    const { id: comName } = useParams();
+    const [ comId, setComId] = useState();
+    const [ comExists, setComExists] = useState();
+    const [ comData, setComData] = useState({});
+    const [ collabData, setCollabData] = useState([]);
+    const [ isMember, setIsMember] = useState();
     const { userData } = useUser();
+    const history = useHistory()
 
     //Query the database to get the data of the community using the name
     useEffect( () => {
-        const q = query(collection(db, "communities"), where("name", "==", comName))
+        const q = query(collection(db, "communities"), where("name", "==", comName.toLowerCase()))
         getDocs(q).then((snapshot) => {
+            let exists = false
+            // console.log('here')
             snapshot.forEach(async (doc) => {
+                exists = true
                 setComId(doc.id)
                 setComData(doc.data())
             });
+            setComExists(exists)
         })
     }, [comName])
 
@@ -61,46 +67,53 @@ const Commmunity = () => {
     
     //Run function when user wants to JOIN community, update the database of communities and users with the right field values
     function join() {
-        setIsMember(true);
-
         updateDoc(doc(db, "users", userData.id), {
             previousCommunities: arrayUnion(doc(db, "communities", comId))
         })
         updateDoc(doc(db, "communities", comId), {
             members: arrayUnion(userData.id)
         })
+        setIsMember(true);
+        setComData(prev => ({...prev, members: [...prev.members, userData.id]}))
     }
 
     //Run function when user wants to LEAVE community, update the database
     function leave() {
         //comData.members remove user.id
-        setIsMember(false);
         updateDoc(doc(db, "users", userData.id), {
             previousCommunities: arrayRemove(doc(db, "communities", comId))
         })
         updateDoc(doc(db, "communities", comId), {
             members: arrayRemove(userData.id)
         })
+        setIsMember(false);
+        setComData(prev => ({...prev, members: prev.members.filter(user => user != userData.id)}))
+    }
+
+    function admin() {
+        history.push('/app/communities/' + comName + '/admin')
     }
 
     //Handle the case to render either join or leave button depending on user membership
     function onStatusChange(e) {
 		e.preventDefault()
 		const val = e.target.id
-        val === "join-community" ? join() : leave();
+        val === "join-community" && join()
+        val === "leave-community" && leave()
+        val === "admin-dashboard" && admin()
 	}
 
     return (
         <>
-            <AppBar title={comName} buttons={isMember ? [AppBarButtons.leave] : [AppBarButtons.join]} onClickHandler={onStatusChange} />
-            <div className={styles["community-container"]}>
+            <AppBar title={comExists && comName} buttons={comExists && (comData.admin != userData.id ? (isMember ? [AppBarButtons.leave] : [AppBarButtons.join]) : [AppBarButtons.admin])} onClickHandler={onStatusChange} />
+            {comExists != undefined && comExists ? <div className={styles["community-container"]}>
                 <div style={{backgroundImage: `url(${comData?.image})`}} className={styles.image}/>
                 <div className={styles["posts-container"]}>
                     {/* map the community published collabs and pass each collab id for posts*/}
                     {
-                        collabData && collabData.map(({ id, name, content, usersReported, likes, usersLiked }, index) => {
+                        collabData && collabData.length != 0 ? collabData.map(({ id, name, content, usersReported, likes, usersLiked }, index) => {
                             return <Posts usersReported={usersReported} comId={comId} isMember={isMember} key={index} id={id} name={name} content={JSON.stringify(content)} likeVal={likes} usersLiked={usersLiked} />
-                        })
+                        }) : <h1>No collabs yet...</h1>
                     }
                 </div>
                 <div className={styles["about-container"]}>
@@ -112,7 +125,7 @@ const Commmunity = () => {
                         <div className={styles["members"]}>Members: {comData.members?.length}</div>
                     </div>
                 </div>
-            </div>
+            </div> : <h1 style={{padding: "5rem"}}>This is not the community you are searching for...</h1>}
         </>
     )
 }

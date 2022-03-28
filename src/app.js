@@ -62,7 +62,7 @@ export default function App() {
 							<Route exact path={`/app/communities/:id`}>
 								<Community />
 							</Route>
-							<Route exact path={'/app/communities/:id/dashboard'}>
+							<Route exact path={'/app/communities/:id/admin'}>
 								<Dashboard />
 							</Route>
 							<Route path={`/app/home`}>
