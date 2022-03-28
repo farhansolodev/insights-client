@@ -1,0 +1,75 @@
+.blue-card{
+    height: 70px;
+    width: 600px;
+    border: 2px blue solid;
+    display: flex;
+    border-radius: 10px;
+    /* margin-bottom: 5px; */
+   
+}
+
+.pic{
+    /* margin-top: 5px;
+    margin-left: 5px; */
+    position: relative;
+    top: 5px;
+    left: 5px;
+    border-radius: 100px;
+    height: 50px;
+    width: 50px;
+    border: 2px solid black;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 20px; */
+}
+
+.middle {
+    /* margin-top: 20px; */
+    height: 20px;
+    width: 100px;
+    border: 2px solid black;
+    background-color: black;
+    position: relative;
+    top: 20px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.name{
+    color: white;
+    background: none;
+    border: none;
+
+}
+
+.side{
+    height: 20px;
+    width: 60px;
+    border: 2px red solid;
+    background-color: red;
+    position: relative;
+    top: 40px;
+    right: -350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.picButton{
+color: white;
+background: none;
+border: none;
+ 
+}
+
+.del{
+    color: white;
+    background: none;
+    border: none;
+
+}

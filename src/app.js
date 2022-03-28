@@ -17,6 +17,7 @@ import VirtualSpace from "./VirtualSpace/page";
 import Communities from "./Communities/page";
 import Community from "./Community/page";
 import Home from "./Home/page";
+import Dashboard from "./AdminPage/page";
 
 export default function App() {
 	const { currentUser } = useAuth();
@@ -58,8 +59,11 @@ export default function App() {
 							<Route exact path={`/app/communities`}>
 								<Communities />
 							</Route>
-							<Route path={`/app/communities/:id`}>
+							<Route exact path={`/app/communities/:id`}>
 								<Community />
+							</Route>
+							<Route exact path={'/app/communities/:id/dashboard'}>
+								<Dashboard />
 							</Route>
 							<Route path={`/app/home`}>
 								<Home />
