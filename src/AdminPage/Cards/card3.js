@@ -1,51 +1,44 @@
 import "./card3.css"
+import { IoMdFlag } from "react-icons/io"
 
 const Card3 = () => {
 
-    const putmethod = (e) => { 
+    function view() { 
         console.log("search");
     }
+    
+    function deleteCollab() {
+
+    }
+
     return ( 
         <div className="red-card">
-        <div className="report">
-           <div className="reporter">
-            <button onClick={putmethod} type="button" className="r">
-                            reporter
-            </button>
-           </div>
-            <div className="pic2">
-                <button onClick={putmethod} type="button" className="p">
-                        PIC
-                </button>
-            </div>
-        </div>
-            <div className="body">
-                <div className="middle1">
-                <button onClick={putmethod} type="button" className="collab">
-                        collab
-                </button>
-                </div>
-                <div className="middle2">
-                <button onClick={putmethod} type="button" className="owner">
-                        owner
-                </button>
-                </div>
-            </div>
-        <div className="side-part">
+            <div className="report">
+                <div className="pic">
 
-             <div className="side1">
-                <button onClick={putmethod} type="button" className="v" >
+                </div>
+                <div className="content">
+                    <div className="reporter">
+                        <IoMdFlag /> Reported by user13:
+                    </div>
+                    <div className="body">
+                        <div className="collab">
+                                Return Of the white knights
+                        </div>
+                        <div className="owner">
+                                Chris Rock
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="right-side">
+                <button onClick={view} type="button" className="view" >
                     View
                 </button>
-            </div>
-
-            <div className="side2">
-            <button onClick={putmethod} type="button" className="d" >
-                Delete
-             </button>
+                <button onClick={deleteCollab} type="button" className="delete-collab" >
+                    Delete
+                </button>
             </div> 
-
-        </div>
             
         </div>
      );
