@@ -35,7 +35,6 @@ const Commmunity = ({name}) => {
     
     const history = useHistory();
 
-    //what i couldnt do :(
     useEffect( () => {
         const q = query(collection(db, "communities"), where("name", "==", comName))
         getDocs(q).then((snapshot) => {

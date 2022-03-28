@@ -8,8 +8,10 @@
 
 .container-position {
     background-color: #fafafa;
-    max-width: 40vw;
+    height: 70vh;
+    width: 45vw;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: scroll;
 }
 .searchbar{
     /* border: 4px yellow solid; */

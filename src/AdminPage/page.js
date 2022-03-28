@@ -1,5 +1,4 @@
 import Catalogue from "./catalogue";
-import Feed from "./feed";
 import { useState } from "react";
 import styles from "./admin.module.css"
 import Appbar from "../AppBar/bar"
@@ -10,10 +9,6 @@ const Dashboard = () => {
 
     const [appBarStatus, setAppBarStatus] = useState();
     const history = useHistory();
-
-    const putmethod = (e) => { 
-        console.log("search");
-    }
 
     function leave() {
         history.goBack();
