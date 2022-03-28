@@ -99,9 +99,9 @@ const Commmunity = () => {
                 <div className={styles["posts-container"]}>
                     {/* map the community published collabs and pass each collab id for posts*/}
                     {
-                        collabData && collabData.map(({ id, name, content, usersReported, likes, usersLiked }, index) => {
+                        collabData && collabData.length != 0 ? collabData.map(({ id, name, content, usersReported, likes, usersLiked }, index) => {
                             return <Posts usersReported={usersReported} comId={comId} isMember={isMember} key={index} id={id} name={name} content={JSON.stringify(content)} likeVal={likes} usersLiked={usersLiked} />
-                        })
+                        }) : <h1>No collabs yet...</h1>
                     }
                 </div>
                 <div className={styles["about-container"]}>
