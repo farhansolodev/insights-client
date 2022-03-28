@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useClickAway } from '../utils'
+import { useClickAway, debounce } from '../utils'
 import styles from './search.module.css'
 
 const data = {
@@ -27,14 +27,15 @@ const Search = () => {
     // console.log('clicked away from ', ref)
   })
 
+  const debouncedSearch = debounce((e) => {
+    console.log('searched! ', e.target.value)
+    setStatus(x => ({...x, searched: true, searching: false}))
+  }, 1000)
+
   const handleSearch = (e) => { 
     e.preventDefault()
     setStatus(x => ({...x, searched: false, searching: true}))
-
-    // replace this with actual searching firebase
-    setTimeout(() => {
-      setStatus(x => ({...x, searched: true, searching: false}))
-    }, 1000);
+    debouncedSearch(e)
   }
 
   return (

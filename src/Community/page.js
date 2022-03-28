@@ -11,16 +11,16 @@ import { useUser } from "../context/user"
 
 const Commmunity = () => {
     
-    const {id: comName } = useParams();
-    const [comId, setComId] = useState();
-    const [comData, setComData] = useState({});
-    const [collabData, setCollabData] = useState([]);
-    const [isMember, setIsMember] = useState();
+    const { id: comName } = useParams();
+    const [ comId, setComId] = useState();
+    const [ comData, setComData] = useState({});
+    const [ collabData, setCollabData] = useState([]);
+    const [ isMember, setIsMember] = useState();
     const { userData } = useUser();
 
     //Query the database to get the data of the community using the name
     useEffect( () => {
-        const q = query(collection(db, "communities"), where("name", "==", comName))
+        const q = query(collection(db, "communities"), where("name", "==", comName.toLowerCase()))
         getDocs(q).then((snapshot) => {
             snapshot.forEach(async (doc) => {
                 setComId(doc.id)
@@ -61,26 +61,27 @@ const Commmunity = () => {
     
     //Run function when user wants to JOIN community, update the database of communities and users with the right field values
     function join() {
-        setIsMember(true);
-
         updateDoc(doc(db, "users", userData.id), {
             previousCommunities: arrayUnion(doc(db, "communities", comId))
         })
         updateDoc(doc(db, "communities", comId), {
             members: arrayUnion(userData.id)
         })
+        setIsMember(true);
+        setComData(prev => ({...prev, members: [...prev.members, userData.id]}))
     }
 
     //Run function when user wants to LEAVE community, update the database
     function leave() {
         //comData.members remove user.id
-        setIsMember(false);
         updateDoc(doc(db, "users", userData.id), {
             previousCommunities: arrayRemove(doc(db, "communities", comId))
         })
         updateDoc(doc(db, "communities", comId), {
             members: arrayRemove(userData.id)
         })
+        setIsMember(false);
+        setComData(prev => ({...prev, members: prev.members.filter(user => user != userData.id)}))
     }
 
     //Handle the case to render either join or leave button depending on user membership
@@ -92,7 +93,7 @@ const Commmunity = () => {
 
     return (
         <>
-            <AppBar title={comName} buttons={isMember ? [AppBarButtons.leave] : [AppBarButtons.join]} onClickHandler={onStatusChange} />
+            <AppBar title={comName} buttons={comData.admin != userData.id ? (isMember ? [AppBarButtons.leave] : [AppBarButtons.join]) : [AppBarButtons.admin]} onClickHandler={onStatusChange} />
             <div className={styles["community-container"]}>
                 <div style={{backgroundImage: `url(${comData?.image})`}} className={styles.image}/>
                 <div className={styles["posts-container"]}>

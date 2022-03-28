@@ -10,11 +10,11 @@ import {v4 as uuidv4} from 'uuid';
 const createCommunity = (parameters) => {
     const { CId, ComName, ComDescription, ComImage, UId, commRef } = parameters
     const communityPromise = setDoc(doc(db, "communities", CId), {
-        name: ComName,
+        name: ComName.toLowerCase(),
         description: ComDescription,
         image: ComImage,
         admin: UId,
-        members: [],
+        members: [UId],
         count: 0,
         publishedCollabs: [],
     })

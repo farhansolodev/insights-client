@@ -1,5 +1,6 @@
 import { MdExitToApp as Exit } from "react-icons/md";
 import { AiOutlinePlus as Create } from "react-icons/ai";
+import { GrUserAdmin as Admin } from "react-icons/gr";
 
 export const AppBarButtons = {
     join: {
@@ -11,5 +12,10 @@ export const AppBarButtons = {
       text: "Leave community",
       value: "leave-community",
       icon: Exit,
+    },
+    admin: {
+      text: "Admin dashboard",
+      value: "admin-dashboard",
+      icon: Admin,
     },
 };
