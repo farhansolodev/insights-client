@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .header {
@@ -11,6 +12,7 @@
   align-items: center;
   justify-content: center;
   background-color: #E8E8E8;
+  width: 100%;
 }
 
 .admin_buttons{
@@ -52,4 +54,9 @@
   transition: 0.40s;
   color: black;
   background-color: #dc143c;
+}
+
+.feed {
+  margin: 3vh 0;
+  width: fit-content;
 }
