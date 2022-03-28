@@ -13,6 +13,7 @@ const Commmunity = () => {
     
     const { id: comName } = useParams();
     const [ comId, setComId] = useState();
+    const [ comExists, setComExists] = useState();
     const [ comData, setComData] = useState({});
     const [ collabData, setCollabData] = useState([]);
     const [ isMember, setIsMember] = useState();
@@ -23,10 +24,14 @@ const Commmunity = () => {
     useEffect( () => {
         const q = query(collection(db, "communities"), where("name", "==", comName.toLowerCase()))
         getDocs(q).then((snapshot) => {
+            let exists = false
+            // console.log('here')
             snapshot.forEach(async (doc) => {
+                exists = true
                 setComId(doc.id)
                 setComData(doc.data())
             });
+            setComExists(exists)
         })
     }, [comName])
 
@@ -86,7 +91,7 @@ const Commmunity = () => {
     }
 
     function admin() {
-        history.push('/app/admin/' + comName + '/admin')
+        history.push('/app/communities/' + comName + '/admin')
     }
 
     //Handle the case to render either join or leave button depending on user membership
@@ -100,8 +105,8 @@ const Commmunity = () => {
 
     return (
         <>
-            <AppBar title={comName} buttons={comData.admin != userData.id ? (isMember ? [AppBarButtons.leave] : [AppBarButtons.join]) : [AppBarButtons.admin]} onClickHandler={onStatusChange} />
-            <div className={styles["community-container"]}>
+            <AppBar title={comExists && comName} buttons={comExists && (comData.admin != userData.id ? (isMember ? [AppBarButtons.leave] : [AppBarButtons.join]) : [AppBarButtons.admin])} onClickHandler={onStatusChange} />
+            {comExists != undefined && comExists ? <div className={styles["community-container"]}>
                 <div style={{backgroundImage: `url(${comData?.image})`}} className={styles.image}/>
                 <div className={styles["posts-container"]}>
                     {/* map the community published collabs and pass each collab id for posts*/}
@@ -120,7 +125,7 @@ const Commmunity = () => {
                         <div className={styles["members"]}>Members: {comData.members?.length}</div>
                     </div>
                 </div>
-            </div>
+            </div> : <h1 style={{padding: "5rem"}}>This is not the community you are searching for...</h1>}
         </>
     )
 }
