@@ -27,15 +27,13 @@ const Search = () => {
     // console.log('clicked away from ', ref)
   })
 
-  const debouncedSearch = debounce((e) => {
-    console.log('searched! ', e.target.value)
-    setStatus(x => ({...x, searched: true, searching: false}))
-  }, 1000)
-
   const handleSearch = (e) => { 
     e.preventDefault()
     setStatus(x => ({...x, searched: false, searching: true}))
-    debouncedSearch(e)
+    console.log(e.target.value)
+    setTimeout(() => {
+      setStatus(x => ({...x, searched: true, searching: false}))
+    }, 1000);
   }
 
   return (

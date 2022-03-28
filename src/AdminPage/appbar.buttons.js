@@ -1,10 +1,9 @@
-import { AiOutlinePlus as Create } from "react-icons/ai";
-import { BiLinkAlt as Join } from "react-icons/bi";
+import { HiUserGroup as Community } from "react-icons/hi";
 
 export const AppBarButtons = [
   {
     text: "Leave Dashboard",
     value: "leave-dashboard",
-    icon: Create,
+    icon: Community,
   },
 ];
