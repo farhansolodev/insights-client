@@ -1,11 +1,10 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory, useParams } from "react-router-dom";
 import AppBar from "../AppBar/bar"
 import styles from "./community.module.css"
 import { AppBarButtons } from "./appbar.buttons";
 import Posts from "./community.posts";
-import { useEffect } from "react/cjs/react.production.min";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { async } from "@firebase/util";
@@ -18,6 +17,7 @@ const Commmunity = ({name}) => {
     //FIREBASE STUFF for comData
     const [comId, setComId] = useState();
     const [comData, setComData] = useState([]);
+    const [collabData, setCollabData] = useState();
     const { userData } = useUser();
     const [appBarStatus, setAppBarStatus] = useState('');
 
@@ -42,7 +42,20 @@ const Commmunity = ({name}) => {
             snapshot.forEach(async (doc) => {
                 setComId(doc.id)
                 setComData(doc.data())
+                // setComData(prev => [...prev,doc.data()])
+                console.log(doc.data())
             });
+        })
+        comData.publishedCollabs.forEach(collabId => {
+            getDoc(doc(db, "collabs", collabId)).then(snap => {
+				const collab = snap.data()
+				setCollabData(prev => {
+					return {
+						...prev,
+						[collabId]: collab
+					}
+				})
+			})
         })
     }, [comName])
     
@@ -58,28 +71,28 @@ const Commmunity = ({name}) => {
         setIsMember(false);
     }
 
-    function onStatusChange(e) {
-		e.preventDefault()
-		const val = e.target.id
-		setAppBarStatus(val)
+    // function onStatusChange(e) {
+	// 	e.preventDefault()
+	// 	const val = e.target.id
+	// 	setAppBarStatus(val)
 
-        appBarStatus==="join-community" ? join() : leave();
-	}
+    //     appBarStatus==="join-community" ? join() : leave();
+	// }
 
     return (
         <>
-            <AppBar title={communityName} buttons={isMember ? [AppBarButtons.leave] : [AppBarButtons.join]} onClickHandler={onStatusChange} />
+            <AppBar title={communityName} buttons={isMember ? [AppBarButtons.leave] : [AppBarButtons.join]}  />
             <div className={styles["community-container"]}>
                 <div className={styles.image}>
                 </div>
                 <div className={styles["posts-container"]}>
                     {
-                        comData.map(({ name, content }) => {
-                            return <Posts name={name} content={content}/>
+                        comData?.publishedCollabs.map(({ name, content }, index) => {
+                            return <Posts key={index} name={name} content={content}/>
                         })
                     }
                     {/* map the community published collabs and pass each collab id for posts*/}
-                    <Posts /*collabs={collab.data()*//>
+                    {/* <Posts /*collabs={collab.data()*//> */}
                 </div>
                 <div className={styles["about-container"]}>
                     <div className={styles["about-box"]}>
