@@ -181,11 +181,7 @@ const VirtualSpace = () => {
 							onClick={filterByPublishStatus(undefined, showForm, undefined)}>
 							<p style={{pointerEvents: "none"}}>{filterByPublishStatus("Succesfully published!","Publish","Checking...")}</p>
 						</button> }
-						<button className={styles["expand-button"]} onClick={expand}>
-							<FontAwesomeIcon className={styles["expand-icon"]} size="2x" icon={faExpandAlt}/>
-						</button>
 					</div>
-
 					<div className={styles["online-collaborators"]}>				
 						{participants.map(({ pfp, username }, index) => {
 							if (!pfp || !username) return undefined
