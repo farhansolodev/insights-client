@@ -12,7 +12,7 @@ const SearchA = () => {
     }
     return ( 
         <div className={styles["search"]}>
-            <input onKeyPress={keyPressHandler} onChange={handleInput} type="search" name="searchs" placeholder="Search Collabs" className={styles["search_bar"]}></input>
+            <input onKeyPress={keyPressHandler} onChange={handleInput} type="search" name="searchs" placeholder="Search" className={styles["search_bar"]}></input>
             <button onClick={onSearch} type="button" className={styles["search_button"]}>Search</button>
         </div>
      );

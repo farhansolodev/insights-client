@@ -1,10 +1,10 @@
 .blue-card{
     height: 70px;
-    width: 600px;
+    width: 38vw;
     border: 2px blue solid;
     display: flex;
     border-radius: 10px;
-    /* margin-bottom: 5px; */
+    margin: 2vh 0;
    
 }
 
