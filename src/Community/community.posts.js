@@ -1,42 +1,121 @@
-import React, { useState } from "react";
-import styles from "./posts.module.css";
-import { AiOutlineLike as Like, AiFillLike as Liked} from "react-icons/ai";
+import React, { useState, useEffect } from "react"
+import { useHistory } from "react-router-dom"
+import Quill from "quill"
+import styles from "./posts.module.css"
+import { AiOutlineLike as Like, AiFillLike as Liked} from "react-icons/ai"
+import { IoMdFlag as Report} from "react-icons/io"
+import { doc, updateDoc, arrayUnion, arrayRemove, increment } from "firebase/firestore"
+import { db } from "../firebase"
+import { useUser } from "../context/user"
 
-const Posts = ({name, content}) => {
+const Post = ({id, name, comId, isMember, content, likeVal, usersLiked, usersReported}) => {
 
-    const [like, setLike] = useState(false);
-    const [numberOfLikes, setNumberOfLikes] = useState(32); //delete this once collab (down) works
+    const [like, setLike] = useState(false)
+    const [reported, setReported] = useState(false)
+    const [htmlText, setHtmlText] = useState()
+    const [numberOfLikes, setNumberOfLikes] = useState()
+    const { userData } = useUser()
+    // console.log(userData)
+    const history = useHistory()
 
-    //get collabs data here FIREBASE STUFF
-    const [collab, setCollab] = useState([]); // separate heading, descrition and number of likes
+    //To display meta-content of collab
+    useEffect(() => {
+        let qlContainerDiv = document.createElement("div")
+        var editor = new Quill(qlContainerDiv)
+        editor.setContents(JSON.parse(content))
+        setHtmlText(editor.getText())
+    }, [])
 
+    //Set number of likes of collab, whether user has liked or reported this collab before
+    useEffect(() => {
+        setNumberOfLikes(likeVal)
+        setLike(usersLiked.includes(userData.id))
+        usersReported && setReported(usersReported.includes(userData.id))
+    },[])
 
-    //replace number of likes with collab.likes
+    //If like button is clicked accordingly increment or decrement the like value in the database
     function handleLike(e) {
-        setLike(!like);
-        like ? setNumberOfLikes(numberOfLikes-1) : setNumberOfLikes(numberOfLikes+1)
-        console.log("liked? : " + like)
+        e.stopPropagation()
+        const liked = !like
+
+        if(liked) {
+            /** add likes to firebase */
+            updateDoc(doc(db, "collabs", id), {
+                likes: increment(1),
+                usersLiked: arrayUnion(userData.id)
+            })
+
+            setNumberOfLikes(numberOfLikes+1)
+        } else {
+            /** deduct likes from firebase */
+            updateDoc(doc(db, "collabs", id), {
+                likes: increment(-1),
+                usersLiked: arrayRemove(userData.id)
+            })
+            
+            setNumberOfLikes(numberOfLikes-1)
+        }
+
+        /* update state to cause post to rerender with new firebase data */
+        setLike(liked);
+    }
+
+    function handleReport(e){
+        e.stopPropagation()
+        const isReported = !reported
+
+        if(isReported) {
+            //Add user's id to usersReported field in collab
+            updateDoc(doc(db, "collabs", id), {
+                reports: increment(1),
+                usersReported: arrayUnion(userData.id)
+            })
+            
+            //Add { username , collabId } to reportedCollabs field in communities
+            updateDoc(doc(db, "communities", comId), {
+                reportedCollabs: arrayUnion({ username: userData.data.username, collabId: id })
+            })
+            
+        }
+        else {
+            //Remove user's id from usersReported field in collab
+            updateDoc(doc(db, "collabs", id), {
+                reports: increment(-1),
+                usersReported: arrayRemove(userData.id)
+            })
+
+            //Remove { userId , collabId } from reportedCollabs field in communities
+            updateDoc(doc(db, "communities", comId), {
+                reportedCollabs: arrayRemove({ username: userData.data.username, collabId: id })
+            })
+        }
+
+        /* update state to cause post to rerender with new firebase data */
+        setReported(isReported);
+    }
+
+    //If collab is clicked display the collab in seperate page
+    const displayCollab = (name) => {
+        history.push(`/app/collab/${name}`)
     }
 
     return (
-        <div className={styles["collab-container"]}>
-            <div className={styles["heading"]}>
-                {/*collab.heading*/}{name}THE WHEEL OF TIME
-            </div>
-            <div className={styles["collab-content"]}>
-                {/*collab.content*/} Content :- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur mollit anim Lorem ipsum dolor sit amet, 
-                consectetur mollit anim
-            </div>
+        <div className={styles["collab-container"]} onClick={() => displayCollab(name)} >
+            <div className={styles["heading"]}>{name}</div>
+
+            <div className={styles["collab-content"]}>{htmlText}</div>
+            
             <div className={styles["likes"]}>
-                <button className={styles["like-button"]} onClick={handleLike}>
-                    {like ? <Liked /> : <Like />} 
+                <button className={`${styles["like-button"]}`} onClick={isMember ? handleLike : undefined}>
+                    {isMember && (like ? <Liked /> : <Like />)} 
                 </button>
-                <p className={styles["text"]}> {/*collab.likes */} likes</p>
+                <p className={styles["text"]}> {numberOfLikes} likes</p>
+                <button className={`${styles['report-button']} ${reported ? styles['reported'] : ''}`} onClick={isMember ? handleReport : undefined}>
+                    {isMember && <Report />} 
+                </button>
             </div>
         </div>
     )
 }
 
-export default Posts;
+export default Post;
