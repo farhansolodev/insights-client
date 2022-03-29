@@ -45,7 +45,7 @@ export default function App() {
 					 <UserProvider id={currentUser.uid}>
 						<div className={styles.page}>
 							<Route exact path={`/app/`}>
-								<Redirect to='/app/home'/>
+								<Redirect to='/app/profile'/>
 							</Route>
 							{/* <Route exact path={`/app/vs/`}>
 								<Rooms />
