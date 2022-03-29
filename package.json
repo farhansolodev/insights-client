@@ -22,7 +22,8 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "set PORT=80 && react-scripts start",
+    "devstart": "set PORT=80 && react-scripts start",
+    "start": "npm run build && npx serve",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "sync": "git fetch upstream && git merge upstream/master && git push -f origin master"
