@@ -4,9 +4,9 @@ import { useHistory, useEffect } from "react-router-dom"
 import { db } from "../../firebase";
 import { IoMdFlag } from "react-icons/io"
 
-const Card3 = ({id, name, pic, reporterId, owner, community}) => {
+const Card3 = ({ikey, id, name, pic, reporterId, owner, community}) => {
 
-    const history = useHistory();
+    // const history = useHistory();
 
     // useEffect(() => {
         // console.log('this runs: ', comData, comName)
@@ -26,42 +26,42 @@ const Card3 = ({id, name, pic, reporterId, owner, community}) => {
 		// 	})
         // })
     // }, [comData, comName])
-    function view() { 
-        history.push(`/app/collab/${name}`)
-    }
+    // function view() { 
+    //     history.push(`/app/collab/${name}`)
+    // }
     
-    function deleteCollab() {
-        updateDoc(doc(db, "communities", community.id), {
-            publishedCollabs: arrayRemove(id)
-        })
-    }
+    // function deleteCollab() {
+    //     updateDoc(doc(db, "communities", community.id), {
+    //         publishedCollabs: arrayRemove(id)
+    //     })
+    // }
 
     return ( 
-        <div className="red-card">
+        <div key={ikey} className="red-card">
             <div className="report">
                 <div className="pic">
-                <img src={pic}/>
+                    {/* <img src={pic}/> */}
                 </div>
                 <div className="content">
                     <div className="reporter">
-                        <IoMdFlag /> Reported by user13:
+                        <IoMdFlag /> Reported by: {"Kishan"}
                     </div>
                     <div className="body">
                         <div className="collab">
-                                {name}
+                                {"Story of my life"}
                         </div>
                         <div className="owner">
-                                {owner}
+                                {"Farhan Alvi"}
                         </div>
                     </div>
                 </div>
             </div>
             <div className="right-side">
-                <button onClick={view} type="button" className="view" >
+                <button /*onClick={view}*/ type="button" className="view" >
                     View
                 </button>
-                <button onClick={deleteCollab} type="button" className="delete-collab" >
-                    Delete
+                <button /*onClick={deleteCollab}*/ type="button" className="delete-collab" >
+                    Reject
                 </button>
             </div> 
             

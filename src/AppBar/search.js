@@ -80,7 +80,7 @@ const Search = () => {
               })}
               {data.communities?.length !== 0 && data.communities?.map((community, i) => { 
                 // console.log(community.id)
-                return <div onClick={optionSelectHandler} id={community.id} title='communities' key={i}><h3 style={{pointerEvents: "none"}}>{community.name}</h3> <p style={{pointerEvents: "none"}}>Community</p></div>
+                return <div onClick={optionSelectHandler} id={community.name} title='communities' key={i}><h3 style={{pointerEvents: "none"}}>{community.name}</h3> <p style={{pointerEvents: "none"}}>Community</p></div>
               })}
             </>
           }

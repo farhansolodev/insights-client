@@ -2,33 +2,33 @@ import "./card1.css"
 import { updateDoc, doc, arrayRemove } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const Card1 = ({id, name, pfp, community}) => {
+const Card1 = ({ikey, id, name, pfp, community}) => {
 
-    const deleteUser = (e) => {
-        updateDoc(doc(db, "communities", community.id), {
-            members: arrayRemove(id)
-        })
+    // const deleteUser = (e) => {
+    //     updateDoc(doc(db, "communities", community.id), {
+    //         members: arrayRemove(id)
+    //     })
 
-        updateDoc(doc(db, "users", id), {
-            prevCommunities: arrayRemove(community.id)
-        })
-        // console.log("search");
-    }
+    //     updateDoc(doc(db, "users", id), {
+    //         prevCommunities: arrayRemove(community.id)
+    //     })
+    //     // console.log("search");
+    // }
 
-    console.log(id, name, pfp, community)
-    
+    // console.log(id, name, pfp, community)
+
     return ( 
-        <div className="blue-card">
+        <div key={ikey} className="blue-card">
             <div className="user-profile">
                 <div className="picButton">
-                    <img src={pfp}/>
+                    {/* <img src={'../../assets/horizon.png'}/> */}
                 </div>
                 <div className="name">
-                    {name}
+                    {"Susan"}
                 </div>
             </div>
-            <button onClick={deleteUser} type="button" className="del">
-                Delete
+            <button /*onClick={deleteUser}*/ type="button" className="del">
+                Ban
             </button>
         </div>
      );

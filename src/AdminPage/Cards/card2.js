@@ -2,7 +2,7 @@ import "./card2.css"
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const Card2 = ({id, name, community}) => {
+const Card2 = ({ikey, id, name, community}) => {
 
     function view() { 
         console.log("search");
@@ -15,13 +15,13 @@ const Card2 = ({id, name, community}) => {
     }
 
     return ( 
-        <div className="green-card">
+        <div key={ikey} className="green-card">
             <div className="left-side">
                 <div className="pic">
                     {/* <img src=""/> */}
                 </div>    
                 <div className="collab-id">
-                        collab
+                    {"My first collab"}
                 </div>
             </div>
             <div className="right-side">
@@ -29,7 +29,7 @@ const Card2 = ({id, name, community}) => {
                     View
                 </button>
                 <button onClick={deleteCollab} type="button" className="delete-collab" >
-                    Delete
+                    Purge
                 </button>
             </div> 
         </div>
