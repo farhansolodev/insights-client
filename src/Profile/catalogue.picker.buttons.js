@@ -7,9 +7,9 @@ export const CataloguePickerButtons = [
     value: 0,
     icon: CollabIcon,
   },
-  {
-    text: "Communities",
-    value: 1,
-    icon: CommunityIcon,
-  },
+  // {
+  //   text: "Communities",
+  //   value: 1,
+  //   icon: CommunityIcon,
+  // },
 ];
