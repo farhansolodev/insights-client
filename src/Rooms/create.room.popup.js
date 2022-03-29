@@ -46,7 +46,6 @@ function createRoom(options) {
     //Update User Record with rooms, community and collab ids.
     const userPromise = updateDoc(doc(db, "users", Uid), { ///get data from context
         previousRooms: arrayUnion(RId),
-        previousCommunities: arrayUnion(CId),
         previousCollabs: arrayUnion(collabId)
     });
 

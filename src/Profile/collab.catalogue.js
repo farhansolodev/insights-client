@@ -52,7 +52,7 @@ const CollabCatalogue = () => {
                     const snap = await getDoc(doc(db, "users", vs.owners[0]))
                     collab.ownerpic = snap.data().pfp
                 }
-                setCollabData(prev => [...prev, collab])
+                setCollabData(prev => [...prev, {...collab, id: document.id}])
                 setSearching(false)
             })
         })
@@ -62,12 +62,14 @@ const CollabCatalogue = () => {
         <div className={styles["all-collabs"]}>
             {
                 // collabData.length == 0 ? (searching ? <h1>Loading...</h1> : <h1>No collabs here</h1>) :
-                collabData.map(({ displayPic, name, ownerpic, communityPosted }, index) => {
+                collabData.map(({ displayPic, id, name, ownerpic, likes, communityPosted }, index) => {
                     // const ownerpic = require("../assets/default.images").default.user
                     return <CollabCard
+                        id={id}
                         key={index}
                         img={displayPic}
                         title={name}
+                        likes={likes}
                         ownerIcon={ownerpic}
                         body={communityPosted}
                     />

@@ -13,6 +13,7 @@
     transition: 0.3s;
     cursor: pointer;
     position: relative;
+    /* diaplay: flex */
 }
 
 .collab-container:hover {
@@ -28,6 +29,7 @@
 
 .collab-content {
     margin-top: 1em;
+    /* margin-bottom: auto; */
     padding: 0 1em;
     min-height: 2vh;
     max-height: 30vh;
@@ -44,6 +46,9 @@
     display: flex;
     min-height: fit-content;
     position: sticky;
+    margin-top: auto;
+    /* border: solid 1px black; */
+
 }
 
 .like-button {

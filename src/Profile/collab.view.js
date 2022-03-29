@@ -14,13 +14,17 @@ const CollabView = () => {
     const history = useHistory()
 
     //Query database to get data of collab with collabName, 
+    // console.log('collabData: ',collabData)
     useEffect(() => {
-		const q = query(collection(db, "collabs"), where("name", "==", collabName));
-        getDocs(q).then(querySnapshot => {
-            querySnapshot.forEach(function (doc) {
-                setCollabData(doc.data())
-            })
+        getDoc(doc(db, "collabs", collabName)).then(doc => {
+            setCollabData(doc.data())
         })
+		// const q = query(collection(db, "collabs"), where("name", "==", collabName));
+        // getDocs(q).then(querySnapshot => {
+        //     querySnapshot.forEach(function (doc) {
+        //         setCollabData(doc.data())
+        //     })
+        // })
 	}, [collabName])
 
     //Render TextViewer when we get data from database
@@ -36,7 +40,7 @@ const CollabView = () => {
 
     return (
         <>
-        <AppBar onClickHandler={onLeaveCollab} buttons={AppBarButtons} title={collabName}/>
+        <AppBar onClickHandler={onLeaveCollab} buttons={AppBarButtons} title={collabData?.name}/>
         <div className={styles["text-viewer"]}>
             {ready && <TextViewer reader={true} content={collabData} />}
         </div>

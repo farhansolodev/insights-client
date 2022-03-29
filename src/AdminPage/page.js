@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
 
-    const [appBarStatus, setAppBarStatus] = useState();
+    // const [appBarStatus, setAppBarStatus] = useState();
     const history = useHistory();
 
     function leave() {
@@ -17,19 +17,19 @@ const Dashboard = () => {
     function onStatusChange(e) {
         e.preventDefault();
         const val = e.target.id;
-        setAppBarStatus(val)
-        if(appBarStatus === "leave-dashboard")
-            leave();
+        // setAppBarStatus(val)
+        // if(appBarStatus === "leave-dashboard")
+        val === "leave-dashboard" && leave();
     }
 
     return ( 
         <>
             <Appbar buttons={AppBarButtons} onClickHandler={onStatusChange}/>
-                <div className={styles["container"]}>
-                    <div className={styles["container-position"]}>
-                        <Catalogue />
-                    </div>
+            <div className={styles["container"]}>
+                <div className={styles["container-position"]}>
+                    <Catalogue community={history.location.state.detail} />
                 </div>
+            </div>
         </>
      );
 }

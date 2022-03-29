@@ -61,14 +61,14 @@ const Profile = () => {
                                 </> : <h4>Loading stats...</h4>
                             }
                             </div>
-                            <div className={styles.description}>{"yea im pretty cool"}</div>
+                            {/* <div className={styles.description}>{"yea im pretty cool"}</div> */}
                         </div>
                     </div>
                     <div>
                         <ProfileCataloguePicker active={catalogueState} onPick={setCatalogueState} buttons={CataloguePickerButtons} />
                     </div>
                     {
-                        catalogueState === 0 ? <CollabCatalogue /> : <CommunityCatalogue />
+                        catalogueState === 0 ? <CollabCatalogue /> : <></>
                     }
             </div>
         </>

@@ -8,7 +8,7 @@ import { doc, updateDoc, arrayUnion, arrayRemove, increment } from "firebase/fir
 import { db } from "../firebase"
 import { useUser } from "../context/user"
 
-const Post = ({id, name, comId, isMember, content, likeVal, usersLiked, usersReported}) => {
+const Post = ({id, name, comId, isMember, content, likeVal, setComData, usersLiked, usersReported}) => {
 
     const [like, setLike] = useState(false)
     const [reported, setReported] = useState(false)
@@ -29,7 +29,7 @@ const Post = ({id, name, comId, isMember, content, likeVal, usersLiked, usersRep
     //Set number of likes of collab, whether user has liked or reported this collab before
     useEffect(() => {
         setNumberOfLikes(likeVal)
-        setLike(usersLiked.includes(userData.id))
+        usersLiked && setLike(usersLiked.includes(userData.id))
         usersReported && setReported(usersReported.includes(userData.id))
     },[])
 
@@ -75,7 +75,7 @@ const Post = ({id, name, comId, isMember, content, likeVal, usersLiked, usersRep
             updateDoc(doc(db, "communities", comId), {
                 reportedCollabs: arrayUnion({ username: userData.data.username, collabId: id })
             })
-            
+            setComData(prev => ({...prev, reportedCollabs: [...prev.reportedCollabs, id]}))
         }
         else {
             //Remove user's id from usersReported field in collab
@@ -88,10 +88,12 @@ const Post = ({id, name, comId, isMember, content, likeVal, usersLiked, usersRep
             updateDoc(doc(db, "communities", comId), {
                 reportedCollabs: arrayRemove({ username: userData.data.username, collabId: id })
             })
+
+            setComData(prev => ({...prev, reportedCollabs: [...prev.reportedCollabs.filter(collabid => id !== collabid)]}))
         }
 
         /* update state to cause post to rerender with new firebase data */
-        setReported(isReported);
+        setReported(isReported)
     }
 
     //If collab is clicked display the collab in seperate page
@@ -100,7 +102,7 @@ const Post = ({id, name, comId, isMember, content, likeVal, usersLiked, usersRep
     }
 
     return (
-        <div className={styles["collab-container"]} onClick={() => displayCollab(name)} >
+        <div className={styles["collab-container"]} onClick={() => displayCollab(id)} >
             <div className={styles["heading"]}>{name}</div>
 
             <div className={styles["collab-content"]}>{htmlText}</div>

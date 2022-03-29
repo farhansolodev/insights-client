@@ -102,11 +102,6 @@ const VirtualSpace = () => {
 			setParticipants((prev) => prev.filter((p) => p.userId !== data.userId))
 		})
 
-		// // console.log('ROOM ID: ', roomData.collabId)
-		// // console.log('COllab ID: ', roomId)
-		// // console.log('username: ', userData.data?.username)
-		// // console.log('user ID: ', userId)
-
 		// request the server to join the room
 		s.emit("join-room", {
 			userId,
@@ -121,7 +116,6 @@ const VirtualSpace = () => {
 
 		return () => {
 			if (!roomData.collabId) return
-			// console.log("Disconnecting from Virtual Space with socket: ", s)
 			s.disconnect()
 		}
 		
@@ -159,8 +153,6 @@ const VirtualSpace = () => {
 	const onDisplayKick = (e) => {
 		setDisplayKick(true)
 		const target = e.target
-		console.log(target.key)
-		console.log("DKKKKKKKKKKKKKKKKKKKK")
 		setKickedUser(123)
 	}
 
@@ -190,9 +182,9 @@ const VirtualSpace = () => {
 							);
 						})}
 						{displayKick && <KickForm username= {kickedUser} roomDetails= {roomData}  onSubmit={(e) => { hideForm(e); setDisplayKick(false) }} onCancel={hideForm}/>}
-						<button className={styles["invite-button"]} value="share-code" onClick={showForm}>
+						{isOwner && <button className={styles["invite-button"]} value="share-code" onClick={showForm}>
 							<FontAwesomeIcon className={styles["invite-icon"]} size="3x" icon={faUserPlus}/>
-						</button>
+						</button> }
 					</div>
 				</div>
 				<div className={styles["chat"]}>

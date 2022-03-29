@@ -8,7 +8,7 @@ const CollabCard = (props) => {
     const history = useHistory()
 
     const displayCollab = () => {
-        history.push(`/app/collab/${props.title}`)
+        history.push(`/app/collab/${props.id}`)
     }
     return (
         <div className={styles["card-container"]} onClick={displayCollab}>
@@ -24,15 +24,12 @@ const CollabCard = (props) => {
                     <div className={styles["card-header"]}>
                         <h3>{props.title}</h3>
                         <p style={{ fontSize: "75%" }}>{ "Posted in " + props.body.map((comm, index) => {
-                            // return a comma separated list of community names if there are more than one, where the last one is not followed by a comma
                             return (index === props.body.length - 1) ? comm : comm + ', '
                         })}</p>
+                        <p>Likes: {props.likes}</p>
                     </div>
                     <div className={styles["card-footer"]}>
-                        <ContributorsIcon />   
-                        {/* <div className={styles["card-settings-container"]}>
-                            <SettingsIcon />
-                        </div> */}
+                        <ContributorsIcon />
                     </div>
                 </div>
             </div>

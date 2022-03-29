@@ -21,15 +21,16 @@ const Commmunity = () => {
     const history = useHistory()
 
     //Query the database to get the data of the community using the name
-    useEffect( () => {
-        const q = query(collection(db, "communities"), where("name", "==", comName.toLowerCase()))
+    useEffect(() => {
+        const q = query(collection(db, "communities"), where("name", "==", comName))
         getDocs(q).then((snapshot) => {
             let exists = false
             // console.log('here')
             snapshot.forEach(async (doc) => {
                 exists = true
                 setComId(doc.id)
-                setComData(doc.data())
+                setComData({...doc.data(), id: doc.id})
+                // console.log(doc.data())
             });
             setComExists(exists)
         })
@@ -45,13 +46,16 @@ const Commmunity = () => {
         } else {
             setIsMember(false)
         }
-    }, [comData.members, userData.id])
+    }, [comData, userData.id])
 
 
     //Get list of Collab ids along with their data to display
     useEffect(() => {
+        // console.log('this runs: ', comData, comName)
         if(collabData.length !== 0) return
+        // console.log('this runs 2')
         if(!comData?.publishedCollabs) return
+        // console.log('this runs 3')
         comData.publishedCollabs.forEach(collabId => {
             getDoc(doc(db, "collabs", collabId)).then(snap => {
 				const collab = snap.data()
@@ -63,7 +67,7 @@ const Commmunity = () => {
 				})
 			})
         })
-    }, [comData])
+    }, [comData, comName])
     
     //Run function when user wants to JOIN community, update the database of communities and users with the right field values
     function join() {
@@ -91,7 +95,7 @@ const Commmunity = () => {
     }
 
     function admin() {
-        history.push('/app/communities/' + comName + '/admin')
+        history.push('/app/communities/' + comName + '/admin', { detail: comData})
     }
 
     //Handle the case to render either join or leave button depending on user membership
@@ -106,13 +110,13 @@ const Commmunity = () => {
     return (
         <>
             <AppBar title={comExists && comName} buttons={comExists && (comData.admin != userData.id ? (isMember ? [AppBarButtons.leave] : [AppBarButtons.join]) : [AppBarButtons.admin])} onClickHandler={onStatusChange} />
-            {comExists != undefined && comExists ? <div className={styles["community-container"]}>
+            {comExists != undefined && (comExists ? <div className={styles["community-container"]}>
                 <div style={{backgroundImage: `url(${comData?.image})`}} className={styles.image}/>
                 <div className={styles["posts-container"]}>
                     {/* map the community published collabs and pass each collab id for posts*/}
                     {
                         collabData && collabData.length != 0 ? collabData.map(({ id, name, content, usersReported, likes, usersLiked }, index) => {
-                            return <Posts usersReported={usersReported} comId={comId} isMember={isMember} key={index} id={id} name={name} content={JSON.stringify(content)} likeVal={likes} usersLiked={usersLiked} />
+                            return <Posts setComData={setComData} usersReported={usersReported} comId={comId} isMember={isMember} key={index} id={id} name={name} content={JSON.stringify(content)} likeVal={likes} usersLiked={usersLiked} />
                         }) : <h1>No collabs yet...</h1>
                     }
                 </div>
@@ -125,7 +129,7 @@ const Commmunity = () => {
                         <div className={styles["members"]}>Members: {comData.members?.length}</div>
                     </div>
                 </div>
-            </div> : <h1 style={{padding: "5rem"}}>This is not the community you are searching for...</h1>}
+            </div> : <h1 style={{padding: "5rem"}}>This is not the community you are searching for...</h1>)}
         </>
     )
 }
